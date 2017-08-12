@@ -16,10 +16,8 @@
 		<encoder>
 			<pattern>%d{ISO8601} | %-5level | [%thread] | %-30logger{0} : %m%n</pattern>
 		</encoder>
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
-			<onMatch>ACCEPT</onMatch>
-			<onMismatch>DENY</onMismatch>
 		</filter>
 	</appender>
 
