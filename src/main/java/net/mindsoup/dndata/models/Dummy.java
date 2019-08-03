@@ -1,4 +1,4 @@
-package net.mindsoup.replace_me.models;
+package net.mindsoup.dndata.models;
 
 /**
  *

@@ -8,9 +8,9 @@
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/replace_me.log</file>
+		<file>logs/dndata.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/replace_me.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<fileNamePattern>logs/dndata.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
 		<encoder>

@@ -1,8 +1,8 @@
-package net.mindsoup.replace_me.controllers;
+package net.mindsoup.dndata.controllers;
 
-import net.mindsoup.replace_me.domain.DummyInput;
-import net.mindsoup.replace_me.models.Dummy;
-import net.mindsoup.replace_me.services.DummyService;
+import net.mindsoup.dndata.domain.DummyInput;
+import net.mindsoup.dndata.models.Dummy;
+import net.mindsoup.dndata.services.DummyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

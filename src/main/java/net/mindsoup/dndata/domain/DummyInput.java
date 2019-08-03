@@ -1,4 +1,4 @@
-package net.mindsoup.replace_me.domain;
+package net.mindsoup.dndata.domain;
 
 /**
  *

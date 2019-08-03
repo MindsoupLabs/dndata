@@ -1,4 +1,4 @@
-package net.mindsoup.replace_me;
+package net.mindsoup.dndata;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,7 +17,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-        logger.info("replace_me started");
+        logger.info("dndata started");
     }
 
 }

@@ -1,8 +1,8 @@
-package net.mindsoup.replace_me.services.impl;
+package net.mindsoup.dndata.services.impl;
 
-import net.mindsoup.replace_me.domain.DummyInput;
-import net.mindsoup.replace_me.models.Dummy;
-import net.mindsoup.replace_me.services.DummyService;
+import net.mindsoup.dndata.domain.DummyInput;
+import net.mindsoup.dndata.models.Dummy;
+import net.mindsoup.dndata.services.DummyService;
 import org.springframework.stereotype.Service;
 
 /**
