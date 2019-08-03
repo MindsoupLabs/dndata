@@ -17,7 +17,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-        logger.info("dndata started");
+        logger.info("DnData started");
     }
 
 }

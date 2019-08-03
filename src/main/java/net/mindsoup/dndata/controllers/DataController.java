@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping(value = "/test", method = RequestMethod.POST)
-public class DummyController {
+@RequestMapping(value = "/data", method = RequestMethod.POST)
+public class DataController extends ErrorController {
 
 	@Autowired
 	private DummyService dummyService;

@@ -2,20 +2,27 @@ package net.mindsoup.dndata.models;
 
 import net.mindsoup.dndata.enums.ObjectType;
 
+import javax.persistence.*;
+
 /**
  * Created by Valentijn on 3-8-2019
  */
+@Entity
+@Table(name="boats")
 public class DataObject {
-	private long id;
+
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Long id;
 	private int objectVersion;
-	private ObjectType ObjectType;
+	private ObjectType objectType;
 	private String objectJson;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -28,11 +35,11 @@ public class DataObject {
 	}
 
 	public ObjectType getObjectType() {
-		return ObjectType;
+		return objectType;
 	}
 
 	public void setObjectType(ObjectType objectType) {
-		ObjectType = objectType;
+		this.objectType = objectType;
 	}
 
 	public void setObjectJson(String objectJson) {
