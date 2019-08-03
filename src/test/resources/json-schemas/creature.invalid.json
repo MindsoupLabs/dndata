@@ -1,0 +1,105 @@
+{
+	"metaInformation": {
+		"objectData": {
+			"internalId": 1,
+			"version": 1
+		},
+		"publicationData": {
+			"sourceBook": "Pathfinder 2E Playtest Bestiary",
+			"page": 42,
+			"publisher": "Paizo",
+			"license": "OGL"
+		},
+		"pathfinderSocietyData": {
+			"legal": true
+		}
+	},
+	"traits": ["demon"],
+	"names": [],
+	"description": "Description",
+	"rarity": "RARE",
+	"perception": {
+		"bonus": 35,
+		"abilities": [],
+		"rangedAbilities": []
+	},
+	"communication": {
+		"languages": [],
+		"abilities": [],
+		"rangedAbilities": []
+	},
+	"statistics": {
+		"strength": 9,
+		"dexterity": 7,
+		"constitution": 9,
+		"intelligence": 6,
+		"wisdom": 6,
+		"charisma": 8
+	},
+	"skills": {
+		"bonus": 26,
+		"specificSkills": []
+	},
+	"items": [],
+	"armorClass": {
+		"regular": 44,
+		"touch": 42
+	},
+	"savingThrows": {
+		"fortitude": {
+			"bonus": 30,
+			"conditionalBonuses": []
+		},
+		"reflex": {
+			"bonus": 30,
+			"conditionalBonuses": []
+		},
+		"willpower": {
+			"bonus": 33,
+			"conditionalBonuses": []
+		},
+		"conditionalBonuses": []
+	},
+	"hitpoints": 460,
+	"immunities": [],
+	"weaknesses": [],
+	"resistances": [],
+	"auras": [],
+	"abilities": [],
+	"triggeredAbilities": [],
+	"rituals": [],
+	"attacks": [
+		{
+			"type": "MELEE",
+			"name": "+5 vorpal longsword",
+			"attack": {
+				"bonus": 35,
+				"against": "AC",
+				"traits": ["versatile P"],
+				"valueTraits": [
+					{
+						"trait": "reach",
+						"integerValue": 15
+					}
+				]
+			},
+			"damage": {
+				"damageRolls": [
+					{
+						"roll": {"dice": 6, "sides": 8},
+						"bonus": 18,
+						"damageType": "slashing"
+					},
+					{
+						"roll": {"dice": 1, "sides": 6},
+						"bonus": 0,
+						"damageType": "fire"
+					}
+				],
+				"effects": ["grab"]
+			}
+		}
+	],
+	"spellCasting": [],
+	"classPowers": []
+}

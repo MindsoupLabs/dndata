@@ -1,0 +1,341 @@
+{
+	"metaInformation": {
+		"objectData": {
+			"internalId": 1,
+			"version": 1
+		},
+		"publicationData": {
+			"sourceBook": "Pathfinder 2E Playtest Bestiary",
+			"page": 42,
+			"publisher": "Paizo",
+			"license": "OGL"
+		},
+		"pathfinderSocietyData": {
+			"legal": true
+		}
+	},
+	"traits": ["chaotic", "demon", "evil", "fiend", "large"],
+	"names": ["Fire Demon","Balor"],
+	"description": "The strongest of all demonkind, a fire demon is a towering fiend with a horned head, powerful wings, and a wreath of lashing flames. The Abyss births balors only from the souls of the most evil and powerful mortal souls—often requiring the souls of multiple villains.",
+	"rarity": "RARE",
+	"challengeRating": 20,
+	"perception": {
+		"bonus": 35,
+		"abilities": ["darkvision", "true seeing"],
+		"rangedAbilities": [{"ability": "web sense", "range": 60}]
+	},
+	"communication": {
+		"languages": ["abyssal", "celestial", "draconic"],
+		"abilities": ["tongues"],
+		"rangedAbilities": [{"ability": "telepathy", "range": 120}]
+	},
+	"statistics": {
+		"strength": 9,
+		"dexterity": 7,
+		"constitution": 9,
+		"intelligence": 6,
+		"wisdom": 6,
+		"charisma": 8
+	},
+	"skills": {
+		"bonus": 26,
+		"specificSkills": [
+			{"skill": "Acrobatics", "bonus": 32},
+			{"skill": "Arcana", "bonus": 35},
+			{"skill": "Deception", "bonus": 35},
+			{"skill": "Diplomacy", "bonus": 32},
+			{"skill": "Intimidation", "bonus": 35},
+			{"skill": "Religion", "bonus": 35},
+			{"skill": "Society", "bonus": 35},
+			{"skill": "Stealth", "bonus": 32}
+		]
+	},
+	"items": [{"item": "legendary sword", "amount": 1}],
+	"armorClass": {
+		"regular": 44,
+		"touch": 42
+	},
+	"savingThrows": {
+		"fortitude": {
+			"bonus": 30,
+			"conditionalBonuses": [{"against": "mental", "bonus": 2, "type": "CONDITIONAL"}]
+		},
+		"reflex": {
+			"bonus": 30,
+			"conditionalBonuses": []
+		},
+		"willpower": {
+			"bonus": 33,
+			"conditionalBonuses": []
+		},
+		"conditionalBonuses": [{"against": "magic", "bonus": 1, "type": "CONDITIONAL"}]
+	},
+	"hitpoints": 460,
+	"immunities": ["fire"],
+	"weaknesses": [
+		{"to": "cold iron", "amount": 20, "exceptions": []},
+		{"to": "cold", "amount": 20, "exceptions": []},
+		{"to": "good", "amount": 20, "exceptions": []}
+	],
+	"resistances": [
+		{"to": "poison", "amount": 15, "exceptions": ["magical"]},
+		{"to": "electricity", "amount": 15, "exceptions": []}
+	],
+	"auras": [
+		{
+			"name":"Aura of Flame",
+			"traits": ["aura", "divine", "evocation"],
+			"range": 20,
+			"description": "Any creature that starts its turn in the aura takes 20 fire damage, or 40 fire damage if the fire demon has grabbed or restrained it. Any creature that hits a fire demon with an unarmed Strike takes 20 fire damage, and weapons that hit a fire demon also take 20 fire damage."
+		}
+	],
+	"abilities": [
+		{
+			"action": "NONE",
+			"name": "Disruptive",
+			"type": "DEFENSIVE_OR_REACTIONARY",
+			"traits": [],
+			"description": "In addition to its normal triggers, the fire demon’s Attack of Opportunity can also be used when a creature within the fire demon’s reach uses an action with the concentrate trait. Furthermore, the fire demon doesn’t take the normal –2 penalty when it makes an Attack of Opportunity."
+		},
+		{
+			"action": "NONE",
+			"name": "Death Throes",
+			"type": "DEFENSIVE_OR_REACTIONARY",
+			"traits": ["death", "divine", "evocation", "fire"],
+			"description": "When a fire demon dies, it explodes in a 100-foot-aura flash of intense demonic flame. All creatures and objects in range take 100 fire damage. A creature that succeeds at a DC 42 Reflex save halves the damage (no damage on a critical success, double damage on a Chaotic Demon Evil Fiend Large critical failure). Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. A creature that is immune to fire treats its result on the saving throw as one degree of success better, instead of gaining the usual benefit of immunity. The bodies of creatures reduced to 0 HP by this fire are completely incinerated into dust, as per disintegrate."
+		},
+		{
+			"action": "NONE",
+			"name": "Dimensional Dervish",
+			"type": "OFFENSIVE_OR_PROACTIVE",
+			"traits": [],
+			"description": "A fire demon can cast its at-will innate dimension door using only one Verbal Casting action."
+		},
+		{
+			"action": "NONE",
+			"name": "Infuse Weapons",
+			"type": "OFFENSIVE_OR_PROACTIVE",
+			"traits": ["divine", "evocation"],
+			"description": "Any weapon a fire demon wields is treated as a +5 vorpal weapon made of cold iron and silver. Damage resulting from the fire demon’s weapon Strikes also triggers any weakness to chaos or evil the target has. The demon can also conjure a flaming whip with an Interact action that gains the same benefits as other weapons the fire demon wields."
+		},
+		{
+			"action": "NONE",
+			"name": "Whip Reposition",
+			"type": "OFFENSIVE_OR_PROACTIVE",
+			"traits": [],
+			"description": "When a fire demon Grabs a creature with its whip, it can move the creature to any space in its whip’s reach. The fire demon can move without ending the Grab—as long as it keeps the creature within the whip’s reach—and it can use an action with the manipulate trait to move the creature to any other space within its reach."
+		}
+	],
+	"triggeredAbilities": [
+		{
+			"action": "REACTION",
+			"name": "Attack of Opportunity",
+			"type": "DEFENSIVE_OR_REACTIONARY",
+			"traits": [],
+			"trigger": "",
+			"effect": ""
+		},
+		{
+			"action": "REACTION",
+			"name": "Horn Snare",
+			"type": "DEFENSIVE_OR_REACTIONARY",
+			"traits": [],
+			"trigger": "A creature misses the slaver demon with a melee weapon Strike",
+			"effect": "The slaver demon attempts to Disarm the weapon used in the triggering Strike at a –2 penalty. Because it uses its horns, the slaver demon doesn’t need a free hand, and if the result is a success, it is instead a critical success."
+		},
+		{
+			"action": "FREE_ACTION",
+			"name": "Dispelling Strike",
+			"type": "OFFENSIVE_OR_PROACTIVE",
+			"traits": [],
+			"trigger": "The fire demon hits a creature, object, or spell effect with a weapon Strike.",
+			"effect": "The fire demon casts its innate dispel magic on the target it hit with its Strike.",
+			"frequency": "Once per round"
+		},
+		{
+			"action": "FREE_ACTION",
+			"name": "Lifedrinker",
+			"type": "OFFENSIVE_OR_PROACTIVE",
+			"traits": ["divine", "healing"],
+			"trigger": "The fire demon kills a living creature that is at least 13th level.",
+			"effect": "The fire demon drinks the triggering creature’s life force and gains the benefits of a 10th-level heal spell."
+		}
+	],
+	"speed": {
+		"land": 30,
+		"fly": 75,
+		"swim": 0,
+		"climb": 0,
+		"burrow": 0
+	},
+	"rituals": ["Abyssal pact"],
+	"attacks": [
+		{
+			"type": "MELEE",
+			"name": "+5 vorpal longsword",
+			"attack": {
+				"bonus": 35,
+				"against": "AC",
+				"traits": ["versatile P"],
+				"valueTraits": [
+					{
+						"trait": "reach",
+						"integerValue": 15
+					}
+				]
+			},
+			"damage": {
+				"damageRolls": [
+					{
+						"roll": {"dice": 6, "sides": 8},
+						"bonus": 18,
+						"damageType": "slashing"
+					},
+					{
+						"roll": {"dice": 1, "sides": 6},
+						"bonus": 0,
+						"damageType": "fire"
+					}
+				],
+				"effects": ["grab"]
+			}
+		},
+		{
+			"type": "MELEE",
+			"name": "+5 vorpal flame whip",
+			"attack": {
+				"bonus": 35,
+				"against": "AC",
+				"traits": ["disarm", "finesse", "trip"],
+				"valueTraits": [
+					{
+						"trait": "reach",
+						"integerValue": 15
+					}
+				]
+			},
+			"damage": {
+				"damageRolls": [
+					{
+						"roll": {"dice": 6, "sides": 4},
+						"bonus": 18,
+						"damageType": "fire"
+					}
+				],
+				"effects": ["improved grab", "whip reposition"]
+			}
+		},
+		{
+			"type": "RANGED",
+			"name": "composite longbow",
+			"attack": {
+				"bonus": 30,
+				"against": "AC",
+				"traits": [],
+				"valueTraits": [
+					{
+						"trait": "deadly",
+						"diceValue": {"dice": 1, "sides": 10}
+					},
+					{
+						"trait": "volley",
+						"integerValue": 50
+					}
+				]
+			},
+			"damage": {
+				"damageRolls": [
+					{
+						"roll": {"dice": 2, "sides": 8},
+						"bonus": 2,
+						"damageType": "piercing"
+					}
+				],
+				"effects": []
+			}
+		},
+		{
+			"type": "RANGED",
+			"name": "fire ray",
+			"attack": {
+				"bonus": 17,
+				"against": "TAC",
+				"traits": ["arcane", "evocation"],
+				"valueTraits": [
+					{
+						"trait": "range",
+						"integerValue": 100
+					}
+				]
+			},
+			"damage": {
+				"damageRolls": [
+					{
+						"roll": {"dice": 4, "sides": 6},
+						"bonus": 0,
+						"damageType": "fire"
+					}
+				],
+				"effects": []
+			}
+		}
+	],
+	"spellCasting": [
+		{
+			"tradition": "ARCANE",
+			"type": "PREPARED",
+			"spellDC": 21,
+			"spellAttack": 16,
+			"spells": [
+				{"spell": "confusion", "level": 4},
+				{"spell": "confusion", "level": 4},
+				{"spell": "dispel magic", "level": 4},
+				{"spell": "hypnotic pattern", "level": 4}
+			]
+		},
+		{
+			"tradition": "DIVINE",
+			"type": "SPONTANEOUS",
+			"spellDC": 29,
+			"spellAttack": 11,
+			"spellSlots": [4, 4, 3, 2, 0, 0, 0, 0, 0, 0],
+			"spells": [
+				{"spell": "darkness", "level": 3},
+				{"spell": "crisis of faith", "level": 3},
+				{"spell": "deafness", "level": 2},
+				{"spell": "resist energy", "level": 2},
+				{"spell": "summon monster", "level": 2},
+				{"spell": "command", "level": 1},
+				{"spell": "fear", "level": 1},
+				{"spell": "mage armor", "level": 1, "availability": "ALREADY_CAST"},
+				{"spell": "light", "level": 0, "availability": "AT_WILL"}
+			]
+		},
+		{
+			"tradition": "DIVINE",
+			"type": "INNATE",
+			"spellDC": 40,
+			"spells": [
+				{"spell": "true seeing", "level": 8, "availability": "CONSTANT"},
+				{"spell": "dominate", "level": 9, "availability": "AT_WILL"},
+				{"spell": "dispel magic", "level": 9, "availability": "AT_WILL"},
+				{"spell": "dimension door", "level": 4, "availability": "AT_WILL"},
+				{"spell": "dimension door", "level": 10},
+				{"spell": "divine decree", "level": 10},
+				{"spell": "divine decree", "level": 10}
+			]
+		}
+	],
+	"classPowers": [
+		{
+			"class": "CLERIC",
+			"spellPoints": 4,
+			"powersDC": 19,
+			"powersLevel": 4,
+			"powers": [
+				{"name": "retributive pain", "cost": 2},
+				{"name": "savor the sting", "cost": 1}
+			]
+		}
+	]
+}
