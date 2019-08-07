@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.providers;
 
-import net.mindsoup.dndata.enums.Right;
+import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.models.UserRight;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,10 +19,10 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		Collection<UserRight> rights = new HashSet<>();
-		rights.add(new UserRight(Right.PF2_EDIT));
-		rights.add(new UserRight(Right.PF2_PUBLISH));
-		rights.add(new UserRight(Right.PF2_REVIEW));
-		rights.add(new UserRight(Right.PF2_MANAGE_USERS));
+		rights.add(new UserRight(Constants.Rights.PF2.EDIT));
+		rights.add(new UserRight(Constants.Rights.PF2.REVIEW));
+		rights.add(new UserRight(Constants.Rights.PF2.PUBLISH));
+		rights.add(new UserRight(Constants.Rights.PF2.MANAGE_USERS));
 		return new UsernamePasswordAuthenticationToken("name", "password", rights);
 	}
 

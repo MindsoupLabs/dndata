@@ -24,6 +24,6 @@ public class LoginUIController {
 
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
-		return new PageModel(PageType.LOGIN);
+		return new PageModel();
 	}
 }

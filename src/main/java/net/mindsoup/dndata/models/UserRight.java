@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.models;
 
-import net.mindsoup.dndata.enums.Right;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -8,18 +7,18 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class UserRight implements GrantedAuthority {
 
-	private Right right;
+	private String right;
 
-	public UserRight(Right right) {
+	public UserRight(String right) {
 		this.right = right;
 	}
 
 	@Override
 	public String getAuthority() {
-		return right.name();
+		return right;
 	}
 
-	public Right getRight() {
+	public String getRight() {
 		return right;
 	}
 }

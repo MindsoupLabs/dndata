@@ -1,7 +1,9 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
+import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.PageModel;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,15 +17,19 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @RequestMapping("/ui/edit")
 @ApiIgnore
-public class EditUIController {
+public class EditUIController extends BaseUIController {
 
+	@Secured({Constants.Rights.PF2.EDIT})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {
 		return "edit/index";
 	}
 
+	@Override
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
-		return new PageModel(PageType.EDIT);
+		PageModel pageModel = getBasePageModel();
+		pageModel.setPageType(PageType.EDIT);
+		return pageModel;
 	}
 }

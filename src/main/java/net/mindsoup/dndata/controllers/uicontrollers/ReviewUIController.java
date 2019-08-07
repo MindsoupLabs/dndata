@@ -1,7 +1,9 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
+import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.PageModel;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +17,9 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @RequestMapping("/ui/review")
 @ApiIgnore
-public class ReviewUIController {
+public class ReviewUIController extends BaseUIController {
 
+	@Secured({Constants.Rights.PF2.REVIEW})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {
 		return "review/index";
@@ -24,6 +27,8 @@ public class ReviewUIController {
 
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
-		return new PageModel(PageType.REVIEW);
+		PageModel pageModel = getBasePageModel();
+		pageModel.setPageType(PageType.REVIEW);
+		return pageModel;
 	}
 }

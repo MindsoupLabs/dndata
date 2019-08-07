@@ -15,7 +15,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @RequestMapping("/ui/index")
 @ApiIgnore
-public class DashboardUIController {
+public class DashboardUIController extends BaseUIController {
 
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {
@@ -24,6 +24,8 @@ public class DashboardUIController {
 
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
-		return new PageModel(PageType.DASHBOARD);
+		PageModel pageModel = getBasePageModel();
+		pageModel.setPageType(PageType.DASHBOARD);
+		return pageModel;
 	}
 }
