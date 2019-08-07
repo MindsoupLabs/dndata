@@ -12,7 +12,7 @@ CREATE TABLE `dndata`.`users` (
 CREATE TABLE `dndata`.`user_rights` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT UNSIGNED NOT NULL,
-  `right` ENUM('EDIT', 'REVIEW', 'PUBLISH', 'MANAGE_USERS') NOT NULL,
+  `right` ENUM('PF2_EDIT', 'PF2_REVIEW', 'PF2_PUBLISH', 'PF2_MANAGE_USERS') NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_user_rights_user_id`
     FOREIGN KEY (`user_id`)

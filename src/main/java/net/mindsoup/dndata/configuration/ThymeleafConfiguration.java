@@ -23,13 +23,14 @@ public class ThymeleafConfiguration {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
 		templateEngine.addDialect(new LayoutDialect());
+		templateEngine.setEnableSpringELCompiler(true);
 		return templateEngine;
 	}
 
 	@Bean
 	public SpringResourceTemplateResolver thymeleafTemplateResolver() {
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setPrefix("/templates/");
+		templateResolver.setPrefix("classpath:/templates/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
