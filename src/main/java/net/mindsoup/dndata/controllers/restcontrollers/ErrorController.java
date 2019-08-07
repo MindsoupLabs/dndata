@@ -1,4 +1,4 @@
-package net.mindsoup.dndata.restcontrollers;
+package net.mindsoup.dndata.controllers.restcontrollers;
 
 import net.mindsoup.dndata.domain.ErrorResponse;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package net.mindsoup.dndata.restcontrollers;
+package net.mindsoup.dndata.controllers.restcontrollers;
 
 import net.mindsoup.dndata.domain.DummyInput;
 import net.mindsoup.dndata.models.Dummy;
