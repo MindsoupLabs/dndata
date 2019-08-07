@@ -1,7 +1,5 @@
 package net.mindsoup.dndata.models;
 
-import org.everit.json.schema.ValidationException;
-
 /**
  * Created by Valentijn on 3-8-2019
  */

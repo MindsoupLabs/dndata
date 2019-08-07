@@ -2,6 +2,7 @@ package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.PageModel;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class DashboardUIController extends BaseUIController {
 
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model, SecurityContextHolderAwareRequestWrapper requestWrapper) {
 		return "dashboard";
 	}
 

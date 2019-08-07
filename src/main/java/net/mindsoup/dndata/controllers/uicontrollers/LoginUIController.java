@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
-import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.PageModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

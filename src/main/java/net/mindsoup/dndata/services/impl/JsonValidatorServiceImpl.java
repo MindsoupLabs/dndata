@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.services.impl;
 
-import net.mindsoup.dndata.Application;
 import net.mindsoup.dndata.models.ValidationResult;
 import net.mindsoup.dndata.services.JsonValidatorService;
 import org.apache.commons.logging.Log;
