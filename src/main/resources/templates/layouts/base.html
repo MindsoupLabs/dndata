@@ -140,7 +140,7 @@ desired effect
 				<li th:class="${pageModel.pageType.name() == 'EDIT' ? 'active' : ''}" th:if="${pageModel.hasRight('EDIT')}"><a href="edit.html"><i class="fa fa-pencil"></i> <span>Edit</span></a></li>
 				<li th:class="${pageModel.pageType.name() == 'REVIEW' ? 'active' : ''}" th:if="${pageModel.hasRight('REVIEW')}"><a href="review.html"><i class="fa fa-check-square"></i> <span>Review</span></a></li>
 				<li class="header" th:if="${pageModel.hasRight('PUBLISH') || pageModel.hasRight('MANAGE_USERS')}">ADMIN</li>
-				<li th:class="${pageModel.pageType.name() == 'BOOKS' ? 'active' : ''}" th:if="${pageModel.hasRight('PUBLISH')}"><a href="books.html"><i class="fa fa-book"></i> <span>Books</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'BOOKS' ? 'active' : ''}" th:if="${pageModel.hasRight('BOOKS')}"><a href="books.html"><i class="fa fa-book"></i> <span>Books</span></a></li>
 				<li th:class="${pageModel.pageType.name() == 'PUBLISH' ? 'active' : ''}" th:if="${pageModel.hasRight('PUBLISH')}"><a href="publish.html"><i class="fa fa-upload"></i> <span>Publishing</span></a></li>
 				<li th:class="${pageModel.pageType.name() == 'USERS' ? 'active' : ''}" th:if="${pageModel.hasRight('MANAGE_USERS')}"><a href="users.html"><i class="fa fa-users"></i> <span>Users</span></a></li>
 			</ul>

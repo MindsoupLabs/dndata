@@ -19,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 public class BooksUIController extends BaseUIController {
 
-	@Secured({Constants.Rights.PF2.PUBLISH})
+	@Secured({Constants.Rights.PF2.BOOKS})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("activePage", "books");

@@ -7,10 +7,11 @@ public abstract class Constants {
 
 	public abstract static class Rights {
 		public abstract static class PF2 {
-			public static final String EDIT = "PF2_EDIT";
-			public static final String REVIEW = "PF2_REVIEW";
-			public static final String PUBLISH = "PF2_PUBLISH";
-			public static final String MANAGE_USERS = "PF2_MANAGE_USERS";
+			public static final String EDIT = "ROLE_PF2_EDIT";
+			public static final String REVIEW = "ROLE_PF2_REVIEW";
+			public static final String BOOKS = "ROLE_PF2_BOOKS";
+			public static final String PUBLISH = "ROLE_PF2_PUBLISH";
+			public static final String MANAGE_USERS = "ROLE_PF2_MANAGE_USERS";
 		}
 	}
 }

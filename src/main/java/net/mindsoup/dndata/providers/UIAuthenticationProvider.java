@@ -21,6 +21,7 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 		Collection<UserRight> rights = new HashSet<>();
 		rights.add(new UserRight(Constants.Rights.PF2.EDIT));
 		rights.add(new UserRight(Constants.Rights.PF2.REVIEW));
+		rights.add(new UserRight(Constants.Rights.PF2.BOOKS));
 		rights.add(new UserRight(Constants.Rights.PF2.PUBLISH));
 		rights.add(new UserRight(Constants.Rights.PF2.MANAGE_USERS));
 		return new UsernamePasswordAuthenticationToken("name", "password", rights);
