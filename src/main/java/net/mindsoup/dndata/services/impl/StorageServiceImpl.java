@@ -27,6 +27,7 @@ public class StorageServiceImpl implements StorageService {
 	@Override
 	public void save(DataObject data) {
 		if(isValid(data)) {
+			data.setObjectVersion(data.getObjectVersion() + 1);
 			objectRepository.save(data);
 		} else {
 			throw new JsonValidationException("JSON Validation failed");

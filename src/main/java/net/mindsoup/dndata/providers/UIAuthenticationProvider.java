@@ -61,7 +61,7 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 			}
 		}
 
-
+		// TODO: hash password!
 		if(!user.getPassword().equalsIgnoreCase(password)) {
 			// if this user's password is incorrect
 			// add or up the tarpitting
