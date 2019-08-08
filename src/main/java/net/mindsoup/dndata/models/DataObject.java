@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by Valentijn on 3-8-2019
  */
 @Entity
-@Table(name="boats")
+@Table(name = "objects")
 public class DataObject {
 
 	@Id

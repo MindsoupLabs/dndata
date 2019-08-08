@@ -107,20 +107,15 @@ desired effect
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-user"></i>
 							<!-- hidden-xs hides the username on small devices so only the image appears. -->
-							<span class="hidden-xs">User Name</span>
+							<span class="hidden-xs" th:text="${pageModel.user.name}">User Name</span>
 						</a>
-						<ul class="dropdown-menu">
-							<!-- Menu Footer-->
-							<li class="user-footer">
-								<div class="pull-right">
-									<a href="#" class="btn btn-default btn-flat">Sign out</a>
-								</div>
-							</li>
-						</ul>
+					</li>
+					<li>
+						<a href="logout.html"><i class="fa fa-sign-out "></i></a>
 					</li>
 					<!-- Control Sidebar Toggle Button -->
 					<li>
-						<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+<!--						<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->
 					</li>
 				</ul>
 			</div>
