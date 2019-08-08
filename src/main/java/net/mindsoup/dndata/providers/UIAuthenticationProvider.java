@@ -34,6 +34,7 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 		this.userService = userService;
 	}
 
+	// TODO: write login/tarpitting unit tests
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String email = authentication.getName();
