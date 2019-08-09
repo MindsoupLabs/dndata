@@ -1,8 +1,7 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.helpers.SecurityHelper;
-import net.mindsoup.dndata.models.PageModel;
-import org.springframework.security.core.context.SecurityContextHolder;
+import net.mindsoup.dndata.models.pagemodel.PageModel;
 
 /**
  * Created by Valentijn on 8-8-2019
@@ -11,7 +10,7 @@ public abstract class BaseUIController {
 
 	public abstract PageModel getPageModel();
 
-	protected PageModel getBasePageModel() {
+	PageModel getBasePageModel() {
 		PageModel pageModel = new PageModel();
 		if(SecurityHelper.isAuthenticated()) {
 			pageModel.setUser(SecurityHelper.getAuthenticatedUser());

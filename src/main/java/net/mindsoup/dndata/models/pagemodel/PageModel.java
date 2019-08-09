@@ -1,6 +1,7 @@
-package net.mindsoup.dndata.models;
+package net.mindsoup.dndata.models.pagemodel;
 
 import net.mindsoup.dndata.enums.PageType;
+import net.mindsoup.dndata.models.User;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -10,9 +11,6 @@ public class PageModel {
 
 	private PageType pageType;
 	private User user;
-
-	public PageModel() {
-	}
 
 	public PageType getPageType() {
 		return pageType;
@@ -31,7 +29,7 @@ public class PageModel {
 			return false;
 		}
 
-		for(GrantedAuthority grantedAuthority : user.getRights()) {
+		for(GrantedAuthority grantedAuthority : user.getRoles()) {
 			if(grantedAuthority.getAuthority().toLowerCase().endsWith(rightSuffix.toLowerCase())) {
 				return true;
 			}

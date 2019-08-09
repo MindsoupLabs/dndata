@@ -20,7 +20,18 @@ public class User {
 	private boolean active;
 
 	@OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
-	private List<UserRight> rights;
+	private List<UserRight> roles;
+
+	@Transient
+	private List<String> rights;
+
+	public List<String> getRights() {
+		return rights;
+	}
+
+	public void setRights(List<String> rights) {
+		this.rights = rights;
+	}
 
 	public Long getId() {
 		return id;
@@ -62,11 +73,19 @@ public class User {
 		this.active = active;
 	}
 
-	public List<UserRight> getRights() {
-		return rights;
+	public List<UserRight> getRoles() {
+		return roles;
 	}
 
-	public void setRights(List<UserRight> rights) {
-		this.rights = rights;
+	public void setRoles(List<UserRight> roles) {
+		this.roles = roles;
+	}
+
+	public boolean hasRight(String right) {
+		if(roles == null) {
+			return false;
+		}
+
+		return roles.stream().anyMatch(r -> r.getRole().equalsIgnoreCase(right));
 	}
 }

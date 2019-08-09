@@ -11,4 +11,5 @@ public interface UserService {
 	User getUserById(Long id);
 	User createUser(User newUser);
 	User updateUser(User changedUser);
+	Iterable<User> getAllUsers();
 }

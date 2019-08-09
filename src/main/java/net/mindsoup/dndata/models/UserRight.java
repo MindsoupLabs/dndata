@@ -1,7 +1,6 @@
 package net.mindsoup.dndata.models;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -19,15 +18,22 @@ public class UserRight implements GrantedAuthority {
 	@Column(name = "user_id")
 	private Long userId;
 
-	private String right;
+	private String role;
+
+	public UserRight() {}
+
+	public UserRight(String role, Long userId) {
+		this.role = role;
+		this.userId = userId;
+	}
 
 	@Override
 	public String getAuthority() {
-		return right;
+		return role;
 	}
 
-	public String getRight() {
-		return right;
+	public String getRole() {
+		return role;
 	}
 
 	public Long getId() {
@@ -46,7 +52,7 @@ public class UserRight implements GrantedAuthority {
 		this.userId = userId;
 	}
 
-	public void setRight(String right) {
-		this.right = right;
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

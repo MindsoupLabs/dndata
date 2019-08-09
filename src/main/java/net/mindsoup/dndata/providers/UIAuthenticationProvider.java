@@ -83,7 +83,7 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 		// correct login, remove from failed attempts
 		loginAttempts.remove(email);
 		logger.info(String.format("User %s logged in", email));
-		return new UsernamePasswordAuthenticationToken(user, user.getEmail(), user.getRights());
+		return new UsernamePasswordAuthenticationToken(user, user.getEmail(), user.getRoles());
 	}
 
 	@Override

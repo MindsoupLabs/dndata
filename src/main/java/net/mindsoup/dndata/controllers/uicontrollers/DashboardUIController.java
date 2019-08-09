@@ -1,7 +1,7 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.enums.PageType;
-import net.mindsoup.dndata.models.PageModel;
+import net.mindsoup.dndata.models.pagemodel.PageModel;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

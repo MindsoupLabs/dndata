@@ -9,17 +9,17 @@
 	<title>DnData | Structured. Correct. Complete.</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<link rel="stylesheet" href="../static/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/css/bootstrap.css">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="../static/css/font-awesome.css">
+	<link rel="stylesheet" href="/static/css/font-awesome.css">
 	<!-- Ionicons -->
-	<link rel="stylesheet" href="../static/css/ionicons.css">
+	<link rel="stylesheet" href="/static/css/ionicons.css">
 	<!-- Theme style -->
-	<link rel="stylesheet" href="../static/css/AdminLTE.css">
+	<link rel="stylesheet" href="/static/css/AdminLTE.css">
 	<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 		  page. However, you can choose any other skin. Make sure you
 		  apply the skin class to the body tag so the changes take effect. -->
-	<link rel="stylesheet" href="../static/css/skin-blue.css">
+	<link rel="stylesheet" href="/static/css/skin-blue.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,14 +104,14 @@ desired effect
 					<!-- User Account Menu -->
 					<li class="dropdown user user-menu">
 						<!-- Menu Toggle Button -->
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<a href="/ui/profile.html" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-user"></i>
 							<!-- hidden-xs hides the username on small devices so only the image appears. -->
 							<span class="hidden-xs" th:text="${pageModel.user.name}">User Name</span>
 						</a>
 					</li>
 					<li>
-						<a href="logout.html"><i class="fa fa-sign-out "></i></a>
+						<a href="/ui/logout.html"><i class="fa fa-sign-out "></i></a>
 					</li>
 					<!-- Control Sidebar Toggle Button -->
 					<li>
@@ -130,14 +130,14 @@ desired effect
 			<!-- Sidebar Menu -->
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header">HOME</li>
-				<li th:class="${pageModel.pageType.name() == 'DASHBOARD' ? 'active' : ''}"><a href="index.html"><i class="fa fa-dashboard"></i> <span>DnDashboard</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'DASHBOARD' ? 'active' : ''}"><a href="/ui/index.html"><i class="fa fa-dashboard"></i> <span>DnDashboard</span></a></li>
 				<li class="header" th:if="${pageModel.hasRight('EDIT') || pageModel.hasRight('REVIEW')}">TASKS</li>
-				<li th:class="${pageModel.pageType.name() == 'EDIT' ? 'active' : ''}" th:if="${pageModel.hasRight('EDIT')}"><a href="edit.html"><i class="fa fa-pencil"></i> <span>Edit</span></a></li>
-				<li th:class="${pageModel.pageType.name() == 'REVIEW' ? 'active' : ''}" th:if="${pageModel.hasRight('REVIEW')}"><a href="review.html"><i class="fa fa-check-square"></i> <span>Review</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'EDIT' ? 'active' : ''}" th:if="${pageModel.hasRight('EDIT')}"><a href="/ui/edit.html"><i class="fa fa-pencil"></i> <span>Edit</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'REVIEW' ? 'active' : ''}" th:if="${pageModel.hasRight('REVIEW')}"><a href="/ui/review.html"><i class="fa fa-check-square"></i> <span>Review</span></a></li>
 				<li class="header" th:if="${pageModel.hasRight('PUBLISH') || pageModel.hasRight('MANAGE_USERS')}">ADMIN</li>
-				<li th:class="${pageModel.pageType.name() == 'BOOKS' ? 'active' : ''}" th:if="${pageModel.hasRight('BOOKS')}"><a href="books.html"><i class="fa fa-book"></i> <span>Books</span></a></li>
-				<li th:class="${pageModel.pageType.name() == 'PUBLISH' ? 'active' : ''}" th:if="${pageModel.hasRight('PUBLISH')}"><a href="publish.html"><i class="fa fa-upload"></i> <span>Publishing</span></a></li>
-				<li th:class="${pageModel.pageType.name() == 'USERS' ? 'active' : ''}" th:if="${pageModel.hasRight('MANAGE_USERS')}"><a href="users.html"><i class="fa fa-users"></i> <span>Users</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'BOOKS' ? 'active' : ''}" th:if="${pageModel.hasRight('BOOKS')}"><a href="/ui/books.html"><i class="fa fa-book"></i> <span>Books</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'PUBLISH' ? 'active' : ''}" th:if="${pageModel.hasRight('PUBLISH')}"><a href="/ui/publish.html"><i class="fa fa-upload"></i> <span>Publishing</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'USERS' ? 'active' : ''}" th:if="${pageModel.hasRight('MANAGE_USERS')}"><a href="/ui/users.html"><i class="fa fa-users"></i> <span>Users</span></a></li>
 			</ul>
 			<!-- /.sidebar-menu -->
 		</section>
@@ -244,11 +244,11 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="../static/js/jquery.js"></script>
+<script src="/static/js/jquery.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap.js"></script>
 <!-- AdminLTE App -->
-<script src="../static/js/adminlte.js"></script>
+<script src="/static/js/adminlte.js"></script>
 
 </body>
 </html>
