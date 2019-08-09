@@ -80,6 +80,7 @@ public class UsersUIController extends BaseUIController {
 		return "redirect:/ui/users";
 	}
 
+	@Override
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
 		PageModel pageModel = getBasePageModel();

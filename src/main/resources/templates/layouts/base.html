@@ -104,10 +104,10 @@ desired effect
 					<!-- User Account Menu -->
 					<li class="dropdown user user-menu">
 						<!-- Menu Toggle Button -->
-						<a href="/ui/profile.html" class="dropdown-toggle" data-toggle="dropdown">
+						<a href="/ui/profile.html">
 							<i class="fa fa-user"></i>
 							<!-- hidden-xs hides the username on small devices so only the image appears. -->
-							<span class="hidden-xs" th:text="${pageModel.user.name}">User Name</span>
+							<span class="hidden-xs" th:text="${pageModel?.user?.name}">User Name</span>
 						</a>
 					</li>
 					<li>
@@ -131,6 +131,7 @@ desired effect
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header">HOME</li>
 				<li th:class="${pageModel.pageType.name() == 'DASHBOARD' ? 'active' : ''}"><a href="/ui/index.html"><i class="fa fa-dashboard"></i> <span>DnDashboard</span></a></li>
+				<li th:class="${pageModel.pageType.name() == 'PROFILE' ? 'active' : ''}"><a href="/ui/profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
 				<li class="header" th:if="${pageModel.hasRight('EDIT') || pageModel.hasRight('REVIEW')}">TASKS</li>
 				<li th:class="${pageModel.pageType.name() == 'EDIT' ? 'active' : ''}" th:if="${pageModel.hasRight('EDIT')}"><a href="/ui/edit.html"><i class="fa fa-pencil"></i> <span>Edit</span></a></li>
 				<li th:class="${pageModel.pageType.name() == 'REVIEW' ? 'active' : ''}" th:if="${pageModel.hasRight('REVIEW')}"><a href="/ui/review.html"><i class="fa fa-check-square"></i> <span>Review</span></a></li>

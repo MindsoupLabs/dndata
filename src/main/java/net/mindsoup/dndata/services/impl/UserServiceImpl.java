@@ -1,12 +1,11 @@
 package net.mindsoup.dndata.services.impl;
 
-import net.mindsoup.dndata.exceptions.DnDataException;
+import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.models.User;
 import net.mindsoup.dndata.models.UserRight;
 import net.mindsoup.dndata.repositories.UserRepository;
 import net.mindsoup.dndata.services.UserRightsService;
 import net.mindsoup.dndata.services.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User newUser) {
 		if(StringUtils.isAnyBlank(newUser.getEmail(), newUser.getPassword(), newUser.getName())) {
-			throw new DnDataException("User details incomplete");
+			throw new UserInputException("User details incomplete");
 		}
 
 		// first save the user without rights

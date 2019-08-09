@@ -25,7 +25,7 @@ public class PageModel {
 	 * match across games, or a complete matching right 'pf2_edit' will only match PF2_EDIT
 	 */
 	public boolean hasRight(String rightSuffix) {
-		if(user == null) {
+		if(user == null || user.getRoles() == null) {
 			return false;
 		}
 
