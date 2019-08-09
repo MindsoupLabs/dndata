@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.helpers;
 
-import net.mindsoup.dndata.models.User;
+import net.mindsoup.dndata.models.dao.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

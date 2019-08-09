@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.repositories;
 
-import net.mindsoup.dndata.models.UserRight;
+import net.mindsoup.dndata.models.dao.UserRight;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

@@ -2,7 +2,7 @@ package net.mindsoup.dndata.services.impl;
 
 import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.helpers.JsonSchemaHelper;
-import net.mindsoup.dndata.models.DataObject;
+import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.repositories.ObjectRepository;
 import net.mindsoup.dndata.services.JsonValidatorService;
 import net.mindsoup.dndata.services.StorageService;
@@ -27,7 +27,7 @@ public class StorageServiceImpl implements StorageService {
 	@Override
 	public void save(DataObject data) {
 		if(isValid(data)) {
-			data.setObjectVersion(data.getObjectVersion() + 1);
+			data.setRevision(data.getRevision() + 1);
 			objectRepository.save(data);
 		} else {
 			throw new JsonValidationException("JSON Validation failed");

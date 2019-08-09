@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.services.impl;
 
-import net.mindsoup.dndata.models.UserRight;
+import net.mindsoup.dndata.models.dao.UserRight;
 import net.mindsoup.dndata.repositories.UserRightRepository;
 import net.mindsoup.dndata.services.UserRightsService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,7 +9,51 @@
 
 		<!-- Main content -->
 		<section class="content container-fluid">
-			<b th:text="${'example'}"></b>
+			<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box">
+						<span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">&nbsp;</span>
+							<a href="/ui/books/new" class="btn btn-block btn-success btn-lg">Add new book</a>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Manage books</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body no-padding">
+							<table class="table table-striped">
+								<tbody>
+								<tr>
+									<th style="width: 20px">ID</th>
+									<th>Name</th>
+									<th>Publisher</th>
+									<th>ISBN</th>
+									<th style="width: 30px">Game</th>
+									<th style="width: 50px"></th>
+								</tr>
+								<tr th:each="book: ${books}">
+									<td th:text="${book.id}">#</td>
+									<td th:text="${book.name}"></td>
+									<td th:text="${book.publisher}">email</td>
+									<td th:text="${book.isbn}"></td>
+									<td><a th:href="@{'/ui/books/' + ${book.id}}" class="btn btn-sm btn-xs btn-warning">Edit</a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+			</div>
 		</section>
 	</section>
 </div>

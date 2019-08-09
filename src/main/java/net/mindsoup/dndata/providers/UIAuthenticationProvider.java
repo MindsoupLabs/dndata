@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.providers;
 
-import net.mindsoup.dndata.models.User;
+import net.mindsoup.dndata.models.dao.User;
 import net.mindsoup.dndata.services.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;

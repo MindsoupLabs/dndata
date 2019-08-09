@@ -1,4 +1,4 @@
-package net.mindsoup.dndata.models;
+package net.mindsoup.dndata.models.dao;
 
 import javax.persistence.*;
 import java.util.List;

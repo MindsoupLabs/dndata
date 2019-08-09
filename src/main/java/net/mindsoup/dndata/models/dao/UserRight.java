@@ -1,4 +1,4 @@
-package net.mindsoup.dndata.models;
+package net.mindsoup.dndata.models.dao;
 
 import org.springframework.security.core.GrantedAuthority;
 

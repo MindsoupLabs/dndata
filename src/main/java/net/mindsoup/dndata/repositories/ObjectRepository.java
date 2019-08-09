@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.repositories;
 
-import net.mindsoup.dndata.models.DataObject;
+import net.mindsoup.dndata.models.dao.DataObject;
 import org.springframework.data.repository.CrudRepository;
 
 /**

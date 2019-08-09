@@ -46,12 +46,12 @@ CREATE TABLE `dndata`.`objects` (
   CONSTRAINT `fk_objects_editor_user_id`
     FOREIGN KEY (`editor_user_id`)
     REFERENCES `dndata`.`users` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_objects_book_id`
 	FOREIGN KEY (`book_id`)
 	REFERENCES `dndata`.`books` (`id`)
-	ON DELETE CASCADE
+	ON DELETE RESTRICT
 	ON UPDATE CASCADE);
 
 CREATE TABLE `dndata`.`changesets` (
@@ -63,7 +63,7 @@ CREATE TABLE `dndata`.`changesets` (
   CONSTRAINT `fk_changesets_user_id`
     FOREIGN KEY (`publisher_user_id`)
     REFERENCES `dndata`.`users` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
 CREATE TABLE `dndata`.`changes` (
@@ -74,10 +74,10 @@ CREATE TABLE `dndata`.`changes` (
   CONSTRAINT `fk_changes_changeset_id`
     FOREIGN KEY (`changeset_id`)
     REFERENCES `dndata`.`changesets` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_changes_object_id`
     FOREIGN KEY (`object_id`)
     REFERENCES `dndata`.`objects` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE);

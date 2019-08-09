@@ -1,5 +1,5 @@
 import net.mindsoup.dndata.exceptions.JsonValidationException;
-import net.mindsoup.dndata.models.DataObject;
+import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.repositories.ObjectRepository;
 import net.mindsoup.dndata.services.JsonValidatorService;
 import net.mindsoup.dndata.services.StorageService;

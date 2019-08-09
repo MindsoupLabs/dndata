@@ -1,0 +1,93 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/base}" th:object="${pageModel}">
+	<section layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Books <small>detail</small>
+			</h1>
+		</section>
+
+		<!-- Main content -->
+		<section class="content container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title" th:text="${book.id == null ? 'New Book' : 'Update Book'}">book</h3>
+						</div>
+						<!-- /.box-header -->
+						<!-- form start -->
+						<form role="form" method="post" action="/ui/books/update">
+							<div class="box-body">
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" class="form-control" id="name" placeholder="Enter name" name="name" th:value="${book?.name}">
+								</div>
+								<div class="form-group">
+									<label for="publisher">Publisher</label>
+									<input type="text" class="form-control" id="publisher" placeholder="Enter publisher" name="publisher" th:value="${book?.publisher}">
+								</div>
+								<div class="form-group">
+									<label for="isbn">ISBN</label>
+									<input type="text" class="form-control" id="isbn" placeholder="Enter ISBN" name="isbn" th:value="${book?.isbn}">
+								</div>
+								<div class="form-group">
+									<label>Game</label>
+									<select class="form-control" name="game">
+										<option th:each="game: ${games}" th:text="${game}" th:value="${game}" th:selected="${book.game == game}">role</option>
+									</select>
+								</div>
+							</div>
+							<!-- /.box-body -->
+
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+							<input type="hidden" name="id" th:value="${book?.id}">
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Add object</h3>
+						</div>
+						<!-- /.box-header -->
+						<!-- form start -->
+						<form role="form" method="post" action="/ui/books/addObject">
+							<div class="box-body">
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" class="form-control" id="name" placeholder="Enter name" name="name" th:value="${book?.name}">
+								</div>
+								<div class="form-group">
+									<label for="publisher">Publisher</label>
+									<input type="text" class="form-control" id="publisher" placeholder="Enter publisher" name="publisher" th:value="${book?.publisher}">
+								</div>
+								<div class="form-group">
+									<label for="isbn">ISBN</label>
+									<input type="text" class="form-control" id="isbn" placeholder="Enter ISBN" name="isbn" th:value="${book?.isbn}">
+								</div>
+								<div class="form-group">
+									<label>Game</label>
+									<select class="form-control" name="game">
+										<option th:each="game: ${games}" th:text="${game}" th:value="${game}" th:selected="${book.game == game}">role</option>
+									</select>
+								</div>
+							</div>
+							<!-- /.box-body -->
+
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+							<input type="hidden" name="id" th:value="${book?.id}">
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</div>

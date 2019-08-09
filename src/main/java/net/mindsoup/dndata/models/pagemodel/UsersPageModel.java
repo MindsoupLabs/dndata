@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.models.pagemodel;
 
-import net.mindsoup.dndata.models.User;
+import net.mindsoup.dndata.models.dao.User;
 
 /**
  * Created by Valentijn on 9-8-2019

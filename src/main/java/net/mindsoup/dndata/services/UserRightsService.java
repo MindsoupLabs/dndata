@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.services;
 
-import net.mindsoup.dndata.models.UserRight;
+import net.mindsoup.dndata.models.dao.UserRight;
 
 import java.util.List;
 

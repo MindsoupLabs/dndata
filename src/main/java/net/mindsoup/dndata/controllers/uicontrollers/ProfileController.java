@@ -3,7 +3,7 @@ package net.mindsoup.dndata.controllers.uicontrollers;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.helpers.SecurityHelper;
-import net.mindsoup.dndata.models.User;
+import net.mindsoup.dndata.models.dao.User;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.UserService;
 import org.apache.commons.codec.digest.DigestUtils;

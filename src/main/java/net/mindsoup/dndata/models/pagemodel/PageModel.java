@@ -1,7 +1,7 @@
 package net.mindsoup.dndata.models.pagemodel;
 
 import net.mindsoup.dndata.enums.PageType;
-import net.mindsoup.dndata.models.User;
+import net.mindsoup.dndata.models.dao.User;
 import org.springframework.security.core.GrantedAuthority;
 
 /**

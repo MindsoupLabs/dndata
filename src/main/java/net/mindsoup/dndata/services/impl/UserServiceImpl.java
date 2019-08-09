@@ -1,8 +1,8 @@
 package net.mindsoup.dndata.services.impl;
 
 import net.mindsoup.dndata.exceptions.UserInputException;
-import net.mindsoup.dndata.models.User;
-import net.mindsoup.dndata.models.UserRight;
+import net.mindsoup.dndata.models.dao.User;
+import net.mindsoup.dndata.models.dao.UserRight;
 import net.mindsoup.dndata.repositories.UserRepository;
 import net.mindsoup.dndata.services.UserRightsService;
 import net.mindsoup.dndata.services.UserService;
