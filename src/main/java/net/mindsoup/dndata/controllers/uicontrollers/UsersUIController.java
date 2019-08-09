@@ -7,6 +7,7 @@ import net.mindsoup.dndata.models.User;
 import net.mindsoup.dndata.models.UserRight;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -62,15 +63,20 @@ public class UsersUIController extends BaseUIController {
 	@Secured({Constants.Rights.PF2.MANAGE_USERS})
 	@RequestMapping(value = {"/update"}, method = RequestMethod.POST)
 	public String updateUser(User user) {
-		if(user.getRights() != null) {
-			user.setRoles(user.getRights().stream().map(r -> new UserRight(r, user.getId())).collect(Collectors.toList()));
-		}
+		user = prepareUser(user);
 
-		if(user.getId() == null) {
-			userService.createUser(user);
-		} else {
-			userService.updateUser(user);
-		}
+		userService.updateUser(user);
+
+		return "redirect:/ui/users";
+	}
+
+	@Secured({Constants.Rights.PF2.MANAGE_USERS})
+	@RequestMapping(value = {"/create"}, method = RequestMethod.POST)
+	public String createUser(User user) {
+		user = prepareUser(user);
+
+		userService.createUser(user);
+
 		return "redirect:/ui/users";
 	}
 
@@ -89,5 +95,18 @@ public class UsersUIController extends BaseUIController {
 		}
 
 		return me.getRoles().stream().map(UserRight::getRole).sorted().collect(Collectors.toList());
+	}
+
+	private User prepareUser(User user) {
+		// assume 64 character strings are already hashed
+		if(user.getPassword() != null && user.getPassword().length() != 64) {
+			user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
+		}
+
+		if(user.getRights() != null) {
+			user.setRoles(user.getRights().stream().map(r -> new UserRight(r, user.getId())).collect(Collectors.toList()));
+		}
+
+		return user;
 	}
 }

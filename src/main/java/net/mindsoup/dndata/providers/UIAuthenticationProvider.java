@@ -2,6 +2,7 @@ package net.mindsoup.dndata.providers;
 
 import net.mindsoup.dndata.models.User;
 import net.mindsoup.dndata.services.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,7 +39,7 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String email = authentication.getName();
-		String password = authentication.getCredentials().toString();
+		String password = DigestUtils.sha256Hex(authentication.getCredentials().toString());
 
 		if(StringUtils.isAnyBlank(email, password)) {
 			logger.warn("Email or password blank");
@@ -62,7 +63,6 @@ public class UIAuthenticationProvider implements AuthenticationProvider {
 			}
 		}
 
-		// TODO: hash password!
 		if(!user.getPassword().equalsIgnoreCase(password)) {
 			// if this user's password is incorrect
 			// add or up the tarpitting

@@ -6,6 +6,7 @@ import net.mindsoup.dndata.models.UserRight;
 import net.mindsoup.dndata.repositories.UserRepository;
 import net.mindsoup.dndata.services.UserRightsService;
 import net.mindsoup.dndata.services.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
