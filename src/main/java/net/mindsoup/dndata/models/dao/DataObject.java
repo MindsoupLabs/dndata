@@ -23,7 +23,6 @@ public class DataObject {
 	@Enumerated(EnumType.STRING)
 	private ObjectType type;
 	private Long bookId;
-	//private ObjectStatusDAO status;
 
 	public Long getId() {
 		return id;

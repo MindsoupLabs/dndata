@@ -53,6 +53,7 @@ CREATE TABLE `dndata`.`object_status` (
 	`editor_id` BIGINT UNSIGNED NOT NULL,
 	`object_id` BIGINT UNSIGNED NOT NULL,
 	`object_revision` INT UNSIGNED NOT NULL,
+	`status_date` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `id_UNIQUE` (`id`),
 	CONSTRAINT `fk_object_status_object`
@@ -68,7 +69,7 @@ CREATE TABLE `dndata`.`object_status` (
 
 CREATE TABLE `dndata`.`changesets` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `published_date` DATE NOT NULL,
+  `published_date` TIMESTAMP NOT NULL,
   `publisher_user_id` BIGINT UNSIGNED NOT NULL,
   `comment` TEXT(4096) NOT NULL,
   PRIMARY KEY (`id`),

@@ -73,7 +73,7 @@ public class BooksUIController extends BaseUIController {
 	@Secured({Constants.Rights.PF2.BOOKS})
 	@RequestMapping(value = {"/addObject"}, method = RequestMethod.POST)
 	public String addObject(DataObject object) {
-		dataObjectService.save(object);
+		dataObjectService.save(object, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.OBJECT_CREATED);
 
 		return "redirect:/ui/books/" + object.getBookId();
 	}

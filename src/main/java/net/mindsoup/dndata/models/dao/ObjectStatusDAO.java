@@ -3,6 +3,7 @@ package net.mindsoup.dndata.models.dao;
 import net.mindsoup.dndata.enums.ObjectStatus;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Valentijn on 10-8-2019
@@ -13,14 +14,18 @@ public class ObjectStatusDAO {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
-	//private User editor;
 	@Enumerated(EnumType.STRING)
 	private ObjectStatus status;
 	private String comment;
-	//private DataObject object;
-	private Long editor_id;
-	private Long object_id;
-	private int object_revision;
+	@Column(name = "editor_id")
+	private Long editorId;
+	@Column(name = "object_id")
+	private Long objectId;
+	@Column(name = "object_revision")
+	private int objectRevision;
+
+	@Column(name = "status_date")
+	private Date date = new Date();
 
 	public Long getId() {
 		return id;
@@ -46,27 +51,35 @@ public class ObjectStatusDAO {
 		this.comment = comment;
 	}
 
-	public Long getEditor_id() {
-		return editor_id;
+	public Long getEditorId() {
+		return editorId;
 	}
 
-	public void setEditor_id(Long editor_id) {
-		this.editor_id = editor_id;
+	public void setEditorId(Long editorId) {
+		this.editorId = editorId;
 	}
 
-	public Long getObject_id() {
-		return object_id;
+	public Long getObjectId() {
+		return objectId;
 	}
 
-	public void setObject_id(Long object_id) {
-		this.object_id = object_id;
+	public void setObjectId(Long objectId) {
+		this.objectId = objectId;
 	}
 
-	public int getObject_revision() {
-		return object_revision;
+	public int getObjectRevision() {
+		return objectRevision;
 	}
 
-	public void setObject_revision(int object_revision) {
-		this.object_revision = object_revision;
+	public void setObjectRevision(int objectRevision) {
+		this.objectRevision = objectRevision;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

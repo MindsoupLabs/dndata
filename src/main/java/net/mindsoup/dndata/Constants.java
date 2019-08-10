@@ -14,4 +14,9 @@ public abstract class Constants {
 			public static final String MANAGE_USERS = "ROLE_PF2_MANAGE_USERS";
 		}
 	}
+
+	public abstract static class Comments {
+		public static final String AUTO_COMMENT_PREFIX = "(Auto generated comment) ";
+		public static final String OBJECT_CREATED = "Data object created";
+	}
 }

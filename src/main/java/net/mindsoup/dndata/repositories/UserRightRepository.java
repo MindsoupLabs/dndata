@@ -2,7 +2,6 @@ package net.mindsoup.dndata.repositories;
 
 import net.mindsoup.dndata.models.dao.UserRight;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,6 +10,6 @@ import java.util.List;
  */
 public interface UserRightRepository extends CrudRepository<UserRight, Long> {
 
-	List<UserRight> findByUserId(@Param("user_id") Long userId);
-	void deleteByUserId(@Param("user_id") Long userId);
+	List<UserRight> findByUserId(Long userId);
+	void deleteByUserId(Long userId);
 }
