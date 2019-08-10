@@ -33,26 +33,38 @@ CREATE TABLE `dndata`.`objects` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `revision` INT UNSIGNED NOT NULL DEFAULT 1,
   `json` JSON NOT NULL,
-  `book_id` BIGINT UNSIGNED NOT NULL,
-  `type` ENUM('CREATURE', 'ITEM', 'SPELL', 'FEAT') NOT NULL,
-  `status` ENUM('EDITING', 'AWAITING_REVIEW', 'REVIEWED') NOT NULL DEFAULT 'EDITING',
   `schema_version` INT NOT NULL DEFAULT 1,
-  `editor_user_id` BIGINT UNSIGNED NOT NULL,
-  `comment` TEXT(4096) NOT NULL,
+  `name` TINYTEXT NOT NULL,
+  `type` ENUM('CREATURE', 'ITEM', 'SPELL', 'FEAT') NOT NULL,
+  `book_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `revision`),
   UNIQUE INDEX `id_revision_UNIQUE` (`id`, `revision`),
   INDEX `type_index` (`type`),
-  INDEX `status_index` (`status`),
-  CONSTRAINT `fk_objects_editor_user_id`
-    FOREIGN KEY (`editor_user_id`)
-    REFERENCES `dndata`.`users` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_objects_book_id`
 	FOREIGN KEY (`book_id`)
 	REFERENCES `dndata`.`books` (`id`)
 	ON DELETE RESTRICT
 	ON UPDATE CASCADE);
+
+CREATE TABLE `dndata`.`object_status` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`status` ENUM('CREATED', 'EDITING', 'AWAITING_REVIEW', 'REVIEWED', 'PUBLISHED', 'DELETED') NOT NULL DEFAULT 'CREATED',
+	`comment` TEXT(4096) NOT NULL,
+	`editor_id` BIGINT UNSIGNED NOT NULL,
+	`object_id` BIGINT UNSIGNED NOT NULL,
+	`object_revision` INT UNSIGNED NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `id_UNIQUE` (`id`),
+	CONSTRAINT `fk_object_status_object`
+		FOREIGN KEY (`object_id`, `object_revision`)
+		REFERENCES `dndata`.`objects` (`id`, `revision`)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_object_status_editor`
+		FOREIGN KEY (`editor_id`)
+		REFERENCES `dndata`.`users` (`id`)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE);
 
 CREATE TABLE `dndata`.`changesets` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,

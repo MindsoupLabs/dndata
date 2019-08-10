@@ -2,11 +2,13 @@ package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
+import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.dao.Book;
-import net.mindsoup.dndata.models.dao.User;
+import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
+import net.mindsoup.dndata.services.DataObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -26,10 +28,12 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BooksUIController extends BaseUIController {
 
 	private BookService bookService;
+	private DataObjectService dataObjectService;
 
 	@Autowired
-	public BooksUIController(BookService bookService) {
+	public BooksUIController(BookService bookService, DataObjectService dataObjectService) {
 		this.bookService = bookService;
+		this.dataObjectService = dataObjectService;
 	}
 
 	@Secured({Constants.Rights.PF2.BOOKS})
@@ -60,7 +64,18 @@ public class BooksUIController extends BaseUIController {
 	public String edit(Model model, @PathVariable(value = "id") Long id) {
 		model.addAttribute("book", bookService.getBookById(id));
 		model.addAttribute("games", Game.values());
+		model.addAttribute("objectTypes", ObjectType.values());
+		model.addAttribute("showCreateObject", true);
+		model.addAttribute("objects", dataObjectService.getAllForBook(id));
 		return "books/detail";
+	}
+
+	@Secured({Constants.Rights.PF2.BOOKS})
+	@RequestMapping(value = {"/addObject"}, method = RequestMethod.POST)
+	public String addObject(DataObject object) {
+		dataObjectService.save(object);
+
+		return "redirect:/ui/books/" + object.getBookId();
 	}
 
 	@Override
