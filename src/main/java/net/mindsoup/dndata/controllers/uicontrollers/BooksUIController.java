@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -61,12 +58,17 @@ public class BooksUIController extends BaseUIController {
 
 	@Secured({Constants.Rights.PF2.BOOKS})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String edit(Model model, @PathVariable(value = "id") Long id) {
+	public String edit(Model model, @PathVariable(value = "id") Long id, @RequestParam(value = "previousType", required = false) ObjectType previousType) {
+		if(previousType == null) {
+			previousType = ObjectType.CREATURE;
+		}
+
 		model.addAttribute("book", bookService.getBookById(id));
 		model.addAttribute("games", Game.values());
 		model.addAttribute("objectTypes", ObjectType.values());
 		model.addAttribute("showCreateObject", true);
 		model.addAttribute("objects", dataObjectService.getAllForBook(id));
+		model.addAttribute("previousType", previousType);
 		return "books/detail";
 	}
 
@@ -75,7 +77,7 @@ public class BooksUIController extends BaseUIController {
 	public String addObject(DataObject object) {
 		dataObjectService.save(object, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.OBJECT_CREATED);
 
-		return "redirect:/ui/books/" + object.getBookId();
+		return "redirect:/ui/books/" + object.getBookId() + "?previousType=" + object.getType();
 	}
 
 	@Override
