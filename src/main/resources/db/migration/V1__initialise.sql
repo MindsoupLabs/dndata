@@ -40,6 +40,7 @@ CREATE TABLE `dndata`.`objects` (
   PRIMARY KEY (`id`, `revision`),
   UNIQUE INDEX `id_revision_UNIQUE` (`id`, `revision`),
   INDEX `type_index` (`type`),
+  INDEX `name_index` (`name`),
   CONSTRAINT `fk_objects_book_id`
 	FOREIGN KEY (`book_id`)
 	REFERENCES `dndata`.`books` (`id`)
