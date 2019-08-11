@@ -2,27 +2,34 @@ package net.mindsoup.dndata.models;
 
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
-
-import javax.persistence.Entity;
+import net.mindsoup.dndata.models.dao.User;
 
 /**
  * Created by Valentijn on 11-8-2019
  */
-@Entity
-public class ObjectStatusWithName extends ObjectStatusDAO {
+public class ObjectStatusWithUser {
 
-	private String name;
+	private User user;
+	private ObjectStatusDAO objectStatus;
 
-	public String getName() {
-		return name;
+	public User getUser() {
+		return user;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
+
+	public ObjectStatusDAO getObjectStatus() {
+		return objectStatus;
+	}
+
+	public void setObjectStatus(ObjectStatusDAO objectStatus) {
+		this.objectStatus = objectStatus;
+	}
+
 	public String getColorClass() {
-		switch (getStatus()) {
+		switch (getObjectStatus().getStatus()) {
 			case CREATED:
 				return Constants.Status.Color.CREATED;
 			case EDITING:
@@ -41,7 +48,7 @@ public class ObjectStatusWithName extends ObjectStatusDAO {
 	}
 	
 	public String getIcon() {
-		switch (getStatus()) {
+		switch (getObjectStatus().getStatus()) {
 			case CREATED:
 				return Constants.Status.Icon.CREATED;
 			case EDITING:

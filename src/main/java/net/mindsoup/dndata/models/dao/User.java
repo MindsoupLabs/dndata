@@ -1,6 +1,7 @@
 package net.mindsoup.dndata.models.dao;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ public class User {
 	private String email;
 	private String password;
 	private boolean active;
+	@Column(name = "claim_object_id")
+	private Long claimObjectId;
+	@Column(name = "claim_date")
+	private Date claimDate;
 
 	@OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
 	private List<UserRight> roles;
@@ -79,6 +84,22 @@ public class User {
 
 	public void setRoles(List<UserRight> roles) {
 		this.roles = roles;
+	}
+
+	public Long getClaimObjectId() {
+		return claimObjectId;
+	}
+
+	public void setClaimObjectId(Long claimObjectId) {
+		this.claimObjectId = claimObjectId;
+	}
+
+	public Date getClaimDate() {
+		return claimDate;
+	}
+
+	public void setClaimDate(Date claimDate) {
+		this.claimDate = claimDate;
 	}
 
 	public boolean hasRight(String right) {

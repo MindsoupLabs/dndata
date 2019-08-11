@@ -18,6 +18,7 @@ public abstract class Constants {
 	public abstract static class Comments {
 		public static final String AUTO_COMMENT_PREFIX = "(Auto generated comment) ";
 		public static final String OBJECT_CREATED = "Data object created";
+		public static final String READY_FOR_REVIEW = "Ready for review";
 	}
 
 	public abstract static class Status {

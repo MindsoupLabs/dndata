@@ -1,12 +1,11 @@
 package net.mindsoup.dndata.services.impl;
 
 import net.mindsoup.dndata.enums.ObjectStatus;
-import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.helpers.JsonSchemaHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
-import net.mindsoup.dndata.models.ObjectStatusWithName;
+import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 import net.mindsoup.dndata.models.dao.User;
@@ -19,6 +18,7 @@ import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,8 +74,17 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	@Override
-	public Iterable<ObjectStatusWithName> getAllStatusesWithNamesForObject(DataObject dataObject) {
-		return objectStatusRepository.findAllStatusesWithNameByObjectId(dataObject.getId());
+	public List<ObjectStatusWithUser> getAllStatusesWithNamesForObject(DataObject dataObject) {
+		List<ObjectStatusWithUser> returnList = new LinkedList<>();
+		Iterable<Object[]> objects = objectStatusRepository.findAllStatusesWithNameByObjectId(dataObject.getId());
+		for(Object[] objectArray : objects) {
+			ObjectStatusWithUser status = new ObjectStatusWithUser();
+			status.setObjectStatus((ObjectStatusDAO)objectArray[0]);
+			status.setUser((User)objectArray[1]);
+			returnList.add(status);
+		}
+
+		return returnList;
 	}
 
 	@Override
@@ -101,9 +110,9 @@ public class DataObjectServiceImpl implements DataObjectService {
 			throw new UserInputException("Book ID, name, comment or type is not specified");
 		}
 
-		if(!isValid(dataObject)) {
+		/*if(!isValid(dataObject)) {
 			throw new JsonValidationException("JSON Validation failed");
-		}
+		}*/
 
 		dataObject.setRevision(dataObject.getRevision() + 1);
 		dataObject = objectRepository.save(dataObject);
