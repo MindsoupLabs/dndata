@@ -17,13 +17,13 @@ public class SchemaValidatorTests {
 	@Test
 	public void test_creature_validation() throws IOException {
 		JsonValidatorService jsonValidatorService = new JsonValidatorServiceImpl();
-		assertTrue(jsonValidatorService.validate(loadJsonFromResource("/json-schemas/creature.v1.json"), "/json-schemas/creature/v1.json").isValid());
+		assertTrue(jsonValidatorService.validate(loadJsonFromResource("/json-schemas/creature.v1.json"), "/json-schemas/pf2/creature/v1.json").isValid());
 	}
 
 	@Test
 	public void test_creature_invalidation() throws IOException {
 		JsonValidatorService jsonValidatorService = new JsonValidatorServiceImpl();
-		assertFalse(jsonValidatorService.validate(loadJsonFromResource("/json-schemas/creature.invalid.json"), "/json-schemas/creature/v1.json").isValid());
+		assertFalse(jsonValidatorService.validate(loadJsonFromResource("/json-schemas/creature.invalid.json"), "/json-schemas/pf2/creature/v1.json").isValid());
 	}
 
 	private String loadJsonFromResource(String resourcePath) throws IOException {

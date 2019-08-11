@@ -1,8 +1,10 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.Constants;
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.PageType;
+import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
 import net.mindsoup.dndata.models.DataObjectUpdate;
@@ -86,6 +88,7 @@ public class EditUIController extends BaseUIController {
 
 		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
 		model.addAttribute("dataObject", dataObject);
+		model.addAttribute("formTemplate", PathHelper.getForm(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion()));
 		return "edit/detail";
 	}
 

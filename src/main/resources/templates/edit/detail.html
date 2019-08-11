@@ -23,7 +23,7 @@
 						<!-- /.box-header -->
 						<!-- form start -->
 						<form role="form" method="post" action="/ui/edit/update">
-							<div class="box-body">
+							<div class="box-body" th:insert="${formTemplate}" id="app">
 
 							</div>
 							<!-- /.box-body -->
@@ -69,5 +69,9 @@
 				</div>
 			</div>
 		</section>
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+		<script crossorigin src="https://unpkg.com/react-jsonschema-form/dist/react-jsonschema-form.js"></script>
+		<script src="/static/js/JSONFormCreator.js" type="module"></script>
 	</section>
 </div>

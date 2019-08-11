@@ -1,9 +1,10 @@
 package net.mindsoup.dndata.services.impl;
 
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
-import net.mindsoup.dndata.helpers.JsonSchemaHelper;
+import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.DataObject;
@@ -144,7 +145,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	private boolean isValid(DataObject dataObject) {
-		return jsonValidatorService.validate(dataObject.getObjectJson(), JsonSchemaHelper.getSchemaForData(dataObject)).isValid();
+		return jsonValidatorService.validate(dataObject.getObjectJson(), PathHelper.getSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion())).isValid();
 	}
 
 	private DataObject improveDataObject(DataObject dataObject) {
