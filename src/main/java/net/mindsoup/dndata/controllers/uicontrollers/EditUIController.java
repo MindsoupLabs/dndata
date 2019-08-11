@@ -14,6 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
@@ -57,6 +58,21 @@ public class EditUIController extends BaseUIController {
 		model.addAttribute("booksWithObjects", booksWithObjects);
 
 		return "edit/index";
+	}
+
+	@Secured({Constants.Rights.PF2.EDIT})
+	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+	public String edit(Model model, @PathVariable(value = "id") Long id) {
+		// todo: check for claim
+
+		DataObject dataObject = dataObjectService.getForId(id);
+
+		if(dataObject == null) {
+			return "redirect:/ui/edit";
+		}
+
+		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
+		return "edit/detail";
 	}
 
 	@Override

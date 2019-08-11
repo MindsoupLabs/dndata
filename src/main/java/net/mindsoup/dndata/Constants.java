@@ -19,4 +19,24 @@ public abstract class Constants {
 		public static final String AUTO_COMMENT_PREFIX = "(Auto generated comment) ";
 		public static final String OBJECT_CREATED = "Data object created";
 	}
+
+	public abstract static class Status {
+		public abstract static class Color {
+			public static final String CREATED = "bg-blue";
+			public static final String EDITING = "bg-yellow";
+			public static final String AWAITING_REVIEW = "bg-purple";
+			public static final String REVIEWED = "bg-green";
+			public static final String PUBLISHED = "bg-red";
+			public static final String DELETED = "bg-black";
+		}
+
+		public abstract static class Icon {
+			public static final String CREATED = "fa-star-o";
+			public static final String EDITING = "fa-pencil";
+			public static final String AWAITING_REVIEW = "fa-square-o";
+			public static final String REVIEWED = "fa-check-square-o";
+			public static final String PUBLISHED = "fa-upload";
+			public static final String DELETED = "fa-trash-o";
+		}
+	}
 }

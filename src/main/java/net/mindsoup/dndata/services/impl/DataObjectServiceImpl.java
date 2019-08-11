@@ -6,6 +6,7 @@ import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.helpers.JsonSchemaHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
+import net.mindsoup.dndata.models.ObjectStatusWithName;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 import net.mindsoup.dndata.models.dao.User;
@@ -69,7 +70,17 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 	@Override
 	public Iterable<ObjectStatusDAO> getAllStatusesForObject(DataObject dataObject) {
-		return objectStatusRepository.findAllByObjectIdAndObjectRevision(dataObject.getId(), dataObject.getRevision());
+		return objectStatusRepository.findAllByObjectId(dataObject.getId());
+	}
+
+	@Override
+	public Iterable<ObjectStatusWithName> getAllStatusesWithNamesForObject(DataObject dataObject) {
+		return objectStatusRepository.findAllStatusesWithNameByObjectId(dataObject.getId());
+	}
+
+	@Override
+	public DataObject getForId(Long id) {
+		return objectRepository.findLastById(id).orElse(null);
 	}
 
 	private DataObject create(DataObject dataObject, String comment) {
