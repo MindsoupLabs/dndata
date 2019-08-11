@@ -8,13 +8,15 @@
 			"type": "object",
 			"properties": {
 				"bonus": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"conditionalBonuses": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/conditionalBonus"
-					}
+					},
+					"default": []
 				}
 			},
 			"required": ["bonus", "conditionalBonuses"]
@@ -86,7 +88,7 @@
 				},
 				"type": {
 					"type": "string",
-					"enum": ["DEFENSIVE_OR_REACTIONARY", "INTERACTION", "OFFENSIVE_OR_PROACTIVE"],
+					"enum": ["DEFENSIVE_OR_REACTIONARY", "INTERACTION", "OFFENSIVE_OR_PROACTIVE"]
 				},
 				"traits": {
 					"type": "array",
@@ -159,7 +161,7 @@
 					"properties": {
 						"legal": {
 							"type": "boolean",
-							"default": "true"
+							"default": true
 						}
 					},
 					"required": ["legal"]
@@ -215,6 +217,7 @@
 						"type": "string",
 						"minLength": 1
 					},
+					"default": [],
 					"uniqueItems": true
 				},
 				"rangedAbilities": {
@@ -222,6 +225,7 @@
 					"items": {
 						"$ref": "#/definitions/rangedAbility"
 					},
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -238,6 +242,7 @@
 						"type": "string",
 						"minLength": 1
 					},
+					"default": [],
 					"uniqueItems": true
 				},
 				"abilities": {
@@ -246,6 +251,7 @@
 						"type": "string",
 						"minLength": 1
 					},
+					"default": [],
 					"uniqueItems": true
 				},
 				"rangedAbilities": {
@@ -253,6 +259,7 @@
 					"items": {
 						"$ref": "#/definitions/rangedAbility"
 					},
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -263,22 +270,28 @@
 			"type": "object",
 			"properties": {
 				"charisma": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"constitution": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"dexterity": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"intelligence": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"strength": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				},
 				"wisdom": {
-					"type": "integer"
+					"type": "integer",
+					"default": 0
 				}
 			},
 			"required": ["charisma", "constitution", "dexterity", "intelligence", "strength", "wisdom"]
@@ -306,6 +319,7 @@
 						},
 						"required": ["skill", "bonus"]
 					},
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -329,6 +343,7 @@
 				},
 				"required": ["item", "amount"]
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"armorClass": {
@@ -362,6 +377,7 @@
 					"items": {
 						"$ref": "#/definitions/conditionalBonus"
 					},
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -379,6 +395,7 @@
 				"type": "string",
 				"minLength": 1
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"resistances": {
@@ -387,6 +404,7 @@
 			"items": {
 				"$ref": "#/definitions/resistanceOrWeakness"
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"weaknesses": {
@@ -395,6 +413,7 @@
 			"items": {
 				"$ref": "#/definitions/resistanceOrWeakness"
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"auras": {
@@ -429,6 +448,7 @@
 				},
 				"required": ["name", "traits", "range", "description"]
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"abilities": {
@@ -450,6 +470,7 @@
 					}
 				]
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"triggeredAbilities": {
@@ -473,6 +494,7 @@
 					}
 				]
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"speed": {
@@ -618,6 +640,7 @@
 				},
 				"required": ["type", "name", "attack", "damage"]
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"spellCasting": {
@@ -631,7 +654,7 @@
 					},
 					"type": {
 						"type": "string",
-						"enum": ["INNATE", "PREPARED", "SPONTANEOUS"],
+						"enum": ["INNATE", "PREPARED", "SPONTANEOUS"]
 					},
 					"spellDC": {
 						"type": "integer"
@@ -643,7 +666,8 @@
 						"description": "Ordered list of available spell slots from level 1 through level 10",
 						"type": "array",
 						"items": {
-							"type": "integer"
+							"type": "integer",
+							"default": 0
 						},
 						"minItems": 10,
 						"maxItems": 10
@@ -682,6 +706,7 @@
 					"required": ["tradition", "type", "spellDC", "spells"]
 				}
 			},
+			"default": [],
 			"uniqueItems": true
 		},
 		"classPowers": {
@@ -725,6 +750,7 @@
 				},
 				"required": ["class", "spellPoints", "powersDC", "powersLevel", "powers"]
 			},
+			"default": [],
 			"uniqueItems": true
 		}
 	},

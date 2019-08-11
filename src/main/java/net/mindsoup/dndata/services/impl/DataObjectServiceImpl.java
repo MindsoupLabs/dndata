@@ -2,6 +2,7 @@ package net.mindsoup.dndata.services.impl;
 
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
+import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.helpers.PathHelper;
@@ -114,9 +115,9 @@ public class DataObjectServiceImpl implements DataObjectService {
 			throw new UserInputException("Book ID, name, comment or type is not specified");
 		}
 
-		/*if(!isValid(dataObject)) {
+		if(!isValid(dataObject)) {
 			throw new JsonValidationException("JSON Validation failed");
-		}*/
+		}
 
 		dataObject.setRevision(dataObject.getRevision() + 1);
 		dataObject = insertUpdate(dataObject);

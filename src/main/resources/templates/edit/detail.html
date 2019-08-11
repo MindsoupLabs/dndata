@@ -38,7 +38,7 @@
 									<label for="comment">Comment</label>
 									<input type="text" class="form-control" id="comment" placeholder="Enter comment" name="comment" required>
 								</div>
-								<button type="submit" class="btn btn-primary">Save &amp; Release</button>
+								<button type="submit" class="btn btn-primary" id="submitButton">Save &amp; Release</button>
 							</div>
 							<input type="hidden" name="dataObject.id" th:value="${dataObject.id}">
 							<input type="hidden" name="dataObject.revision" th:value="${dataObject.revision}">
@@ -46,6 +46,7 @@
 							<input type="hidden" name="dataObject.bookId" th:value="${dataObject.bookId}">
 							<input type="hidden" name="dataObject.schemaVersion" th:value="${dataObject.schemaVersion}">
 							<input type="hidden" name="dataObject.name" th:value="${dataObject.name}">
+							<input id="jsonInput" type="hidden" name="dataObject.objectJson" th:value="${dataObject.objectJson}">
 						</form>
 					</div>
 				</div>
@@ -73,5 +74,6 @@
 		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 		<script crossorigin src="https://unpkg.com/react-jsonschema-form/dist/react-jsonschema-form.js"></script>
 		<script src="/static/js/JSONFormCreator.js" type="module"></script>
+		<script src="/static/js/editing.js" type="module"></script>
 	</section>
 </div>
