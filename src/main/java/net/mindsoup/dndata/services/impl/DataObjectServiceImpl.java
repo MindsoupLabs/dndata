@@ -18,6 +18,9 @@ import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by Valentijn on 3-8-2019
  */
@@ -57,6 +60,11 @@ public class DataObjectServiceImpl implements DataObjectService {
 	@Override
 	public Iterable<DataObject> getAllForBook(Long bookId) {
 		return objectRepository.findAllByBookId(bookId);
+	}
+
+	@Override
+	public Iterable<DataObject> getAllForBookAndStatuses(Long bookId, List<ObjectStatus> statuses) {
+		return objectRepository.findAllByBookIdAndStatusIn(bookId, statuses.stream().map(Enum::name).collect(Collectors.toList()));
 	}
 
 	@Override

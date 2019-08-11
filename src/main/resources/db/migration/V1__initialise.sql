@@ -35,7 +35,7 @@ CREATE TABLE `dndata`.`objects` (
   `json` JSON NOT NULL,
   `schema_version` INT NOT NULL DEFAULT 1,
   `name` TINYTEXT NOT NULL,
-  `type` ENUM('CREATURE', 'ITEM', 'SPELL', 'FEAT') NOT NULL,
+  `type` ENUM('CREATURE', 'FEAT', 'ITEM', 'SPELL') NOT NULL,
   `book_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `revision`),
   UNIQUE INDEX `id_revision_UNIQUE` (`id`, `revision`),

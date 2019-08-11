@@ -9,7 +9,36 @@
 
 		<!-- Main content -->
 		<section class="content container-fluid">
-			<b th:text="${'example'}"></b>
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12"  th:each="bookWithObjects: ${booksWithObjects}">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title" th:text="${bookWithObjects.book.name}"></h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body no-padding">
+							<table class="table table-striped">
+								<tbody>
+								<tr>
+									<th style="width: 20px">ID</th>
+									<th style="width: 20px">Rev</th>
+									<th>Name</th>
+									<th>Type</th>
+									<th style="width: 100px"></th>
+								</tr>
+								<tr th:each="object: ${bookWithObjects.objects}">
+									<td th:text="${object.id}">#</td>
+									<td th:text="${object.revision}">#</td>
+									<td th:text="${object.name}">name</td>
+									<td th:text="${object.type}">type</td>
+									<td><a th:href="@{'/ui/edit/' + ${object.id}}" class="btn btn-sm btn-xs btn-warning">Claim and Edit</a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 	</section>
 </div>
