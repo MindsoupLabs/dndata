@@ -61,7 +61,9 @@ public class EditUIController extends BaseUIController {
 			List<DataObject> dataObjects = new LinkedList<>();
 			dataObjectService.getAllForBookAndStatuses(book.getId(), Arrays.asList(ObjectStatus.CREATED, ObjectStatus.EDITING)).forEach(dataObjects::add);
 			bookWithObjects.setObjects(dataObjects);
-			booksWithObjects.add(bookWithObjects);
+			if(bookWithObjects.getObjects().size() > 0) {
+				booksWithObjects.add(bookWithObjects);
+			}
 		}
 
 		model.addAttribute("booksWithObjects", booksWithObjects);

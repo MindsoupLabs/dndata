@@ -16,7 +16,7 @@ public class Book {
 	private Long id;
 	private String name;
 	private String publisher;
-	private long isbn;
+	private String isbn;
 	@Enumerated(EnumType.STRING)
 	private Game game;
 
@@ -44,11 +44,11 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	public long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

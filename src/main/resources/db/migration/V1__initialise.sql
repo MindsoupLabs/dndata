@@ -4,7 +4,7 @@ CREATE TABLE `dndata`.`books` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` TINYTEXT NOT NULL,
   `publisher` TINYTEXT NOT NULL,
-  `isbn` BIGINT UNSIGNED NOT NULL,
+  `isbn` TINYTEXT NOT NULL,
   `game` ENUM('PF2') NOT NULL DEFAULT 'PF2',
   PRIMARY KEY (`id`),
   INDEX `game_index` (`game`));

@@ -14,7 +14,7 @@ public class DataObject {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
-	private Integer revision = 1;
+	private Integer revision;
 	@Column(name = "json")
 	private String objectJson = "{}";
 	@Column(name = "schema_version")

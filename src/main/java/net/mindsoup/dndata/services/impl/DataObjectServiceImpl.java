@@ -18,6 +18,7 @@ import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,7 +61,8 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 	@Override
 	public Iterable<DataObject> getAllForBook(Long bookId) {
-		return objectRepository.findAllByBookId(bookId);
+
+		return objectRepository.findAllByBookIdAndStatusIn(bookId, Arrays.stream(ObjectStatus.values()).map(Enum::name).collect(Collectors.toList()));
 	}
 
 	@Override
@@ -97,6 +99,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 			throw new UserInputException("Book ID, name or type is not specified");
 		}
 
+		dataObject.setRevision(1);
 		dataObject = objectRepository.save(dataObject);
 
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.CREATED);
@@ -115,7 +118,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 		}*/
 
 		dataObject.setRevision(dataObject.getRevision() + 1);
-		dataObject = objectRepository.save(dataObject);
+		dataObject = insertUpdate(dataObject);
 
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.EDITING);
 		objectStatusRepository.save(objectStatus);
@@ -146,6 +149,13 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 	private DataObject improveDataObject(DataObject dataObject) {
 		dataObject.setName(WordUtils.capitalizeFully(dataObject.getName()));
+		return dataObject;
+	}
+
+
+	public DataObject insertUpdate(DataObject dataObject) {
+		objectRepository.saveInsert(dataObject.getId(), dataObject.getRevision(), dataObject.getObjectJson(), dataObject.getSchemaVersion(), dataObject.getName(), dataObject.getType().toString(), dataObject.getBookId());
+
 		return dataObject;
 	}
 }
