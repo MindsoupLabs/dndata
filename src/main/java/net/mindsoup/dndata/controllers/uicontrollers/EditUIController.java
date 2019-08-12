@@ -15,6 +15,7 @@ import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.ClaimService;
 import net.mindsoup.dndata.services.DataObjectService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,7 +78,7 @@ public class EditUIController extends BaseUIController {
 
 	@Secured({Constants.Rights.PF2.EDIT})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String edit(Model model, @PathVariable(value = "id") Long id) {
+	public String edit(Model model, @PathVariable(value = "id") Long id) throws IOException {
 		DataObject dataObject = dataObjectService.getForId(id);
 		if(dataObject == null) {
 			return "redirect:/ui/edit";
@@ -88,7 +91,9 @@ public class EditUIController extends BaseUIController {
 
 		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
 		model.addAttribute("dataObject", dataObject);
-		model.addAttribute("formTemplate", PathHelper.getForm(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion()));
+		String schemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
+		String schemaContents = IOUtils.toString(getClass().getResourceAsStream(schemaLocation), Charset.defaultCharset());
+		model.addAttribute("formSchema", schemaContents);
 		return "edit/detail";
 	}
 

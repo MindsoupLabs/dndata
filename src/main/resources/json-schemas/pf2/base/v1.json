@@ -84,7 +84,7 @@
 		"description": {
 			"description": "Description of the monster",
 			"type": "string"
-		},
+		}
 	},
 	"required": [
 		"metaInformation",
