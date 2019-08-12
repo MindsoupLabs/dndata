@@ -20,7 +20,7 @@ public class PathHelper {
 		String uiSchema = String.format(JSON_SCHEMA_LOCATION + "%s/%s/ui/v%s.json", game.name().toLowerCase(), type.name().toLowerCase(), version);
 
 		// load special ui-friendly schema if it exists (to get around allOf etc restrictions)
-		if(new File(PathHelper.class.getResource(uiSchema).getFile()).exists()) {
+		if(PathHelper.class.getResource(uiSchema) != null) {
 			return uiSchema;
 		}
 

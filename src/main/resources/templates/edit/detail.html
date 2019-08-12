@@ -22,24 +22,24 @@
 						</div>
 						<!-- /.box-header -->
 						<!-- form start -->
-						<form role="form" method="post" action="/ui/edit/update">
-							<div class="box-body" id="app">
+						<div class="box-body" id="app">
 
-							</div>
-							<!-- /.box-body -->
+						</div>
+						<!-- /.box-body -->
 
-							<div class="box-footer">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="readyForReview"> Ready for review
-									</label>
-								</div>
-								<div class="form-group">
-									<label for="comment">Comment</label>
-									<input type="text" class="form-control" id="comment" placeholder="Enter comment" name="comment" required>
-								</div>
-								<button type="submit" class="btn btn-primary" id="submitButton">Save &amp; Release</button>
+						<div class="box-footer">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="readyForReview"> Ready for review
+								</label>
 							</div>
+							<div class="form-group">
+								<label for="comment">Comment</label>
+								<input type="text" class="form-control" id="comment" placeholder="Enter comment" name="comment" required>
+							</div>
+							<button type="submit" class="btn btn-primary" id="submitButton">Save &amp; Release</button>
+						</div>
+						<form role="form" method="post" action="/ui/edit/update" id="realForm">
 							<input type="hidden" name="dataObject.id" th:value="${dataObject.id}">
 							<input type="hidden" name="dataObject.revision" th:value="${dataObject.revision}">
 							<input type="hidden" name="dataObject.type" th:value="${dataObject.type}">

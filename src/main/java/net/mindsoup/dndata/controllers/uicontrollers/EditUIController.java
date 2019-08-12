@@ -4,6 +4,7 @@ import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.PageType;
+import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
@@ -117,7 +118,12 @@ public class EditUIController extends BaseUIController {
 
 		claimService.clearClaimForUser(me.getId());
 
-		dataObjectService.save(dataObjectUpdate.getDataObject(), dataObjectUpdate.getComment());
+		try {
+			dataObjectService.save(dataObjectUpdate.getDataObject(), dataObjectUpdate.getComment());
+		} catch (JsonValidationException e) {
+			// todo: pass filled in data and show error message
+			return "redirect:/ui/edit/" + dataObjectUpdate.getDataObject().getId();
+		}
 
 		if(dataObjectUpdate.isReadyForReview()) {
 			dataObjectService.updateStatus(dataObjectUpdate.getDataObject(), Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.READY_FOR_REVIEW, ObjectStatus.AWAITING_REVIEW);

@@ -52,7 +52,7 @@
 					"properties": {
 						"legal": {
 							"type": "boolean",
-							"default": "true"
+							"default": true
 						}
 					},
 					"required": ["legal"]
@@ -61,7 +61,7 @@
 			"required": ["objectData", "publicationData"]
 		},
 		"traits": {
-			"description": "List of traits of this monster",
+			"description": "List of traits of this feat",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -70,25 +70,85 @@
 			"minItems": 1,
 			"uniqueItems": true
 		},
-		"names": {
-			"description": "List of names of this monster",
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"action": {
+			"type": "string",
+			"enum": ["NONE", "FREE_ACTION", "REACTION", "ACTION", "TWO_ACTIONS", "THREE_ACTIONS"],
+			"default": "NONE",
+			"minLength": 1
+		},
+		"level": {
+			"description": "Minimum level required for this skill",
+			"type": "integer",
+			"minimum": 1
+		},
+		"type": {
+			"type": "string",
+			"enum": ["ANCESTRY", "CLASS", "GENERAL", "SKILL"],
+			"minLength": 1
+		},
+		"prerequisites": {
 			"type": "array",
 			"items": {
 				"type": "string",
 				"minLength": 1
 			},
-			"minItems": 1,
-			"uniqueItems": true
+			"uniqueItems": true,
+			"default": []
+		},
+		"requirements": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"uniqueItems": true,
+			"default": []
+		},
+		"frequency": {
+			"type": "object",
+			"properties": {
+				"uses": {
+					"description": "amount of uses",
+					"type": "integer",
+					"minimum": 1
+				},
+				"per": {
+					"description": "...per minute/day/hour/etc",
+					"type": "string",
+					"minLength": 1
+				}
+			},
+			"required": ["uses", "per"]
+		},
+		"trigger": {
+			"description": "Trigger of the feat",
+			"type": "string",
+			"minLength": 1
 		},
 		"description": {
-			"description": "Description of the monster",
-			"type": "string"
+			"description": "Description of the feat",
+			"type": "string",
+			"minLength": 1
+		},
+		"special": {
+			"description": "Special quality of the feat",
+			"type": "string",
+			"minLength": 1
 		}
 	},
 	"required": [
 		"metaInformation",
 		"traits",
-		"names",
+		"name",
+		"action",
+		"level",
+		"type",
+		"prerequisites",
+		"requirements",
 		"description"
 	]
 }

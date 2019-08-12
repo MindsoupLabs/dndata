@@ -52,7 +52,7 @@
 					"properties": {
 						"legal": {
 							"type": "boolean",
-							"default": "true"
+							"default": true
 						}
 					},
 					"required": ["legal"]
