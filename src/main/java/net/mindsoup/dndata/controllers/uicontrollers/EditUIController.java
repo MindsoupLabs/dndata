@@ -91,9 +91,14 @@ public class EditUIController extends BaseUIController {
 
 		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
 		model.addAttribute("dataObject", dataObject);
-		String schemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
-		String schemaContents = IOUtils.toString(getClass().getResourceAsStream(schemaLocation), Charset.defaultCharset());
-		model.addAttribute("formSchema", schemaContents);
+
+		String formSchemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
+		String formSchemaContents = IOUtils.toString(getClass().getResourceAsStream(formSchemaLocation), Charset.defaultCharset());
+		model.addAttribute("formSchema", formSchemaContents);
+
+		String uiSchemaLocation = PathHelper.getUISchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
+		String uiSchemaContents = IOUtils.toString(getClass().getResourceAsStream(uiSchemaLocation), Charset.defaultCharset());
+		model.addAttribute("uiSchema", uiSchemaContents);
 		return "edit/detail";
 	}
 

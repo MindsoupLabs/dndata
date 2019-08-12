@@ -6,7 +6,7 @@ const onSubmit = ({formData}, e) => $("#jsonInput").val(JSON.stringify(formData)
 const previousFormData = JSON.parse($("#jsonInput").val());
 
 ReactDOM.render(
-	(<Section schema={schema} formData={previousFormData} onChange={log("changed")} onSubmit={onSubmit} onError={log("errors")} />),
+	(<Section schema={schema} formData={previousFormData} uiSchema={uiSchema} onChange={log("changed")} onSubmit={onSubmit} onError={log("errors")} />),
 	document.getElementById("app")
 );
 

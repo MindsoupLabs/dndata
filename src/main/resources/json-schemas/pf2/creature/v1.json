@@ -11,17 +11,17 @@
 					"type": "integer",
 					"default": 0
 				},
-				"conditionalBonuses": {
+				"bonuses": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/conditionalBonus"
+						"$ref": "#/definitions/bonus"
 					},
 					"default": []
 				}
 			},
-			"required": ["bonus", "conditionalBonuses"]
+			"required": ["bonus", "bonuses"]
 		},
-		"conditionalBonus": {
+		"bonus": {
 			"type": "object",
 			"properties": {
 				"against": {
@@ -33,8 +33,8 @@
 				},
 				"type": {
 					"type": "string",
-					"enum": ["CONDITIONAL"],
-					"default": "CONDITIONAL"
+					"enum": ["STATUS", "CONDITIONAL", "ITEM"],
+					"default": "STATUS"
 				}
 			},
 			"required": ["against", "bonus", "type"]
@@ -169,6 +169,24 @@
 			},
 			"required": ["objectData", "publicationData"]
 		},
+		"rarity": {
+			"description": "Rarity of the monster.",
+			"type": "string",
+			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
+			"default": "COMMON"
+		},
+		"alignment": {
+			"description": "Alignment of the monster.",
+			"type": "string",
+			"enum": ["LAWFUL_GOOD", "LAWFUL_NEUTRAL", "LAWFUL_EVIL", "NEUTRAL_GOOD", "NEUTRAL", "NEUTRAL_EVIL", "CHAOTIC_GOOD", "CHAOTIC_NEUTRAL", "CHAOTIC_EVIL"],
+			"default": "NEUTRAL"
+		},
+		"size": {
+			"description": "Size of the monster.",
+			"type": "string",
+			"enum": ["TINY", "SMALL", "MEDIUM", "LARGE", "HUGE", "GARGANTUAN"],
+			"default": "MEDIUM"
+		},
 		"traits": {
 			"description": "List of traits of this monster",
 			"type": "array",
@@ -192,12 +210,6 @@
 		"description": {
 			"description": "Description of the monster",
 			"type": "string"
-		},
-		"rarity": {
-			"description": "Rarity of the monster.",
-			"type": "string",
-			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
-			"default": "COMMON"
 		},
 		"challengeRating": {
 			"description": "Challenge rating of the monster",
@@ -298,32 +310,23 @@
 		},
 		"skills": {
 			"description": "Skills of the monster",
-			"type": "object",
-			"properties": {
-				"bonus": {
-					"type": "integer"
-				},
-				"specificSkills": {
-					"type": "array",
-					"items": {
-						"description": "Skill with skill-specific bonus",
-						"type": "object",
-						"properties": {
-							"skill": {
-								"type": "string",
-								"minLength": 1
-							},
-							"bonus": {
-								"type": "integer"
-							}
-						},
-						"required": ["skill", "bonus"]
+			"type": "array",
+			"items": {
+				"description": "Skill with skill-specific bonus",
+				"type": "object",
+				"properties": {
+					"skill": {
+						"type": "string",
+						"minLength": 1
 					},
-					"default": [],
-					"uniqueItems": true
-				}
+					"bonus": {
+						"type": "integer"
+					}
+				},
+				"required": ["skill", "bonus"]
 			},
-			"required": ["bonus", "specificSkills"]
+			"default": [],
+			"uniqueItems": true
 		},
 		"items": {
 			"description": "List of items the monster has on it",
@@ -347,17 +350,9 @@
 			"uniqueItems": true
 		},
 		"armorClass": {
-			"description": "Armor classes of the monster",
-			"type": "object",
-			"properties": {
-				"regular": {
-					"type": "integer"
-				},
-				"touch": {
-					"type": "integer"
-				}
-			},
-			"required": ["regular", "touch"]
+			"description": "Armor class of the monster",
+			"type": "integer",
+			"minimum": 1
 		},
 		"savingThrows": {
 			"description": "Saving throws of the monster",
@@ -372,16 +367,16 @@
 				"willpower": {
 					"$ref": "#/definitions/savingThrow"
 				},
-				"conditionalBonuses": {
+				"bonuses": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/conditionalBonus"
+						"$ref": "#/definitions/bonus"
 					},
 					"default": [],
 					"uniqueItems": true
 				}
 			},
-			"required": ["fortitude", "reflex", "willpower", "conditionalBonuses"]
+			"required": ["fortitude", "reflex", "willpower", "bonuses"]
 		},
 		"hitpoints": {
 			"description": "Hitpoints of the monster",
@@ -756,10 +751,12 @@
 	},
 	"required": [
 		"metaInformation",
+		"rarity",
+		"alignment",
+		"size",
 		"traits",
 		"names",
 		"description",
-		"rarity",
 		"challengeRating",
 		"perception",
 		"communication",
