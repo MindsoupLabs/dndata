@@ -26,7 +26,6 @@
 
 						</div>
 						<!-- /.box-body -->
-
 						<div class="box-footer">
 							<div class="checkbox">
 								<label>
@@ -56,7 +55,6 @@
 							<h3 class="box-title">Changes</h3>
 						</div>
 					</div>
-					<!-- /.box-header -->
 					<div class="box-body no-padding">
 						<div class="info-box" th:each="status: ${statusesWithNames}">
 							<span class="info-box-icon" th:classappend="${status.getColorClass()}"><i class="fa" th:classappend="${status.getIcon()}"></i></span>
@@ -65,6 +63,17 @@
 								<span class="info-box-text" th:text="${'rev ' + status.objectStatus.objectRevision + ', ' + status.objectStatus.date}">Rev 1, 2019-08-10 13:34:59</span>
 								<span th:text="${status.objectStatus.comment}"></span>
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12 float-right">
+					<div class="box" id="js-preview-container">
+						<div class="box-header">
+							<h3 class="box-title">Preview</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body" th:insert="${'/edit/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
+
 						</div>
 					</div>
 				</div>
@@ -78,5 +87,6 @@
 		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 		<script crossorigin src="https://unpkg.com/react-jsonschema-form/dist/react-jsonschema-form.js"></script>
 		<script src="/static/js/JSONFormCreator.js" type="module"></script>
+		<script src="/static/js/preview.js"></script>
 	</section>
 </div>

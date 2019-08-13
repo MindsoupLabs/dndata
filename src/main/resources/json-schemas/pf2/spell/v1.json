@@ -85,6 +85,12 @@
 			"type": "integer",
 			"minimum": 1
 		},
+		"rarity": {
+			"description": "Rarity of the monster.",
+			"type": "string",
+			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
+			"default": "COMMON"
+		},
 		"traditions": {
 			"type": "array",
 			"items": {
@@ -128,6 +134,10 @@
 		"metaInformation",
 		"traits",
 		"names",
+		"type",
+		"level",
+		"rarity",
+		"traditions",
 		"description"
 	]
 }

@@ -6,10 +6,14 @@ const Section = JSONSchemaForm.default;
 
 const log = (type) => console.log.bind(console, type);
 const onSubmit = ({formData}, e) => $("#jsonInput").val(JSON.stringify(formData));
+const onChange = ({formData}, e) => {
+	$("#js-preview-container").data('changedData', JSON.stringify(formData))
+	$("#js-preview-container").trigger('change');
+};
 
 function initReactForm() {
 	ReactDOM.render(
-		(<Section schema={schema} formData={previousFormData} uiSchema={uiSchema} onChange={log("changed")} onSubmit={onSubmit} onError={log("errors")} />),
+		(<Section schema={schema} formData={previousFormData} uiSchema={uiSchema} onChange={onChange} onSubmit={onSubmit} onError={log("errors")} />),
 		document.getElementById("app")
 	);
 }

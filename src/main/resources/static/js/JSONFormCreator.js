@@ -11,9 +11,15 @@ var onSubmit = function onSubmit(_ref, e) {
 	var formData = _ref.formData;
 	return $("#jsonInput").val(JSON.stringify(formData));
 };
+var onChange = function onChange(_ref2, e) {
+	var formData = _ref2.formData;
+
+	$("#js-preview-container").data('changedData', JSON.stringify(formData));
+	$("#js-preview-container").trigger('change');
+};
 
 function initReactForm() {
-	ReactDOM.render(React.createElement(Section, { schema: schema, formData: previousFormData, uiSchema: uiSchema, onChange: log("changed"), onSubmit: onSubmit, onError: log("errors") }), document.getElementById("app"));
+	ReactDOM.render(React.createElement(Section, { schema: schema, formData: previousFormData, uiSchema: uiSchema, onChange: onChange, onSubmit: onSubmit, onError: log("errors") }), document.getElementById("app"));
 }
 
 // regular JS continues here
