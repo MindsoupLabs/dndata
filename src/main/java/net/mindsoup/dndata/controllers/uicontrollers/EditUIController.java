@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
+import com.google.gson.Gson;
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
@@ -29,9 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Valentijn on 7-8-2019
@@ -92,6 +91,8 @@ public class EditUIController extends BaseUIController {
 
 		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
 		model.addAttribute("dataObject", dataObject);
+		model.addAttribute("overwriteValuesObject", new Gson().toJson(getOverwriteValueObject(dataObject)));
+		model.addAttribute("presetValuesObject", new Gson().toJson(getPresetValueObject(dataObject)));
 
 		String formSchemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
 		String formSchemaContents = IOUtils.toString(getClass().getResourceAsStream(formSchemaLocation), Charset.defaultCharset());
@@ -138,5 +139,30 @@ public class EditUIController extends BaseUIController {
 		PageModel pageModel = getBasePageModel();
 		pageModel.setPageType(PageType.EDIT);
 		return pageModel;
+	}
+
+	private Map<String, Object> getOverwriteValueObject(DataObject dataObject) {
+		Book book = bookService.getBookById(dataObject.getBookId());
+
+		Map<String, Object> parentObject = new HashMap<>();
+		Map<String, Object> metaData = new HashMap<>();
+		Map<String, Object> objectData = new HashMap<>();
+		objectData.put("id", dataObject.getId());
+		objectData.put("version", dataObject.getRevision());
+		Map<String, Object> publicationData = new HashMap<>();
+		publicationData.put("sourceBook", book.getName());
+		publicationData.put("publisher", book.getPublisher());
+		metaData.put("objectData", objectData);
+		metaData.put("publicationData", publicationData);
+		parentObject.put("metaInformation", metaData);
+
+		return parentObject;
+	}
+
+	private Map<String, Object> getPresetValueObject(DataObject dataObject) {
+		Map<String, Object> parentObject = new HashMap<>();
+		parentObject.put("name", dataObject.getName());
+
+		return parentObject;
 	}
 }

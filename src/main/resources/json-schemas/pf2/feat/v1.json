@@ -15,14 +15,14 @@
 					"description": "Various properties that are relevant in our data management system",
 					"type": "object",
 					"properties": {
-						"internalId": {
+						"id": {
 							"type": "integer"
 						},
 						"version": {
 							"type": "integer"
 						}
 					},
-					"required": ["internalId", "version"]
+					"required": ["id", "version"]
 				},
 				"publicationData": {
 					"description": "Publication related information",
@@ -109,20 +109,29 @@
 			"default": []
 		},
 		"frequency": {
-			"type": "object",
-			"properties": {
-				"uses": {
-					"description": "amount of uses",
-					"type": "integer",
-					"minimum": 1
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"uses": {
+						"description": "amount of uses",
+						"type": "integer",
+						"minimum": 1
+					},
+					"per": {
+						"description": "...per minute/day/hour/etc",
+						"type": "string",
+						"minLength": 1
+					}
 				},
-				"per": {
-					"description": "...per minute/day/hour/etc",
-					"type": "string",
-					"minLength": 1
-				}
+				"required": [
+					"uses",
+					"per"
+				]
 			},
-			"required": ["uses", "per"]
+			"minItems": 0,
+			"maxItems": 1,
+			"default": []
 		},
 		"trigger": {
 			"description": "Trigger of the feat",
@@ -147,8 +156,6 @@
 		"action",
 		"level",
 		"type",
-		"prerequisites",
-		"requirements",
 		"description"
 	]
 }

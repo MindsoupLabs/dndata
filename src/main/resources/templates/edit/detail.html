@@ -46,7 +46,7 @@
 							<input type="hidden" name="dataObject.bookId" th:value="${dataObject.bookId}">
 							<input type="hidden" name="dataObject.schemaVersion" th:value="${dataObject.schemaVersion}">
 							<input type="hidden" name="dataObject.name" th:value="${dataObject.name}">
-							<input id="jsonInput" type="hidden" name="dataObject.objectJson" th:value="${dataObject.objectJson}">
+							<input type="hidden" name="dataObject.objectJson" th:value="${dataObject.objectJson}" id="jsonInput">
 						</form>
 					</div>
 				</div>
@@ -72,10 +72,11 @@
 		</section>
 		<script type="text/javascript" th:utext="${'var schema = ' + formSchema + ';'}">jsonSchema</script>
 		<script type="text/javascript" th:utext="${'var uiSchema = ' + uiSchema + ';'}">jsonUISchema</script>
+		<script type="text/javascript" th:utext="${'var overwriteValuesObject = ' + overwriteValuesObject + ';'}">overwriteValuesObject</script>
+		<script type="text/javascript" th:utext="${'var presetValuesObject = ' + presetValuesObject + ';'}">presetValuesObject</script>
 		<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 		<script crossorigin src="https://unpkg.com/react-jsonschema-form/dist/react-jsonschema-form.js"></script>
 		<script src="/static/js/JSONFormCreator.js" type="module"></script>
-		<script src="/static/js/editing.js" type="module"></script>
 	</section>
 </div>

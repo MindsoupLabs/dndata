@@ -15,14 +15,14 @@
 					"description": "Various properties that are relevant in our data management system",
 					"type": "object",
 					"properties": {
-						"internalId": {
+						"id": {
 							"type": "integer"
 						},
 						"version": {
 							"type": "integer"
 						}
 					},
-					"required": ["internalId", "version"]
+					"required": ["id", "version"]
 				},
 				"publicationData": {
 					"description": "Publication related information",
@@ -70,19 +70,58 @@
 			"minItems": 1,
 			"uniqueItems": true
 		},
-		"names": {
-			"description": "List of names of this monster",
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"type": {
+			"type": "string",
+			"enum": ["CANTRIP", "SPELL"],
+			"default": "SPELL",
+			"minLength": 1
+		},
+		"level": {
+			"description": "Minimum level required for this skill",
+			"type": "integer",
+			"minimum": 1
+		},
+		"traditions": {
 			"type": "array",
 			"items": {
 				"type": "string",
+				"enum": ["ARCANE", "DIVINE", "OCCULT", "PRIMAL"],
+				"default": "ARCANE",
 				"minLength": 1
 			},
 			"minItems": 1,
 			"uniqueItems": true
 		},
+		"action": {
+			"type": "string",
+			"enum": ["NONE", "FREE_ACTION", "REACTION", "ACTION", "TWO_ACTIONS", "THREE_ACTIONS", "VARIABLE"],
+			"default": "TWO_ACTIONS",
+			"minLength": 1
+		},
+		"castingTime": {
+			"type": "object",
+			"properties": {
+				"time": {
+					"type": "integer",
+					"enum": [1, 10],
+					"minimum": 1
+				},
+				"unit": {
+					"type": "string",
+					"enum": ["MINUTE", "HOUR"],
+					"minLength": 1
+				}
+			},
+			"required": ["time", "unit"]
+		},
 		"description": {
-			"description": "Description of the monster",
-			"type": "string"
+			"description": "Description of the spell",
+			"type": "string",
+			"minLength": 1
 		}
 	},
 	"required": [

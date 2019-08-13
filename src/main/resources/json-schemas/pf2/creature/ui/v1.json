@@ -196,14 +196,19 @@
 			"minItems": 1,
 			"uniqueItems": true
 		},
-		"names": {
-			"description": "List of names of this monster",
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"alternativeNames": {
+			"description": "List of alternative names of this monster",
 			"type": "array",
 			"items": {
 				"type": "string",
 				"minLength": 1
 			},
-			"minItems": 1,
+			"minItems": 0,
+			"default": [],
 			"uniqueItems": true
 		},
 		"description": {
@@ -767,7 +772,8 @@
 		"alignment",
 		"size",
 		"traits",
-		"names",
+		"name",
+		"alternativeNames",
 		"description",
 		"challengeRating",
 		"perception",
