@@ -20,4 +20,5 @@ public interface DataObjectService {
 	List<ObjectStatusWithUser> getAllStatusesWithNamesForObject(DataObject dataObject);
 	DataObject getForId(Long id);
 	DataObject getForIdAndRevision(Long id, Integer revision);
+	ObjectStatusDAO getStatusById(Long id);
 }

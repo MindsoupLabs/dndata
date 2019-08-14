@@ -20,6 +20,24 @@
 
 						</div>
 					</div>
+					<div class="box">
+						<div class="box-header">
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body" >
+							<form role="form" method="post" action="/ui/review/update" id="reviewForm">
+								<div class="form-group">
+									<label for="comment">Reason for rejection</label>
+									<input type="text" class="form-control" id="comment" placeholder="Enter reason for rejection (if applicable)" name="comment">
+								</div>
+								<button type="submit" class="btn btn-success pull-right" name="action" value="approve">Approve</button>
+								<button type="submit" class="btn btn-danger" name="action" value="reject">Reject</button>
+								<input type="hidden" name="id" th:value="${dataObject.id}">
+								<input type="hidden" name="revision" th:value="${dataObject.revision}">
+								<input type="hidden" name="statusId" th:value="${objectStatus.id}">
+							</form>
+						</div>
+					</div>
 				</div>
 
 			</div>

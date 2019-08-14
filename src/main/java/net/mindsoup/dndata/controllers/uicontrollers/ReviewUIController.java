@@ -8,13 +8,17 @@ import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
+import net.mindsoup.dndata.models.DataObjectUpdate;
+import net.mindsoup.dndata.models.ReviewResult;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
+import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 import net.mindsoup.dndata.models.dao.User;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.DataObjectService;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -68,17 +72,56 @@ public class ReviewUIController extends BaseUIController {
 		return "review/index";
 	}
 
-	@Secured({Constants.Rights.PF2.EDIT})
-	@RequestMapping(value = {"/{id}/{revision}"}, method = RequestMethod.GET)
-	public String edit(Model model, @PathVariable(value = "id") Long id, @PathVariable(value = "revision") Integer revision) throws IOException {
-		DataObject dataObject = dataObjectService.getForIdAndRevision(id, revision);
+	@Secured({Constants.Rights.PF2.REVIEW})
+	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+	public String edit(Model model, @PathVariable(value = "id") Long id) throws IOException {
+		ObjectStatusDAO objectStatus = dataObjectService.getStatusById(id);
+
+		if(objectStatus == null) {
+			return "redirect:/ui/review";
+		}
+		DataObject dataObject = dataObjectService.getForIdAndRevision(objectStatus.getObjectId(), objectStatus.getObjectRevision());
 		if(dataObject == null) {
 			return "redirect:/ui/review";
 		}
 
 		model.addAttribute("dataObject", dataObject);
+		model.addAttribute("objectStatus", objectStatus);
 
 		return "review/detail";
+	}
+
+	@Secured({Constants.Rights.PF2.REVIEW})
+	@RequestMapping(value = {"/update"}, method = RequestMethod.POST)
+	public String update(ReviewResult reviewResult) {
+		ObjectStatusDAO objectStatus = dataObjectService.getStatusById(reviewResult.getStatusId());
+		DataObject dataObject = dataObjectService.getForIdAndRevision(reviewResult.getId(), reviewResult.getRevision());
+		User me = SecurityHelper.getAuthenticatedUser();
+
+		if(dataObject == null || me == null || objectStatus == null) {
+			return "redirect:/ui/review";
+		}
+
+
+		// make sure the status is AWAITING_REVIEW
+		// make sure we didn't edit it last ourselves
+		if(objectStatus.getStatus() != ObjectStatus.AWAITING_REVIEW || objectStatus.getEditorId().equals(me.getId())) {
+			return "redirect:/ui/review";
+		}
+
+		// change status
+		switch (reviewResult.getAction()) {
+			case "reject":
+				if(StringUtils.isBlank(reviewResult.getComment())) {
+					return String.format("redirect:/ui/review/%s", objectStatus.getId());
+				}
+				dataObjectService.updateStatus(dataObject, reviewResult.getComment(), ObjectStatus.EDITING);
+				break;
+			case "approve":
+				dataObjectService.updateStatus(dataObject, Constants.Comments.AUTO_COMMENT_PREFIX, ObjectStatus.REVIEWED);
+				break;
+		}
+		return "redirect:/ui/review";
 	}
 
 	@ModelAttribute("pageModel")

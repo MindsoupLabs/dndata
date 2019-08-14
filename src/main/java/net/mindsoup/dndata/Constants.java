@@ -6,7 +6,7 @@ package net.mindsoup.dndata;
 public abstract class Constants {
 
 	public abstract static class SQL {
-		public static final String GET_ALL_OBJECTS_IN_BOOK_BY_STATUS = "SELECT * FROM (SELECT o.id, MAX(o.revision) AS revision, o.json, o.schema_version, o.name, o.type, o.book_id, SUBSTRING_INDEX(GROUP_CONCAT(s.status ORDER BY s.id DESC), ',', 1) as status FROM objects AS o LEFT JOIN object_status AS s ON o.id = s.object_id AND o.revision = s.object_revision GROUP BY s.object_id) AS t WHERE t.book_id = :bookId AND t.status IN :statuses ORDER BY type ASC, name ASC";
+		public static final String GET_ALL_OBJECTS_IN_BOOK_BY_STATUS = "SELECT * FROM (SELECT o.id, MAX(o.revision) AS revision, o.json, o.schema_version, o.name, o.type, o.book_id, SUBSTRING_INDEX(GROUP_CONCAT(s.status ORDER BY s.id DESC), ',', 1) AS status, MAX(s.id) AS statusId FROM objects AS o LEFT JOIN object_status AS s ON o.id = s.object_id AND o.revision = s.object_revision GROUP BY s.object_id) AS t WHERE t.book_id = :bookId AND t.status IN :statuses ORDER BY type ASC, name ASC";
 	}
 
 	public abstract static class Rights {
@@ -23,6 +23,7 @@ public abstract class Constants {
 		public static final String AUTO_COMMENT_PREFIX = "(Auto generated comment) ";
 		public static final String OBJECT_CREATED = "Data object created";
 		public static final String READY_FOR_REVIEW = "Ready for review";
+		public static final String REVIEW_APPROVED = "Review approved";
 	}
 
 	public abstract static class Status {

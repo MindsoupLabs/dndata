@@ -70,6 +70,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 	public DataObject updateStatus(DataObject dataObject, String comment, ObjectStatus status) {
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, status);
 		objectStatusRepository.save(objectStatus);
+		logger.info(String.format("Updated object '%s' with id %s to status %s", dataObject.getName(), dataObject.getId(), status.name()));
 		return dataObject;
 	}
 
@@ -94,6 +95,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 			resultObject.setType(ObjectType.valueOf((String)a[5]));
 			resultObject.setBookId( ((BigInteger)a[6]).longValueExact() );
 			resultObject.setStatus(ObjectStatus.valueOf((String)a[7]));
+			resultObject.setStatusId( ((BigInteger)a[8]).longValueExact() );
 
 			list.add(resultObject);
 		});
@@ -116,6 +118,11 @@ public class DataObjectServiceImpl implements DataObjectService {
 	public DataObject getForIdAndRevision(Long id, Integer revision) {
 		entityManager.clear();
 		return objectRepository.findByIdAndRevision(id, revision).orElse(null);
+	}
+
+	@Override
+	public ObjectStatusDAO getStatusById(Long id) {
+		return objectStatusRepository.findById(id).orElse(null);
 	}
 
 	@Override

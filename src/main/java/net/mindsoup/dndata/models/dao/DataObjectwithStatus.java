@@ -8,6 +8,7 @@ import net.mindsoup.dndata.enums.ObjectStatus;
 public class DataObjectwithStatus extends DataObject {
 
 	private ObjectStatus status;
+	private Long statusId;
 
 	public ObjectStatus getStatus() {
 		return status;
@@ -15,5 +16,13 @@ public class DataObjectwithStatus extends DataObject {
 
 	public void setStatus(ObjectStatus status) {
 		this.status = status;
+	}
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
 	}
 }

@@ -22,7 +22,7 @@ public class ObjectStatusDAO {
 	@Column(name = "object_id")
 	private Long objectId;
 	@Column(name = "object_revision")
-	private int objectRevision;
+	private Integer objectRevision;
 
 	@Column(name = "status_date")
 	private Date date = new Date();
@@ -67,11 +67,11 @@ public class ObjectStatusDAO {
 		this.objectId = objectId;
 	}
 
-	public int getObjectRevision() {
+	public Integer getObjectRevision() {
 		return objectRevision;
 	}
 
-	public void setObjectRevision(int objectRevision) {
+	public void setObjectRevision(Integer objectRevision) {
 		this.objectRevision = objectRevision;
 	}
 
