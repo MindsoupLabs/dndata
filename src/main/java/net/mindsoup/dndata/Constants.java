@@ -5,6 +5,10 @@ package net.mindsoup.dndata;
  */
 public abstract class Constants {
 
+	public abstract static class SQL {
+		public static final String GET_ALL_OBJECTS_IN_BOOK_BY_STATUS = "SELECT * FROM (SELECT o.id, MAX(o.revision) AS revision, o.json, o.schema_version, o.name, o.type, o.book_id, SUBSTRING_INDEX(GROUP_CONCAT(s.status ORDER BY s.id DESC), ',', 1) as status FROM objects AS o LEFT JOIN object_status AS s ON o.id = s.object_id AND o.revision = s.object_revision GROUP BY s.object_id) AS t WHERE t.book_id = :bookId AND t.status IN :statuses ORDER BY type ASC, name ASC";
+	}
+
 	public abstract static class Rights {
 		public abstract static class PF2 {
 			public static final String EDIT = "ROLE_PF2_EDIT";
@@ -23,12 +27,12 @@ public abstract class Constants {
 
 	public abstract static class Status {
 		public abstract static class Color {
-			public static final String CREATED = "bg-blue";
+			public static final String CREATED = "bg-fuchsia";
 			public static final String EDITING = "bg-yellow";
 			public static final String AWAITING_REVIEW = "bg-purple";
 			public static final String REVIEWED = "bg-green";
-			public static final String PUBLISHED = "bg-red";
-			public static final String DELETED = "bg-black";
+			public static final String PUBLISHED = "bg-blue";
+			public static final String DELETED = "bg-red";
 		}
 
 		public abstract static class Icon {

@@ -61,7 +61,7 @@
 			"required": ["objectData", "publicationData"]
 		},
 		"traits": {
-			"description": "List of traits of this monster",
+			"description": "List of traits of this item",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -70,25 +70,19 @@
 			"minItems": 1,
 			"uniqueItems": true
 		},
-		"names": {
-			"description": "List of names of this monster",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 1,
-			"uniqueItems": true
+		"name": {
+			"type": "string",
+			"minLength": 1
 		},
 		"description": {
-			"description": "Description of the monster",
+			"description": "Description of the item",
 			"type": "string"
 		}
 	},
 	"required": [
 		"metaInformation",
 		"traits",
-		"names",
+		"name",
 		"description"
 	]
 }

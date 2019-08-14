@@ -27,26 +27,26 @@
 						</div>
 						<!-- /.box-body -->
 						<div class="box-footer">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" name="readyForReview"> Ready for review
-								</label>
-							</div>
-							<div class="form-group">
-								<label for="comment">Comment</label>
-								<input type="text" class="form-control" id="comment" placeholder="Enter comment" name="comment" required>
-							</div>
-							<button type="submit" class="btn btn-primary" id="submitButton">Save &amp; Release</button>
+							<form role="form" method="post" action="/ui/edit/update" id="realForm">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="readyForReview"> Ready for review
+									</label>
+								</div>
+								<div class="form-group">
+									<label for="comment">Comment</label>
+									<input type="text" class="form-control" id="comment" placeholder="Enter comment" name="comment" required>
+								</div>
+								<button type="submit" class="btn btn-primary" id="submitButton">Save &amp; Release</button>
+								<input type="hidden" name="dataObject.id" th:value="${dataObject.id}">
+								<input type="hidden" name="dataObject.revision" th:value="${dataObject.revision}">
+								<input type="hidden" name="dataObject.type" th:value="${dataObject.type}">
+								<input type="hidden" name="dataObject.bookId" th:value="${dataObject.bookId}">
+								<input type="hidden" name="dataObject.schemaVersion" th:value="${dataObject.schemaVersion}">
+								<input type="hidden" name="dataObject.name" th:value="${dataObject.name}">
+								<input type="hidden" name="dataObject.objectJson" th:value="${dataObject.objectJson}" id="jsonInput">
+							</form>
 						</div>
-						<form role="form" method="post" action="/ui/edit/update" id="realForm">
-							<input type="hidden" name="dataObject.id" th:value="${dataObject.id}">
-							<input type="hidden" name="dataObject.revision" th:value="${dataObject.revision}">
-							<input type="hidden" name="dataObject.type" th:value="${dataObject.type}">
-							<input type="hidden" name="dataObject.bookId" th:value="${dataObject.bookId}">
-							<input type="hidden" name="dataObject.schemaVersion" th:value="${dataObject.schemaVersion}">
-							<input type="hidden" name="dataObject.name" th:value="${dataObject.name}">
-							<input type="hidden" name="dataObject.objectJson" th:value="${dataObject.objectJson}" id="jsonInput">
-						</form>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-12 col-xs-12">
@@ -57,7 +57,7 @@
 					</div>
 					<div class="box-body no-padding">
 						<div class="info-box" th:each="status: ${statusesWithNames}">
-							<span class="info-box-icon" th:classappend="${status.getColorClass()}"><i class="fa" th:classappend="${status.getIcon()}"></i></span>
+							<span class="info-box-icon" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getColorClass(status.objectStatus.status)}"><i class="fa" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getIcon(status.objectStatus.status)}"></i></span>
 							<div class="info-box-content">
 								<strong th:text="${status.objectStatus.status}">status</strong> by <strong th:text="${status.user.name}">name</strong>
 								<span class="info-box-text" th:text="${'rev ' + status.objectStatus.objectRevision + ', ' + status.objectStatus.date}">Rev 1, 2019-08-10 13:34:59</span>

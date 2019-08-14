@@ -32,14 +32,14 @@ function bindEvents() {
 	formButton.hide();
 	submitButton.click(function (e) {
 		e.preventDefault();
-		var oldValue = jsonInput.val();
-		jsonForm[0].reportValidity();
-		formButton.click(e);
-		var newValue = jsonInput.val();
-
-		if (oldValue != newValue) {
-			realForm.submit();
+		if (!jsonForm[0].reportValidity()) {
+			return;
 		}
+		formButton[0].click();
+		if (!realForm[0].reportValidity()) {
+			return;
+		}
+		realForm.submit();
 	});
 };
 

@@ -61,7 +61,7 @@
 			"required": ["objectData", "publicationData"]
 		},
 		"traits": {
-			"description": "List of traits of this monster",
+			"description": "List of traits of this spell",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -81,12 +81,12 @@
 			"minLength": 1
 		},
 		"level": {
-			"description": "Minimum level required for this skill",
+			"description": "Level of this spell",
 			"type": "integer",
 			"minimum": 1
 		},
 		"rarity": {
-			"description": "Rarity of the monster.",
+			"description": "Rarity of this spell.",
 			"type": "string",
 			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
 			"default": "COMMON"
@@ -133,7 +133,7 @@
 	"required": [
 		"metaInformation",
 		"traits",
-		"names",
+		"name",
 		"type",
 		"level",
 		"rarity",

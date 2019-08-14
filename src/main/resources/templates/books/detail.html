@@ -99,6 +99,7 @@
 									<th style="width: 20px">Rev</th>
 									<th>Name</th>
 									<th>Type</th>
+									<th>Status</th>
 									<th style="width: 50px"></th>
 								</tr>
 								<tr th:each="object: ${objects}">
@@ -106,6 +107,7 @@
 									<td th:text="${object.revision}">#</td>
 									<td th:text="${object.name}">name</td>
 									<td th:text="${object.type}">type</td>
+									<td ><span class="badge" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getColorClass(object.status)}" th:text="${object.status}">status</span></td>
 									<td><a th:href="@{'/ui/edit/' + ${object.id}}" class="btn btn-sm btn-xs btn-warning">Edit</a></td>
 								</tr>
 								</tbody>

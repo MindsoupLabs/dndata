@@ -2,6 +2,7 @@ package net.mindsoup.dndata.services.impl;
 
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
+import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
@@ -9,6 +10,7 @@ import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.DataObject;
+import net.mindsoup.dndata.models.dao.DataObjectwithStatus;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 import net.mindsoup.dndata.models.dao.User;
 import net.mindsoup.dndata.repositories.ObjectRepository;
@@ -16,10 +18,13 @@ import net.mindsoup.dndata.repositories.ObjectStatusRepository;
 import net.mindsoup.dndata.services.DataObjectService;
 import net.mindsoup.dndata.services.JsonValidatorService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +35,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class DataObjectServiceImpl implements DataObjectService {
+
+	private static Log logger = LogFactory.getLog(DataObjectServiceImpl.class);
 
 	private JsonValidatorService jsonValidatorService;
 	private ObjectRepository objectRepository;
@@ -62,19 +69,41 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	@Override
-	public Iterable<DataObject> getAllForBook(Long bookId) {
-
-		return objectRepository.findAllByBookIdAndStatusIn(bookId, Arrays.stream(ObjectStatus.values()).map(Enum::name).collect(Collectors.toList()));
+	public Iterable<DataObjectwithStatus> getAllForBook(Long bookId) {
+		return getAllForBookAndStatuses(bookId, Arrays.asList(ObjectStatus.values()));
 	}
 
 	@Override
-	public Iterable<DataObject> getAllForBookAndStatuses(Long bookId, List<ObjectStatus> statuses) {
-		return objectRepository.findAllByBookIdAndStatusIn(bookId, statuses.stream().map(Enum::name).collect(Collectors.toList()));
+	public Iterable<DataObjectwithStatus> getAllForBookAndStatuses(Long bookId, List<ObjectStatus> statuses) {
+		Iterable<Object[]> result = objectRepository.findAllByBookIdAndStatusInAsObjectArray(bookId, statuses.stream().map(Enum::name).collect(Collectors.toList()));
+
+		List<DataObjectwithStatus> list = new LinkedList<>();
+
+		result.forEach(a -> {
+			DataObjectwithStatus resultObject = new DataObjectwithStatus();
+			resultObject.setId( ((BigInteger)a[0]).longValueExact() );
+			resultObject.setRevision((Integer)a[1]);
+			resultObject.setObjectJson((String)a[2]);
+			resultObject.setSchemaVersion((Integer)a[3]);
+			resultObject.setName((String)a[4]);
+			resultObject.setType(ObjectType.valueOf((String)a[5]));
+			resultObject.setBookId( ((BigInteger)a[6]).longValueExact() );
+			resultObject.setStatus(ObjectStatus.valueOf((String)a[7]));
+
+			list.add(resultObject);
+		});
+
+		return list;
 	}
 
 	@Override
 	public Iterable<ObjectStatusDAO> getAllStatusesForObject(DataObject dataObject) {
 		return objectStatusRepository.findAllByObjectId(dataObject.getId());
+	}
+
+	@Override
+	public DataObject getForId(Long id) {
+		return objectRepository.findLastById(id).orElse(null);
 	}
 
 	@Override
@@ -91,11 +120,6 @@ public class DataObjectServiceImpl implements DataObjectService {
 		return returnList;
 	}
 
-	@Override
-	public DataObject getForId(Long id) {
-		return objectRepository.findLastById(id).orElse(null);
-	}
-
 	private DataObject create(DataObject dataObject, String comment) {
 		if(dataObject.getBookId() == null || StringUtils.isBlank(dataObject.getName()) || dataObject.getType() == null) {
 			throw new UserInputException("Book ID, name or type is not specified");
@@ -107,6 +131,8 @@ public class DataObjectServiceImpl implements DataObjectService {
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.CREATED);
 		objectStatusRepository.save(objectStatus);
 
+		logger.info(String.format("Created %s object '%s' with id %s", dataObject.getType().name(), dataObject.getName(), dataObject.getId()));
+
 		return dataObject;
 	}
 
@@ -116,6 +142,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 		}
 
 		if(!isValid(dataObject)) {
+			logger.warn(String.format("Object '%s' with id %s failed validation on update", dataObject.getName(), dataObject.getId()));
 			throw new JsonValidationException("JSON Validation failed");
 		}
 
@@ -124,6 +151,8 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.EDITING);
 		objectStatusRepository.save(objectStatus);
+
+		logger.info(String.format("Updated object '%s' with id %s", dataObject.getName(), dataObject.getId()));
 
 		return dataObject;
 	}
