@@ -22,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
@@ -78,9 +75,17 @@ public class EditUIController extends BaseUIController {
 
 	@Secured({Constants.Rights.PF2.EDIT})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String edit(Model model, @PathVariable(value = "id") Long id) throws IOException {
-		DataObject dataObject = dataObjectService.getForId(id);
-		if(dataObject == null) {
+	public String edit(Model model, @PathVariable(value = "id") Long id, @RequestParam(value = "rev", required = false) Integer revision) throws IOException {
+		DataObject dataObject;
+		if(revision == null) {
+			dataObject = dataObjectService.getForId(id);
+		} else {
+			dataObject = dataObjectService.getForIdAndRevision(id, revision);
+		}
+
+		DataObject mostRecentDataObject = dataObjectService.getForId(id);
+
+		if(dataObject == null || mostRecentDataObject == null) {
 			return "redirect:/ui/edit";
 		}
 		User me = SecurityHelper.getAuthenticatedUser();
@@ -91,7 +96,8 @@ public class EditUIController extends BaseUIController {
 
 		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
 		model.addAttribute("dataObject", dataObject);
-		model.addAttribute("overwriteValuesObject", new Gson().toJson(getOverwriteValueObject(dataObject)));
+		model.addAttribute("mostRecentdataObject", mostRecentDataObject);
+		model.addAttribute("overwriteValuesObject", new Gson().toJson(getOverwriteValueObject(mostRecentDataObject)));
 		model.addAttribute("presetValuesObject", new Gson().toJson(getPresetValueObject(dataObject)));
 
 		String formSchemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
@@ -148,7 +154,7 @@ public class EditUIController extends BaseUIController {
 		Map<String, Object> metaData = new HashMap<>();
 		Map<String, Object> objectData = new HashMap<>();
 		objectData.put("id", dataObject.getId());
-		objectData.put("version", dataObject.getRevision());
+		objectData.put("revision", dataObject.getRevision() + 1); // increase by one here to avoid JSON version being 1 behind the actual db version
 		Map<String, Object> publicationData = new HashMap<>();
 		publicationData.put("sourceBook", book.getName());
 		publicationData.put("publisher", book.getPublisher());

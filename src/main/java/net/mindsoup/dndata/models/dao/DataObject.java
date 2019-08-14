@@ -3,13 +3,16 @@ package net.mindsoup.dndata.models.dao;
 import net.mindsoup.dndata.enums.ObjectType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Valentijn on 3-8-2019
  */
 @Entity
 @Table(name = "objects")
-public class DataObject {
+public class DataObject implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -18,11 +18,11 @@
 						"id": {
 							"type": "integer"
 						},
-						"version": {
+						"revision": {
 							"type": "integer"
 						}
 					},
-					"required": ["id", "version"]
+					"required": ["id", "revision"]
 				},
 				"publicationData": {
 					"description": "Publication related information",

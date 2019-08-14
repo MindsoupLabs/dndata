@@ -122,14 +122,14 @@
 					"description": "Various properties that are relevant in our data management system",
 					"type": "object",
 					"properties": {
-						"internalId": {
+						"id": {
 							"type": "integer"
 						},
-						"version": {
+						"revision": {
 							"type": "integer"
 						}
 					},
-					"required": ["internalId", "version"]
+					"required": ["id", "revision"]
 				},
 				"publicationData": {
 					"description": "Publication related information",
@@ -583,10 +583,6 @@
 							"bonus": {
 								"type": "integer"
 							},
-							"against": {
-								"type": "string",
-								"enum": ["AC", "TAC"]
-							},
 							"traits": {
 								"type": "array",
 								"items": {
@@ -615,7 +611,7 @@
 								}
 							}
 						},
-						"required": ["bonus", "against", "traits", "valueTraits"]
+						"required": ["bonus"]
 					},
 					"damage": {
 						"type": "object",
@@ -647,7 +643,7 @@
 								}
 							}
 						},
-						"required": ["damageRolls", "effects"]
+						"required": ["damageRolls"]
 					}
 				},
 				"required": ["type", "name", "attack", "damage"]

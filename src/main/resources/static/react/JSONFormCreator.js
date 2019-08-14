@@ -22,8 +22,12 @@ function initReactForm() {
 function bindEvents() {
 	var jsonForm = $("form.rjsf");
 	var formButton = jsonForm.find("button[type=submit]");
+	// initialise data in form format in jsonInput
+	formButton[0].click();
+
 	var submitButton = $("#submitButton");
 	var jsonInput = $("#jsonInput");
+	var originalJsonData = jsonInput.val();
 	var realForm = $("#realForm");
 	formButton.hide();
 	submitButton.click(function(e) {
@@ -35,7 +39,10 @@ function bindEvents() {
 		if(!realForm[0].reportValidity()) {
 			return;
 		}
-		realForm.submit();
+
+		if(jsonInput.val() != originalJsonData) {
+			realForm.submit();
+		}
 	});
 };
 

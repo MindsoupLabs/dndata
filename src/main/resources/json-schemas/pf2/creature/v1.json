@@ -127,11 +127,11 @@
 						"id": {
 							"type": "integer"
 						},
-						"version": {
+						"revision": {
 							"type": "integer"
 						}
 					},
-					"required": ["id", "version"]
+					"required": ["id", "revision"]
 				},
 				"publicationData": {
 					"description": "Publication related information",
@@ -556,11 +556,6 @@
 							"bonus": {
 								"type": "integer"
 							},
-							"against": {
-								"type": "string",
-								"enum": ["AC", "TAC"],
-								"default": "AC"
-							},
 							"traits": {
 								"type": "array",
 								"items": {
@@ -603,7 +598,7 @@
 								}
 							}
 						},
-						"required": ["bonus", "against", "traits", "valueTraits"]
+						"required": ["bonus"]
 					},
 					"damage": {
 						"type": "object",
@@ -635,7 +630,7 @@
 								}
 							}
 						},
-						"required": ["damageRolls", "effects"]
+						"required": ["damageRolls"]
 					}
 				},
 				"required": ["type", "name", "attack", "damage"]

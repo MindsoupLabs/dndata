@@ -31,5 +31,6 @@ public interface ObjectRepository extends CrudRepository<DataObject, Long> {
 	@Query(value = Constants.SQL.GET_ALL_OBJECTS_IN_BOOK_BY_STATUS, nativeQuery = true)
 	Iterable<DataObject> findAllByBookIdAndStatusIn(@Param("bookId") Long bookId, @Param("statuses") Collection<String> statuses);
 
-	Optional<DataObject> findByIdAndRevision(Long id, Integer revision);
+	@Query(value = "SELECT d FROM DataObject d WHERE id = :id AND revision = :revision")
+	Optional<DataObject> findByIdAndRevision(@Param("id") Long id, @Param("revision") Integer revision);
 }

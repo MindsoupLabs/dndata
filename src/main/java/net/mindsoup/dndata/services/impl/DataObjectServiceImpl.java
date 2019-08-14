@@ -22,8 +22,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -41,14 +44,18 @@ public class DataObjectServiceImpl implements DataObjectService {
 	private JsonValidatorService jsonValidatorService;
 	private ObjectRepository objectRepository;
 	private ObjectStatusRepository objectStatusRepository;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Autowired
 	public DataObjectServiceImpl(JsonValidatorService jsonValidatorService,
 								 ObjectRepository objectRepository,
-								 ObjectStatusRepository objectStatusRepository) {
+								 ObjectStatusRepository objectStatusRepository,
+								 LocalContainerEntityManagerFactoryBean entityManagerFactory) {
 		this.jsonValidatorService = jsonValidatorService;
 		this.objectRepository = objectRepository;
 		this.objectStatusRepository = objectStatusRepository;
+		//entityManager = entityManagerFactory.getObject().createEntityManager();
 	}
 
 	@Override
@@ -103,7 +110,14 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 	@Override
 	public DataObject getForId(Long id) {
+		entityManager.clear();
 		return objectRepository.findLastById(id).orElse(null);
+	}
+
+	@Override
+	public DataObject getForIdAndRevision(Long id, Integer revision) {
+		entityManager.clear();
+		return objectRepository.findByIdAndRevision(id, revision).orElse(null);
 	}
 
 	@Override

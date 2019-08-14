@@ -19,4 +19,5 @@ public interface DataObjectService {
 	Iterable<ObjectStatusDAO> getAllStatusesForObject(DataObject dataObject);
 	List<ObjectStatusWithUser> getAllStatusesWithNamesForObject(DataObject dataObject);
 	DataObject getForId(Long id);
+	DataObject getForIdAndRevision(Long id, Integer revision);
 }
