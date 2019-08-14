@@ -50,12 +50,10 @@ public class DataObjectServiceImpl implements DataObjectService {
 	@Autowired
 	public DataObjectServiceImpl(JsonValidatorService jsonValidatorService,
 								 ObjectRepository objectRepository,
-								 ObjectStatusRepository objectStatusRepository,
-								 LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+								 ObjectStatusRepository objectStatusRepository) {
 		this.jsonValidatorService = jsonValidatorService;
 		this.objectRepository = objectRepository;
 		this.objectStatusRepository = objectStatusRepository;
-		//entityManager = entityManagerFactory.getObject().createEntityManager();
 	}
 
 	@Override
@@ -166,7 +164,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.EDITING);
 		objectStatusRepository.save(objectStatus);
 
-		logger.info(String.format("Updated object '%s' with id %s", dataObject.getName(), dataObject.getId()));
+		logger.info(String.format("Updated object '%s' with id %s, current status: %s", dataObject.getName(), dataObject.getId(), objectStatus.getStatus().name()));
 
 		return dataObject;
 	}

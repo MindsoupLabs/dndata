@@ -1,0 +1,33 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/base}" th:object="${pageModel}">
+	<section layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Review <small>please check this stat block carefully before approving it</small>
+			</h1>
+		</section>
+
+		<!-- Main content -->
+		<section class="content container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="box js-preview-container" id="js-preview-container">
+						<div class="box-header">
+							<h3 class="box-title" th:text="${dataObject.name}"></h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body" th:insert="${'/layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<script type="text/javascript" th:utext="${'var objectJson = ' + dataObject.objectJson + ';'}">jsonSchema</script>
+		<script src="/static/js/preview.js"></script>
+		<script type="text/javascript">
+			document.getElementById("js-preview-container").setAttribute("data-preview-json", JSON.stringify(objectJson));
+		</script>
+	</section>
+</div>

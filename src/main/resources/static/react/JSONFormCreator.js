@@ -7,8 +7,8 @@ const Section = JSONSchemaForm.default;
 const log = (type) => console.log.bind(console, type);
 const onSubmit = ({formData}, e) => $("#jsonInput").val(JSON.stringify(formData));
 const onChange = ({formData}, e) => {
-	$("#js-preview-container").data('changedData', JSON.stringify(formData))
-	$("#js-preview-container").trigger('change');
+	$(".js-preview-container").data('preview-json', JSON.stringify(formData))
+	$(".js-preview-container").trigger('change');
 };
 
 function initReactForm() {
@@ -40,7 +40,7 @@ function bindEvents() {
 			return;
 		}
 
-		if(jsonInput.val() != originalJsonData) {
+		if(jsonInput.val() != originalJsonData || $("#readyForReview")[0].checked) {
 			realForm.submit();
 		}
 	});

@@ -14,8 +14,8 @@ var onSubmit = function onSubmit(_ref, e) {
 var onChange = function onChange(_ref2, e) {
 	var formData = _ref2.formData;
 
-	$("#js-preview-container").data('changedData', JSON.stringify(formData));
-	$("#js-preview-container").trigger('change');
+	$(".js-preview-container").data('preview-json', JSON.stringify(formData));
+	$(".js-preview-container").trigger('change');
 };
 
 function initReactForm() {
@@ -44,7 +44,7 @@ function bindEvents() {
 			return;
 		}
 
-		if (jsonInput.val() != originalJsonData) {
+		if (jsonInput.val() != originalJsonData || $("#readyForReview")[0].checked) {
 			realForm.submit();
 		}
 	});

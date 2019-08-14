@@ -31,7 +31,7 @@
 									<td th:text="${object.revision}">#</td>
 									<td th:text="${object.name}">name</td>
 									<td th:text="${object.type}">type</td>
-									<td><a th:href="@{'/ui/review/' + ${object.id}}" class="btn btn-sm btn-xs btn-info">Review</a></td>
+									<td><a th:href="@{'/ui/review/' + ${object.id} + '/' + ${object.revision}}" class="btn btn-sm btn-xs btn-info">Review</a></td>
 								</tr>
 								</tbody>
 							</table>

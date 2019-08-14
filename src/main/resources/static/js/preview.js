@@ -1,16 +1,32 @@
 window.onload = function() {
-	$("#js-preview-container").change(function() {
-		try {
-			var jsonData = JSON.parse($("#js-preview-container").data('changedData'));
-			$(this).find(".js-preview").each(function(index, element) {
-				var previewKey = $(element).data('preview-key');
-				$(element).html(getDataByPath(previewKey, jsonData));
-			});
-		} catch (error) {
-			// do nothing
-		}
+	$('.js-preview-container').each(function() {
+		$(this).change(function() {
+			renderPreview($(this));
+		});
+		renderPreview($(this));
 	});
 };
+
+function renderPreview(element) {
+	try {
+		var jsonData = $(element).data('preview-json');
+
+		if(!jsonData) {
+			return;
+		}
+
+		if(typeof jsonData == 'string') {
+			jsonData = JSON.parse(jsonData);
+		}
+
+		$(element).find(".js-preview").each(function(index, element) {
+			var previewKey = $(element).data('preview-key');
+			$(element).html(getDataByPath(previewKey, jsonData));
+		});
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 function getDataByPath(path, data) {
 	var paths = path.split('.');
