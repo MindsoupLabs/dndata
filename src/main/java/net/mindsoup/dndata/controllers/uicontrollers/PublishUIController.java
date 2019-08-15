@@ -10,6 +10,7 @@ import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.DataObjectService;
 import net.mindsoup.dndata.services.PublishDataService;
+import net.mindsoup.dndata.services.PublishingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Valentijn on 7-8-2019
@@ -31,15 +30,13 @@ import java.util.List;
 @ApiIgnore
 public class PublishUIController extends BaseUIController{
 
-	private DataObjectService dataObjectService;
 	private BookService bookService;
-	private PublishDataService publishDataService;
+	private PublishingService publishingService;
 
 	@Autowired
-	public PublishUIController(BookService bookService, DataObjectService dataObjectService, PublishDataService publishDataService) {
-		this.dataObjectService = dataObjectService;
+	public PublishUIController(BookService bookService, PublishingService publishingService) {
 		this.bookService = bookService;
-		this.publishDataService = publishDataService;
+		this.publishingService = publishingService;
 	}
 
 	@Secured({Constants.Rights.PF2.PUBLISH})
@@ -49,14 +46,7 @@ public class PublishUIController extends BaseUIController{
 
 		List<BookWithObjects> booksWithObjects = new LinkedList<>();
 		for(Book book : books) {
-			PublishData publishData = publishDataService.getMostRecentPublishDataForBook(book);
-			Date updatedSince = new Date(0);
-
-			if(publishData != null) {
-				updatedSince = publishData.getPublishedDate();
-			}
-
-			List<DataObject> objects = dataObjectService.getObjectsReadyForPublishingForBook(book.getId(), updatedSince);
+			List<DataObject> objects = publishingService.getPublishableDataForBook(book);
 
 			if(!objects.isEmpty()) {
 				booksWithObjects.add(new BookWithObjects(book, objects));
