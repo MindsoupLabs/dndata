@@ -62,7 +62,7 @@ public class ReviewUIController extends BaseUIController {
 			List<DataObject> dataObjects = new LinkedList<>();
 			dataObjectService.getAllForBookAndStatuses(book.getId(), Collections.singletonList(ObjectStatus.AWAITING_REVIEW)).forEach(dataObjects::add);
 			bookWithObjects.setObjects(dataObjects);
-			if(bookWithObjects.getObjects().size() > 0) {
+			if(!bookWithObjects.getObjects().isEmpty()) {
 				booksWithObjects.add(bookWithObjects);
 			}
 		}

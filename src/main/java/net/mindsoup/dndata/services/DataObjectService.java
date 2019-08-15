@@ -1,11 +1,13 @@
 package net.mindsoup.dndata.services;
 
 import net.mindsoup.dndata.enums.ObjectStatus;
+import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.DataObjectwithStatus;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,4 +23,6 @@ public interface DataObjectService {
 	DataObject getForId(Long id);
 	DataObject getForIdAndRevision(Long id, Integer revision);
 	ObjectStatusDAO getStatusById(Long id);
+	List<DataObject> getObjectsReadyForPublishingForBook(Long bookId, Date updatedSince);
+	List<DataObject> getObjectsReadyForPublishingForType(ObjectType type, Date updatedSince);
 }

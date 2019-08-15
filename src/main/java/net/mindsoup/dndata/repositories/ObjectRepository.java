@@ -1,6 +1,8 @@
 package net.mindsoup.dndata.repositories;
 
 import net.mindsoup.dndata.Constants;
+import net.mindsoup.dndata.enums.ObjectStatus;
+import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.DataObjectwithStatus;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -33,4 +36,10 @@ public interface ObjectRepository extends CrudRepository<DataObject, Long> {
 
 	@Query(value = "SELECT d FROM DataObject d WHERE id = :id AND revision = :revision")
 	Optional<DataObject> findByIdAndRevision(@Param("id") Long id, @Param("revision") Integer revision);
+
+	@Query(value = "SELECT d, s FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.bookId = :bookId AND s.status = :status AND s.date > :date ORDER BY d.type, d.name")
+	Iterable<Object[]> findObjectAndStatusByBookAndStatusTypeAndAfterDate(@Param("bookId") Long bookId, @Param("status") ObjectStatus status, @Param("date") Date date);
+
+	@Query(value = "SELECT d, s FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.type = :type AND s.status = :status AND s.date > :date ORDER BY d.type, d.name")
+	Iterable<Object[]> findObjectAndStatusByTypeAndStatusTypeAndAfterDate(@Param("type") ObjectType type, @Param("status") ObjectStatus status, @Param("date") Date date);
 }

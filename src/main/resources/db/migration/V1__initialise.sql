@@ -76,30 +76,17 @@ CREATE TABLE `object_status` (
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE);
 
-CREATE TABLE `changesets` (
+CREATE TABLE `publish_data` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `published_date` TIMESTAMP NOT NULL,
-  `publisher_user_id` BIGINT UNSIGNED NOT NULL,
-  `comment` TEXT(4096) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `book_id` BIGINT UNSIGNED NULL,
+  `revision` INT UNSIGNED NOT NULL,
+  `published_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_changesets_user_id`
-    FOREIGN KEY (`publisher_user_id`)
-    REFERENCES `users` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE);
-
-CREATE TABLE `changes` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `changeset_id` BIGINT UNSIGNED NOT NULL,
-  `object_id` BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_changes_changeset_id`
-    FOREIGN KEY (`changeset_id`)
-    REFERENCES `changesets` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_changes_object_id`
-    FOREIGN KEY (`object_id`)
-    REFERENCES `objects` (`id`)
-    ON DELETE RESTRICT
+  INDEX `name_index` (`name`),
+  INDEX `book_id_index` (`book_id`),
+  CONSTRAINT `fk_book_id`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `books` (`id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE);

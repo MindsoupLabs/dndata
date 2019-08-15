@@ -8,6 +8,7 @@ import net.mindsoup.dndata.exceptions.SecurityException;
 import net.mindsoup.dndata.exceptions.UserInputException;
 import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
+import net.mindsoup.dndata.models.DataObjectAndObjectStatus;
 import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.DataObjectwithStatus;
@@ -22,13 +23,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -126,6 +127,22 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	@Override
+	public List<DataObject> getObjectsReadyForPublishingForBook(Long bookId, Date updatedSince) {
+		Iterable<Object[]> results = objectRepository.findObjectAndStatusByBookAndStatusTypeAndAfterDate(bookId, ObjectStatus.REVIEWED, updatedSince);
+		List<DataObjectAndObjectStatus> interpretedResults = convertObjectArrayToObject(results);
+
+		return interpretedResults.stream().map(DataObjectAndObjectStatus::getDataObject).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<DataObject> getObjectsReadyForPublishingForType(ObjectType type, Date updatedSince) {
+		Iterable<Object[]> results = objectRepository.findObjectAndStatusByTypeAndStatusTypeAndAfterDate(type, ObjectStatus.REVIEWED, updatedSince);
+		List<DataObjectAndObjectStatus> interpretedResults = convertObjectArrayToObject(results);
+
+		return interpretedResults.stream().map(DataObjectAndObjectStatus::getDataObject).collect(Collectors.toList());
+	}
+
+	@Override
 	public List<ObjectStatusWithUser> getAllStatusesWithNamesForObject(DataObject dataObject) {
 		List<ObjectStatusWithUser> returnList = new LinkedList<>();
 		Iterable<Object[]> objects = objectStatusRepository.findAllStatusesWithNameByObjectId(dataObject.getId());
@@ -207,5 +224,11 @@ public class DataObjectServiceImpl implements DataObjectService {
 		objectRepository.saveInsert(dataObject.getId(), dataObject.getRevision(), dataObject.getObjectJson(), dataObject.getSchemaVersion(), dataObject.getName(), dataObject.getType().toString(), dataObject.getBookId());
 
 		return dataObject;
+	}
+
+	private List<DataObjectAndObjectStatus> convertObjectArrayToObject(Iterable<Object[]> result) {
+		List<DataObjectAndObjectStatus> interpretedResults = new LinkedList<>();
+		result.forEach(ar -> interpretedResults.add(new DataObjectAndObjectStatus((DataObject)ar[0], (ObjectStatusDAO)ar[1])));
+		return interpretedResults;
 	}
 }

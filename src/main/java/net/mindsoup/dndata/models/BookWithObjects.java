@@ -12,6 +12,14 @@ public class BookWithObjects {
 	private Book book;
 	private List<DataObject> objects;
 
+	public BookWithObjects() {
+	}
+
+	public BookWithObjects(Book book, List<DataObject> objects) {
+		this.book = book;
+		this.objects = objects;
+	}
+
 	public Book getBook() {
 		return book;
 	}
