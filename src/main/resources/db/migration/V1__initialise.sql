@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `dndata`;
 
-CREATE TABLE `dndata`.`books` (
+CREATE TABLE `books` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` TINYTEXT NOT NULL,
   `publisher` TINYTEXT NOT NULL,
@@ -9,10 +9,10 @@ CREATE TABLE `dndata`.`books` (
   PRIMARY KEY (`id`),
   INDEX `game_index` (`game`));
 
-CREATE TABLE `dndata`.`objects` (
+CREATE TABLE `objects` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `revision` INT UNSIGNED NOT NULL DEFAULT 1,
-  `json` JSON NOT NULL,
+  `json` MEDIUMTEXT NOT NULL,
   `schema_version` INT NOT NULL DEFAULT 1,
   `name` VARCHAR(255) NOT NULL,
   `type` ENUM('CREATURE', 'FEAT', 'ITEM', 'SPELL') NOT NULL,
@@ -23,11 +23,11 @@ CREATE TABLE `dndata`.`objects` (
   INDEX `name_index` (`name`),
   CONSTRAINT `fk_objects_book_id`
 	FOREIGN KEY (`book_id`)
-	REFERENCES `dndata`.`books` (`id`)
+	REFERENCES `books` (`id`)
 	ON DELETE RESTRICT
 	ON UPDATE CASCADE);
 
-CREATE TABLE `dndata`.`users` (
+CREATE TABLE `users` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` TINYTEXT NOT NULL,
   `email` VARCHAR(255) NOT NULL,
@@ -40,22 +40,22 @@ CREATE TABLE `dndata`.`users` (
   INDEX `claim_index` (`claim_object_id`),
   CONSTRAINT `fk_user_claim_object_id`
       FOREIGN KEY (`claim_object_id`)
-      REFERENCES `dndata`.`objects` (`id`)
+      REFERENCES `objects` (`id`)
       ON DELETE SET NULL
       ON UPDATE CASCADE);
 
-CREATE TABLE `dndata`.`user_rights` (
+CREATE TABLE `user_rights` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT UNSIGNED NOT NULL,
   `role` ENUM('ROLE_PF2_EDIT', 'ROLE_PF2_REVIEW', 'ROLE_PF2_BOOKS', 'ROLE_PF2_PUBLISH', 'ROLE_PF2_MANAGE_USERS') NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_user_rights_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `dndata`.`users` (`id`)
+    REFERENCES `users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-CREATE TABLE `dndata`.`object_status` (
+CREATE TABLE `object_status` (
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`status` ENUM('CREATED', 'EDITING', 'AWAITING_REVIEW', 'REVIEWED', 'PUBLISHED', 'DELETED') NOT NULL DEFAULT 'CREATED',
 	`comment` TEXT(4096) NOT NULL,
@@ -67,16 +67,16 @@ CREATE TABLE `dndata`.`object_status` (
 	UNIQUE INDEX `id_UNIQUE` (`id`),
 	CONSTRAINT `fk_object_status_object`
 		FOREIGN KEY (`object_id`, `object_revision`)
-		REFERENCES `dndata`.`objects` (`id`, `revision`)
+		REFERENCES `objects` (`id`, `revision`)
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE,
 	CONSTRAINT `fk_object_status_editor`
 		FOREIGN KEY (`editor_id`)
-		REFERENCES `dndata`.`users` (`id`)
+		REFERENCES `users` (`id`)
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE);
 
-CREATE TABLE `dndata`.`changesets` (
+CREATE TABLE `changesets` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `published_date` TIMESTAMP NOT NULL,
   `publisher_user_id` BIGINT UNSIGNED NOT NULL,
@@ -84,22 +84,22 @@ CREATE TABLE `dndata`.`changesets` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_changesets_user_id`
     FOREIGN KEY (`publisher_user_id`)
-    REFERENCES `dndata`.`users` (`id`)
+    REFERENCES `users` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
-CREATE TABLE `dndata`.`changes` (
+CREATE TABLE `changes` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `changeset_id` BIGINT UNSIGNED NOT NULL,
   `object_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_changes_changeset_id`
     FOREIGN KEY (`changeset_id`)
-    REFERENCES `dndata`.`changesets` (`id`)
+    REFERENCES `changesets` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_changes_object_id`
     FOREIGN KEY (`object_id`)
-    REFERENCES `dndata`.`objects` (`id`)
+    REFERENCES `objects` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
