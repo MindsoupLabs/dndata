@@ -3,8 +3,6 @@ package net.mindsoup.dndata.helpers;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectType;
 
-import java.io.File;
-
 /**
  * Created by Valentijn on 3-8-2019
  */

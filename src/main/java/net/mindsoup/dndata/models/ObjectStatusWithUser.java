@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.models;
 
-import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.models.dao.ObjectStatusDAO;
 import net.mindsoup.dndata.models.dao.User;
 

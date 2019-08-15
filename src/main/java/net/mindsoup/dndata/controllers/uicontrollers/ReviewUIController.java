@@ -1,14 +1,10 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
-import com.google.gson.Gson;
 import net.mindsoup.dndata.Constants;
-import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.PageType;
-import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
-import net.mindsoup.dndata.models.DataObjectUpdate;
 import net.mindsoup.dndata.models.ReviewResult;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
@@ -17,18 +13,18 @@ import net.mindsoup.dndata.models.dao.User;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.DataObjectService;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

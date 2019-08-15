@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Valentijn on 7-8-2019

@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.services;
 
-import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
 

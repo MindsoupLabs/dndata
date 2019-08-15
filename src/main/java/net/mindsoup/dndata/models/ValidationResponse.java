@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.models;
 
-import net.mindsoup.dndata.exceptions.JsonValidationException;
 import org.everit.json.schema.ValidationException;
 
 import java.util.LinkedList;
