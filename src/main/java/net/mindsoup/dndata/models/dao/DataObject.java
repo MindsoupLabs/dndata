@@ -1,22 +1,26 @@
 package net.mindsoup.dndata.models.dao;
 
 import net.mindsoup.dndata.enums.ObjectType;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by Valentijn on 3-8-2019
  */
 @Entity
 @Table(name = "objects")
-public class DataObject implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+public class DataObject {
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
+	@Type(type = "uuid-char")
+	@GeneratedValue( generator = "uuid2" )
+	@GenericGenerator( name = "uuid2", strategy = "uuid2" )
+	@Column(name = "internal_id")
+	private UUID internalId;
+	private Integer id;
 	private Integer revision;
 	@Column(name = "json")
 	private String objectJson = "{}";
@@ -27,11 +31,11 @@ public class DataObject implements Serializable {
 	private ObjectType type;
 	private Long bookId;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -81,5 +85,13 @@ public class DataObject implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public UUID getInternalId() {
+		return internalId;
+	}
+
+	public void setInternalId(UUID internalId) {
+		this.internalId = internalId;
 	}
 }

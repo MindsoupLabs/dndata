@@ -20,7 +20,7 @@ public class User {
 	private String password;
 	private boolean active;
 	@Column(name = "claim_object_id")
-	private Long claimObjectId;
+	private Integer claimObjectId;
 	@Column(name = "claim_date")
 	private Date claimDate;
 
@@ -86,11 +86,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Long getClaimObjectId() {
+	public Integer getClaimObjectId() {
 		return claimObjectId;
 	}
 
-	public void setClaimObjectId(Long claimObjectId) {
+	public void setClaimObjectId(Integer claimObjectId) {
 		this.claimObjectId = claimObjectId;
 	}
 

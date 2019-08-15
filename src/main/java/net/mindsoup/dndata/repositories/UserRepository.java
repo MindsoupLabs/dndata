@@ -16,10 +16,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Optional<User> findByEmail(String email);
 
 
-	Optional<User> findByClaimObjectId(Long objectId);
+	Optional<User> findByClaimObjectId(Integer objectId);
 	@Modifying
 	@Query(value = "UPDATE User SET claimDate = :date, claimObjectId = :objectId WHERE id = :userId")
-	void claimObject(Long userId, Long objectId, Date date);
+	void claimObject(Long userId, Integer objectId, Date date);
 	@Modifying
 	@Query(value = "UPDATE User SET claimDate = NULL, claimObjectId = NULL WHERE claimDate < :expireDate")
 	void deleteExpiredClaims(Date expireDate);

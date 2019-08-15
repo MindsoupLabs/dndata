@@ -88,7 +88,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 		result.forEach(a -> {
 			DataObjectwithStatus resultObject = new DataObjectwithStatus();
-			resultObject.setId( ((BigInteger)a[0]).longValueExact() );
+			resultObject.setId( (Integer)a[0] );
 			resultObject.setRevision((Integer)a[1]);
 			resultObject.setObjectJson((String)a[2]);
 			resultObject.setSchemaVersion((Integer)a[3]);
@@ -110,13 +110,13 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	@Override
-	public DataObject getForId(Long id) {
+	public DataObject getForId(Integer id) {
 		entityManager.clear();
 		return objectRepository.findLastById(id).orElse(null);
 	}
 
 	@Override
-	public DataObject getForIdAndRevision(Long id, Integer revision) {
+	public DataObject getForIdAndRevision(Integer id, Integer revision) {
 		entityManager.clear();
 		return objectRepository.findByIdAndRevision(id, revision).orElse(null);
 	}
@@ -163,6 +163,8 @@ public class DataObjectServiceImpl implements DataObjectService {
 
 		dataObject.setRevision(1);
 		dataObject = objectRepository.save(dataObject);
+		entityManager.clear();
+		dataObject = objectRepository.findById(dataObject.getInternalId()).orElse(null);
 
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.CREATED);
 		objectStatusRepository.save(objectStatus);
@@ -183,7 +185,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 		}
 
 		dataObject.setRevision(dataObject.getRevision() + 1);
-		dataObject = insertUpdate(dataObject);
+		dataObject = objectRepository.save(dataObject);
 
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.EDITING);
 		objectStatusRepository.save(objectStatus);

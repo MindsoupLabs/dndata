@@ -20,8 +20,8 @@ public interface DataObjectService {
 	Iterable<DataObjectwithStatus> getAllForBookAndStatuses(Long bookId, List<ObjectStatus> statuses);
 	Iterable<ObjectStatusDAO> getAllStatusesForObject(DataObject dataObject);
 	List<ObjectStatusWithUser> getAllStatusesWithNamesForObject(DataObject dataObject);
-	DataObject getForId(Long id);
-	DataObject getForIdAndRevision(Long id, Integer revision);
+	DataObject getForId(Integer id);
+	DataObject getForIdAndRevision(Integer id, Integer revision);
 	ObjectStatusDAO getStatusById(Long id);
 	List<DataObject> getObjectsReadyForPublishingForBook(Long bookId, Date updatedSince);
 	List<DataObject> getObjectsReadyForPublishingForType(ObjectType type, Date updatedSince);

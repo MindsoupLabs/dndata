@@ -10,8 +10,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ObjectStatusRepository extends CrudRepository<ObjectStatusDAO, Long> {
 	Iterable<ObjectStatusDAO> findAllByObjectIdAndObjectRevision(Long objectId, Integer objectRevision);
-	Iterable<ObjectStatusDAO> findAllByObjectId(Long objectId);
+	Iterable<ObjectStatusDAO> findAllByObjectId(Integer objectId);
 
 	@Query(value = "SELECT s, u FROM ObjectStatusDAO s JOIN User u ON s.editorId = u.id WHERE s.objectId = :objectId ORDER BY s.date DESC, s.id DESC")
-	Iterable<Object[]> findAllStatusesWithNameByObjectId(@Param("objectId") Long objectId);
+	Iterable<Object[]> findAllStatusesWithNameByObjectId(@Param("objectId") Integer objectId);
 }

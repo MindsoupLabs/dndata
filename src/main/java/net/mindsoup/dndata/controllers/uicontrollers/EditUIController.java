@@ -75,7 +75,7 @@ public class EditUIController extends BaseUIController {
 
 	@Secured({Constants.Rights.PF2.EDIT})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String edit(Model model, @PathVariable(value = "id") Long id, @RequestParam(value = "rev", required = false) Integer revision) throws IOException {
+	public String edit(Model model, @PathVariable(value = "id") Integer id, @RequestParam(value = "rev", required = false) Integer revision) throws IOException {
 		DataObject dataObject;
 		if(revision == null) {
 			dataObject = dataObjectService.getForId(id);

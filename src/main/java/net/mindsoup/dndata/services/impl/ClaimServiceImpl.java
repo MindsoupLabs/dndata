@@ -21,13 +21,13 @@ public class ClaimServiceImpl implements ClaimService {
 	}
 
 	@Override
-	public User getClaimOn(Long objectId) {
+	public User getClaimOn(Integer objectId) {
 		return userRepository.findByClaimObjectId(objectId).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public boolean claim(Long objectId, User user) {
+	public boolean claim(Integer objectId, User user) {
 		User previousClaim = getClaimOn(objectId);
 		if(previousClaim != null) {
 			return false;

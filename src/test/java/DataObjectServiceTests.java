@@ -63,7 +63,7 @@ public class DataObjectServiceTests {
 
 	private DataObject getValidData() throws IOException {
 		DataObject dataObject = new DataObject();
-		dataObject.setId(1L);
+		dataObject.setId(1);
 		dataObject.setBookId(1L);
 		dataObject.setType(ObjectType.CREATURE);
 		dataObject.setName("creature");

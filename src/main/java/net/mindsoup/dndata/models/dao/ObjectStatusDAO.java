@@ -20,7 +20,7 @@ public class ObjectStatusDAO {
 	@Column(name = "editor_id")
 	private Long editorId;
 	@Column(name = "object_id")
-	private Long objectId;
+	private Integer objectId;
 	@Column(name = "object_revision")
 	private Integer objectRevision;
 
@@ -59,11 +59,11 @@ public class ObjectStatusDAO {
 		this.editorId = editorId;
 	}
 
-	public Long getObjectId() {
+	public Integer getObjectId() {
 		return objectId;
 	}
 
-	public void setObjectId(Long objectId) {
+	public void setObjectId(Integer objectId) {
 		this.objectId = objectId;
 	}
 

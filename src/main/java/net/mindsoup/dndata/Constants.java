@@ -22,7 +22,7 @@ public abstract class Constants {
 	public abstract static class Comments {
 		public static final String AUTO_COMMENT_PREFIX = "(Auto generated comment) ";
 		public static final String OBJECT_CREATED = "Data object created";
-		public static final String READY_FOR_REVIEW = "Ready for review";
+		public static final String READY_FOR_REVIEW = "Submitted for review";
 		public static final String REVIEW_APPROVED = "Review approved";
 	}
 
@@ -31,8 +31,8 @@ public abstract class Constants {
 			public static final String CREATED = "bg-fuchsia";
 			public static final String EDITING = "bg-yellow";
 			public static final String AWAITING_REVIEW = "bg-purple";
-			public static final String REVIEWED = "bg-green";
-			public static final String PUBLISHED = "bg-blue";
+			public static final String REVIEWED = "bg-blue";
+			public static final String PUBLISHED = "bg-green";
 			public static final String DELETED = "bg-red";
 		}
 

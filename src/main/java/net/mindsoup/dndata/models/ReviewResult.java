@@ -6,7 +6,7 @@ package net.mindsoup.dndata.models;
 public class ReviewResult {
 
 	private String comment;
-	private Long id;
+	private Integer id;
 	private Integer revision;
 	private String action;
 	private Long statusId;
@@ -19,11 +19,11 @@ public class ReviewResult {
 		this.comment = comment;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
