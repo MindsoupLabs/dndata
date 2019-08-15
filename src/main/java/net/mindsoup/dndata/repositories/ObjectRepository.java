@@ -10,10 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Valentijn on 3-8-2019
@@ -31,15 +28,18 @@ public interface ObjectRepository extends CrudRepository<DataObject, UUID> {
 	@Query(value = Constants.SQL.GET_ALL_OBJECTS_IN_BOOK_BY_STATUS, nativeQuery = true)
 	Iterable<Object[]> findAllByBookIdAndStatusInAsObjectArray(@Param("bookId") Long bookId, @Param("statuses") Collection<String> statuses);
 
-	@Query(value = Constants.SQL.GET_ALL_OBJECTS_IN_BOOK_BY_STATUS, nativeQuery = true)
-	Iterable<DataObject> findAllByBookIdAndStatusIn(@Param("bookId") Long bookId, @Param("statuses") Collection<String> statuses);
-
 	@Query(value = "SELECT d FROM DataObject d WHERE id = :id AND revision = :revision")
 	Optional<DataObject> findByIdAndRevision(@Param("id") Integer id, @Param("revision") Integer revision);
 
 	@Query(value = "SELECT d, s FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.bookId = :bookId AND s.status = :status AND s.date > :date ORDER BY d.type, d.name")
 	Iterable<Object[]> findObjectAndStatusByBookAndStatusTypeAndAfterDate(@Param("bookId") Long bookId, @Param("status") ObjectStatus status, @Param("date") Date date);
 
-	@Query(value = "SELECT d, s FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.type = :type AND s.status = :status AND s.date > :date ORDER BY d.type, d.name")
-	Iterable<Object[]> findObjectAndStatusByTypeAndStatusTypeAndAfterDate(@Param("type") ObjectType type, @Param("status") ObjectStatus status, @Param("date") Date date);
+	@Query(value = "SELECT d FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.type = :type AND s.status IN :status ORDER BY d.name")
+	Iterable<DataObject> findObjectByTypeAndStatusTypeIn(@Param("type") ObjectType type, @Param("status") List<ObjectStatus> statuses);
+
+	@Query(value = "SELECT d FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE d.bookId = :bookId AND s.status IN :status ORDER BY d.name")
+	Iterable<DataObject> findObjectsByBookAndStatusTypeIn(@Param("bookId") Long bookId, @Param("status") List<ObjectStatus> statuses);
+
+	@Query(value = "SELECT d FROM DataObject d JOIN ObjectStatusDAO s ON d.id = s.objectId AND d.revision = s.objectRevision WHERE s.status IN :status ORDER BY d.name")
+	Iterable<DataObject> findObjectsByStatusTypeIn(@Param("status") List<ObjectStatus> statuses);
 }

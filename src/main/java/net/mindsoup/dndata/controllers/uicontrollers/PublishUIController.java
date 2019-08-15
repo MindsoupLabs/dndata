@@ -5,17 +5,15 @@ import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.models.BookWithObjects;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
-import net.mindsoup.dndata.models.dao.PublishData;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
-import net.mindsoup.dndata.services.DataObjectService;
-import net.mindsoup.dndata.services.PublishDataService;
 import net.mindsoup.dndata.services.PublishingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
@@ -46,7 +44,7 @@ public class PublishUIController extends BaseUIController{
 
 		List<BookWithObjects> booksWithObjects = new LinkedList<>();
 		for(Book book : books) {
-			List<DataObject> objects = publishingService.getPublishableDataForBook(book);
+			List<DataObject> objects = publishingService.getUnpublishedDataForBook(book);
 
 			if(!objects.isEmpty()) {
 				booksWithObjects.add(new BookWithObjects(book, objects));
@@ -56,6 +54,14 @@ public class PublishUIController extends BaseUIController{
 		model.addAttribute("booksWithObjects", booksWithObjects);
 
 		return "publish/index";
+	}
+
+	@Secured({Constants.Rights.PF2.PUBLISH})
+	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+	public String publish(Model model, @PathVariable(value = "id") Long id) {
+		Book book = bookService.getBookById(id);
+		publishingService.publish(book);
+		return "redirect:/ui/publish/";
 	}
 
 	@ModelAttribute("pageModel")

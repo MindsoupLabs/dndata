@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.services;
 
+import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
 
@@ -10,5 +11,5 @@ import java.util.List;
  */
 public interface PublishingService {
 	void publish(Book book);
-	List<DataObject> getPublishableDataForBook(Book book);
+	List<DataObject> getUnpublishedDataForBook(Book book);
 }

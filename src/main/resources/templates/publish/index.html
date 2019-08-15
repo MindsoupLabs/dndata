@@ -13,6 +13,7 @@
 				<div class="col-md-6 col-sm-12 col-xs-12"  th:each="bookWithObjects: ${booksWithObjects}">
 					<div class="box">
 						<div class="box-header">
+							<a th:href="@{'/ui/publish/' + ${bookWithObjects.book.id}}" class="btn btn-xs btn-warning pull-right">Publish</a>
 							<h3 class="box-title" th:text="${bookWithObjects.book.name + ' (' + bookWithObjects.objects.size() + ' Objects)'}"></h3>
 						</div>
 						<!-- /.box-header -->

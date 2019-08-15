@@ -28,10 +28,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -127,19 +124,33 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	@Override
-	public List<DataObject> getObjectsReadyForPublishingForBook(Long bookId, Date updatedSince) {
+	public List<DataObject> getUnpublishedObjectsForBook(Long bookId, Date updatedSince) {
 		Iterable<Object[]> results = objectRepository.findObjectAndStatusByBookAndStatusTypeAndAfterDate(bookId, ObjectStatus.REVIEWED, updatedSince);
 		List<DataObjectAndObjectStatus> interpretedResults = convertObjectArrayToObject(results);
 
-		return interpretedResults.stream().map(DataObjectAndObjectStatus::getDataObject).collect(Collectors.toList());
+		List<DataObject> dataObjects = interpretedResults.stream().map(DataObjectAndObjectStatus::getDataObject).collect(Collectors.toList());
+		return filterOutDuplicates(dataObjects);
 	}
 
 	@Override
-	public List<DataObject> getObjectsReadyForPublishingForType(ObjectType type, Date updatedSince) {
-		Iterable<Object[]> results = objectRepository.findObjectAndStatusByTypeAndStatusTypeAndAfterDate(type, ObjectStatus.REVIEWED, updatedSince);
-		List<DataObjectAndObjectStatus> interpretedResults = convertObjectArrayToObject(results);
+	public List<DataObject> getAllPublishableObjectsForType(ObjectType type) {
+		List<DataObject> returnList = new LinkedList<>();
+		objectRepository.findObjectByTypeAndStatusTypeIn(type, Arrays.asList(ObjectStatus.REVIEWED, ObjectStatus.PUBLISHED)).forEach(returnList::add);
+		return filterOutDuplicates(returnList);
+	}
 
-		return interpretedResults.stream().map(DataObjectAndObjectStatus::getDataObject).collect(Collectors.toList());
+	@Override
+	public List<DataObject> getAllPublishableObjectsForBook(Long bookId) {
+		List<DataObject> returnList = new LinkedList<>();
+		objectRepository.findObjectsByBookAndStatusTypeIn(bookId, Arrays.asList(ObjectStatus.REVIEWED, ObjectStatus.PUBLISHED)).forEach(returnList::add);
+		return filterOutDuplicates(returnList);
+	}
+
+	@Override
+	public List<DataObject> getAllPublishableObjects() {
+		List<DataObject> returnList = new LinkedList<>();
+		objectRepository.findObjectsByStatusTypeIn(Arrays.asList(ObjectStatus.REVIEWED, ObjectStatus.PUBLISHED)).forEach(returnList::add);
+		return filterOutDuplicates(returnList);
 	}
 
 	@Override
@@ -232,5 +243,17 @@ public class DataObjectServiceImpl implements DataObjectService {
 		List<DataObjectAndObjectStatus> interpretedResults = new LinkedList<>();
 		result.forEach(ar -> interpretedResults.add(new DataObjectAndObjectStatus((DataObject)ar[0], (ObjectStatusDAO)ar[1])));
 		return interpretedResults;
+	}
+
+	private List<DataObject> filterOutDuplicates(List<DataObject> dataObjects) {
+		Map<Integer, DataObject> objectsMap = new HashMap<>();
+
+		dataObjects.forEach(d -> {
+			if(!objectsMap.containsKey(d.getId()) || objectsMap.get(d.getId()).getRevision() < d.getRevision()) {
+				objectsMap.put(d.getId(), d);
+			}
+		});
+
+		return new LinkedList<>(objectsMap.values());
 	}
 }

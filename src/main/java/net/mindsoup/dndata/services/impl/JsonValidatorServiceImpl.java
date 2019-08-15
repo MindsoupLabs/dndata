@@ -31,7 +31,7 @@ public class JsonValidatorServiceImpl implements JsonValidatorService {
 			schema.validate(new JSONObject(json));
 		} catch (IOException e) {
 			logger.error(String.format("Error loading schema %s: %s", schemaLocation, e.getMessage()));
-			return new ValidationResult(false, e);
+			return new ValidationResult(false, new RuntimeException(e));
 		} catch (ValidationException e) {
 			logger.warn(String.format("Json object %s did not validate against schema %s: %s", json, schemaLocation, e.getCausingExceptions().stream().map(ValidationException::getMessage).collect(Collectors.joining(", "))));
 			return new ValidationResult(false, e);

@@ -23,6 +23,8 @@ public interface DataObjectService {
 	DataObject getForId(Integer id);
 	DataObject getForIdAndRevision(Integer id, Integer revision);
 	ObjectStatusDAO getStatusById(Long id);
-	List<DataObject> getObjectsReadyForPublishingForBook(Long bookId, Date updatedSince);
-	List<DataObject> getObjectsReadyForPublishingForType(ObjectType type, Date updatedSince);
+	List<DataObject> getUnpublishedObjectsForBook(Long bookId, Date updatedSince);
+	List<DataObject> getAllPublishableObjectsForType(ObjectType type);
+	List<DataObject> getAllPublishableObjectsForBook(Long bookId);
+	List<DataObject> getAllPublishableObjects();
 }

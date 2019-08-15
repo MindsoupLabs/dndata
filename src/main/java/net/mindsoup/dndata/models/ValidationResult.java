@@ -5,13 +5,13 @@ package net.mindsoup.dndata.models;
  */
 public class ValidationResult {
 	private boolean valid;
-	private Exception validationException;
+	private RuntimeException validationException;
 
 	public ValidationResult(boolean isValid) {
 		this.valid = isValid;
 	}
 
-	public ValidationResult(boolean isValid, Exception exception) {
+	public ValidationResult(boolean isValid, RuntimeException exception) {
 		this.valid = isValid;
 		this.validationException = exception;
 	}
@@ -20,7 +20,7 @@ public class ValidationResult {
 		return valid;
 	}
 
-	public Exception getValidationException() {
+	public RuntimeException getValidationException() {
 		return validationException;
 	}
 }
