@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.services.impl;
 
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.repositories.BookRepository;
 import net.mindsoup.dndata.services.BookService;
@@ -17,10 +18,14 @@ public class BookServiceImpl implements BookService {
 		this.bookRepository = repository;
 	}
 
-
 	@Override
 	public Iterable<Book> getAllBooks() {
 		return bookRepository.findAll();
+	}
+
+	@Override
+	public Iterable<Book> getAllBooksByGame(Game game) {
+		return bookRepository.findByGame(game);
 	}
 
 	@Override

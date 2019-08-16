@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.services;
 
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.models.dao.Book;
 
 /**
@@ -7,6 +8,7 @@ import net.mindsoup.dndata.models.dao.Book;
  */
 public interface BookService {
 	Iterable<Book> getAllBooks();
+	Iterable<Book> getAllBooksByGame(Game game);
 	Book getBookById(Long id);
 	Book save(Book book);
 }

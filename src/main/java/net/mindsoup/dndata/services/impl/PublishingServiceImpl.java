@@ -73,7 +73,7 @@ public class PublishingServiceImpl implements PublishingService {
 		}
 
 		logger.info("Publishing collection ALL");
-		publishData = getPublishData(Constants.Collections.ALL, book.getGame());
+		publishData = getPublishData(Constants.Collections.COLLECTION_ALL, book.getGame());
 		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), publishData));
 
 		updatePublishedStatusForObjects(objectsInThisBook);
@@ -87,7 +87,7 @@ public class PublishingServiceImpl implements PublishingService {
 	}
 
 	private PublishData getPublishData(String name, Game game) {
-		int revision = getRevisionFromPublishData(publishDataService.getMostRecentPublishDataForName(name));
+		int revision = getRevisionFromPublishData(publishDataService.getMostRecentPublishDataForName(game, name));
 
 		return getPublishData(game, revision, slugify.slugify(name));
 	}

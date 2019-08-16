@@ -84,6 +84,7 @@ CREATE TABLE `publish_data` (
   `book_id` BIGINT UNSIGNED NULL,
   `revision` INT UNSIGNED NOT NULL,
   `published_date` DATETIME NOT NULL,
+  `update_message` TEXT NULL
   PRIMARY KEY (`id`),
   INDEX `name_index` (`name`),
   INDEX `book_id_index` (`book_id`),

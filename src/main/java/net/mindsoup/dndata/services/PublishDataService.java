@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.services;
 
-import net.mindsoup.dndata.enums.ObjectType;
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.PublishData;
 
@@ -10,8 +10,7 @@ import net.mindsoup.dndata.models.dao.PublishData;
 public interface PublishDataService {
 
 	PublishData getMostRecentPublishDataForBook(Book book);
-	PublishData getMostRecentPublishDataForType(ObjectType type);
-	PublishData getMostRecentPublishDataForName(String name);
+	PublishData getMostRecentPublishDataForName(Game game, String name);
 
 	void save(PublishData publishData);
 }

@@ -20,6 +20,7 @@ public class PublishData {
 	private Long bookId;
 	private Integer revision;
 	private Date publishedDate;
+	private String updateMessage;
 
 	public Long getId() {
 		return id;
@@ -67,5 +68,13 @@ public class PublishData {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public String getUpdateMessage() {
+		return updateMessage;
+	}
+
+	public void setUpdateMessage(String updateMessage) {
+		this.updateMessage = updateMessage;
 	}
 }

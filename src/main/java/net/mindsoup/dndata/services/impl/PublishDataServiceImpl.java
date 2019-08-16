@@ -1,6 +1,6 @@
 package net.mindsoup.dndata.services.impl;
 
-import net.mindsoup.dndata.enums.ObjectType;
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.PublishData;
 import net.mindsoup.dndata.repositories.PublishDataRepository;
@@ -21,17 +21,12 @@ public class PublishDataServiceImpl implements PublishDataService {
 
 	@Override
 	public PublishData getMostRecentPublishDataForBook(Book book) {
-		return publishDataRepository.findFirstByBookIdOrderByIdDesc(book.getId()).orElse(null);
+		return publishDataRepository.findFirstByBookIdAndGameOrderByIdDesc(book.getId(), book.getGame()).orElse(null);
 	}
 
 	@Override
-	public PublishData getMostRecentPublishDataForType(ObjectType type) {
-		return getMostRecentPublishDataForName(type.name());
-	}
-
-	@Override
-	public PublishData getMostRecentPublishDataForName(String name) {
-		return publishDataRepository.findFirstByNameOrderByIdDesc(name).orElse(null);
+	public PublishData getMostRecentPublishDataForName(Game game, String name) {
+		return publishDataRepository.findFirstByNameAndGameOrderByIdDesc(name, game).orElse(null);
 	}
 
 	@Override
