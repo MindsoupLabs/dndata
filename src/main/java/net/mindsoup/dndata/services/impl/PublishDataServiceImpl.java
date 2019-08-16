@@ -26,7 +26,12 @@ public class PublishDataServiceImpl implements PublishDataService {
 
 	@Override
 	public PublishData getMostRecentPublishDataForType(ObjectType type) {
-		return publishDataRepository.findFirstByNameOrderByIdDesc(type.name()).orElse(null);
+		return getMostRecentPublishDataForName(type.name());
+	}
+
+	@Override
+	public PublishData getMostRecentPublishDataForName(String name) {
+		return publishDataRepository.findFirstByNameOrderByIdDesc(name).orElse(null);
 	}
 
 	@Override

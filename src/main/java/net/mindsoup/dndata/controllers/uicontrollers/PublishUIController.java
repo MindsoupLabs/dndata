@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class PublishUIController extends BaseUIController{
 
 	@Secured({Constants.Rights.PF2.PUBLISH})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String publish(Model model, @PathVariable(value = "id") Long id) {
+	public String publish(Model model, @PathVariable(value = "id") Long id) throws IOException {
 		Book book = bookService.getBookById(id);
 		publishingService.publish(book);
 		return "redirect:/ui/publish/";

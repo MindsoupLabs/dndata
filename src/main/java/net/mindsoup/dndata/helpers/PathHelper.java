@@ -29,4 +29,12 @@ public class PathHelper {
 	public static String getUISchema(Game game, ObjectType type, int version) {
 		return String.format(JSON_SCHEMA_LOCATION + "%s/%s/ui/v%s.uiSchema.json", game.name().toLowerCase(), type.name().toLowerCase(), version);
 	}
+
+	public static String getZipFilePath(Game game, String identifier, int version) {
+		return String.format("%s/%s.%s.zip", game.name().toLowerCase(), identifier, version);
+	}
+
+	public static String getJsonFilePath(String identifier, int version) {
+		return String.format("%s.%s.json", identifier, version);
+	}
 }

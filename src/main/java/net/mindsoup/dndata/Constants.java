@@ -45,4 +45,14 @@ public abstract class Constants {
 			public static final String DELETED = "fa-trash-o";
 		}
 	}
+
+	public abstract static class Collections {
+		public static final String ALL = "all";
+	}
+
+	public abstract static class Files {
+		public static final String TEMP_PREFIX = "temp_";
+		public static final String JSON_SUFFIX = ".json";
+		public static final String ZIP_SUFFIX = ".zip";
+	}
 }

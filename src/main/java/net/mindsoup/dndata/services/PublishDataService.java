@@ -11,6 +11,7 @@ public interface PublishDataService {
 
 	PublishData getMostRecentPublishDataForBook(Book book);
 	PublishData getMostRecentPublishDataForType(ObjectType type);
+	PublishData getMostRecentPublishDataForName(String name);
 
 	void save(PublishData publishData);
 }
