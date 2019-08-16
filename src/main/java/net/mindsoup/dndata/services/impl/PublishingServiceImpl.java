@@ -3,6 +3,7 @@ package net.mindsoup.dndata.services.impl;
 import com.github.slugify.Slugify;
 import com.google.gson.Gson;
 import net.mindsoup.dndata.Constants;
+import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.models.PublishContext;
@@ -74,6 +75,7 @@ public class PublishingServiceImpl implements PublishingService {
 		publishData = getPublishData(Constants.Collections.ALL);
 		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), publishData));
 
+		updatePublishedStatusForObjects(objectsInThisBook);
 		logger.info("Publishing completed");
 	}
 
@@ -161,7 +163,11 @@ public class PublishingServiceImpl implements PublishingService {
 		uploadFile(zipFile, PathHelper.getZipFilePath(context.getGame(), context.getIdentifier(), context.getRevision()));
 		logger.info("Updating publishing data");
 		updatePublishingData(context);
-		logger.info("Updating object status");
+	}
+
+	private void updatePublishedStatusForObjects(List<DataObject> objectsInThisBook) {
+		logger.info("Updating status for published objects");
+		objectsInThisBook.forEach(this::publish);
 	}
 
 	private File writeJsonToFile(Map<ObjectType, List<JSONObject>> data) throws IOException {
@@ -212,5 +218,9 @@ public class PublishingServiceImpl implements PublishingService {
 
 	private void updatePublishingData(PublishContext context) {
 		publishDataService.save(context.getPublishData());
+	}
+
+	private void publish(DataObject o) {
+		dataObjectService.updateStatus(o, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.PUBLISHED, ObjectStatus.PUBLISHED);
 	}
 }
