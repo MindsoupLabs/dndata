@@ -40,6 +40,7 @@ public class PublishUIController extends BaseUIController{
 		this.publishingService = publishingService;
 	}
 
+	@Override
 	@Secured({Constants.Rights.PF2.PUBLISH})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {

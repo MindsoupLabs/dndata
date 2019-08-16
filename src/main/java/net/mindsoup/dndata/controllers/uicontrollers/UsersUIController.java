@@ -37,6 +37,7 @@ public class UsersUIController extends BaseUIController {
 		this.userService = userService;
 	}
 
+	@Override
 	@Secured({Constants.Rights.PF2.MANAGE_USERS})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {

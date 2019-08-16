@@ -1,0 +1,23 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/base}">
+	<section layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Error <small>Something went wrong :(</small>
+			</h1>
+		</section>
+
+		<!-- Main content -->
+		<section class="content container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="alert alert-danger alert-dismissible">
+						<h4><i class="icon fa fa-ban"></i> Error!</h4>
+						<p th:text="${errorMessage}">errormessage</p>
+						<p><a href="javascript:window.history.back();">Go back</a></p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</div>

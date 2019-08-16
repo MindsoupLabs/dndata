@@ -79,6 +79,7 @@ CREATE TABLE `object_status` (
 
 CREATE TABLE `publish_data` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `game` ENUM('PF2') NOT NULL DEFAULT 'PF2',
   `name` VARCHAR(255) NOT NULL,
   `book_id` BIGINT UNSIGNED NULL,
   `revision` INT UNSIGNED NOT NULL,

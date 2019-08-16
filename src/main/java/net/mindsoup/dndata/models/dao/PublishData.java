@@ -1,8 +1,8 @@
 package net.mindsoup.dndata.models.dao;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import net.mindsoup.dndata.enums.Game;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,7 +12,10 @@ import java.util.Date;
 @Table(name = "publish_data")
 public class PublishData {
 	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
+	@Enumerated(EnumType.STRING)
+	private Game game;
 	private String name;
 	private Long bookId;
 	private Integer revision;
@@ -56,5 +59,13 @@ public class PublishData {
 
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

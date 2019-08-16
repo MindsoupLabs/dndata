@@ -9,6 +9,7 @@ import net.mindsoup.dndata.services.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +29,9 @@ public class ProfileController extends BaseUIController {
 		this.userService = userService;
 	}
 
+	@Override
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-	public String index() {
+	public String index(Model model) {
 		return "profile/index";
 	}
 

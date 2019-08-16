@@ -50,6 +50,7 @@ public class EditUIController extends BaseUIController {
 		this.claimService = claimService;
 	}
 
+	@Override
 	@Secured({Constants.Rights.PF2.EDIT})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {

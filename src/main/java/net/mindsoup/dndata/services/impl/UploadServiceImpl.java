@@ -5,6 +5,7 @@ import net.mindsoup.dndata.exceptions.DnDataException;
 import net.mindsoup.dndata.services.UploadService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,24 @@ public class UploadServiceImpl implements UploadService {
 		try {
 			FTPClient client = new FTPClient();
 			client.connect(ftpConfiguration.getServer());
-			client.login(ftpConfiguration.getUsername(), ftpConfiguration.getPassword());
+			boolean successfulLogin = client.login(ftpConfiguration.getUsername(), ftpConfiguration.getPassword());
+			String loginMessage = client.getReplyString();
+			if(!successfulLogin) {
+				logger.warn("Unable to log in to FTP server: " + loginMessage);
+				throw new DnDataException("Unable to log in to FTP server: " + loginMessage);
+			}
+
 			logger.info(String.format("Connected to %s", ftpConfiguration.getServer()));
 			InputStream inputStream = new FileInputStream(file);
-			client.storeFile(remotePath, inputStream);
+			client.setFileType(FTP.BINARY_FILE_TYPE);
+			boolean successCopy = client.storeFile(remotePath, inputStream);
+			String messageCopy = client.getReplyString();
 			client.logout();
-			logger.info(String.format("Copied file %s", file.getAbsolutePath()));
+			if(!successCopy) {
+				logger.warn(String.format("Unable to copy file to FTP server: %s", messageCopy));
+				throw new DnDataException(String.format("Unable to copy file to FTP server: %s", messageCopy));
+			}
+			logger.info("Copied file successfully");
 			inputStream.close();
 		} catch (IOException e) {
 			throw new DnDataException(e);

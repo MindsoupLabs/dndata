@@ -46,6 +46,7 @@ public class ReviewUIController extends BaseUIController {
 		this.dataObjectService = dataObjectService;
 	}
 
+	@Override
 	@Secured({Constants.Rights.PF2.REVIEW})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {

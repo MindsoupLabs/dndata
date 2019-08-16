@@ -12,6 +12,12 @@ public class PageModel {
 	private PageType pageType;
 	private User user;
 
+	public PageModel() {}
+
+	public PageModel(PageType pageType) {
+		this.pageType = pageType;
+	}
+
 	public PageType getPageType() {
 		return pageType;
 	}

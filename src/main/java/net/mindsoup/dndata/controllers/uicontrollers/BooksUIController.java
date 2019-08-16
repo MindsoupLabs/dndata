@@ -33,6 +33,7 @@ public class BooksUIController extends BaseUIController {
 		this.dataObjectService = dataObjectService;
 	}
 
+	@Override
 	@Secured({Constants.Rights.PF2.BOOKS})
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String index(Model model) {

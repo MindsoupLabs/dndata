@@ -3,6 +3,7 @@ package net.mindsoup.dndata.services.impl;
 import com.github.slugify.Slugify;
 import com.google.gson.Gson;
 import net.mindsoup.dndata.Constants;
+import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.helpers.PathHelper;
@@ -67,12 +68,12 @@ public class PublishingServiceImpl implements PublishingService {
 
 		for(ObjectType type : publishingTypes) {
 			logger.info(String.format("Publishing collection %s", type.name()));
-			publishData = getPublishData(type.name());
+			publishData = getPublishData(type.name(), book.getGame());
 			createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForType(type)), new PublishContext(book.getGame(), publishData));
 		}
 
 		logger.info("Publishing collection ALL");
-		publishData = getPublishData(Constants.Collections.ALL);
+		publishData = getPublishData(Constants.Collections.ALL, book.getGame());
 		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), publishData));
 
 		updatePublishedStatusForObjects(objectsInThisBook);
@@ -85,52 +86,43 @@ public class PublishingServiceImpl implements PublishingService {
 		return dataObjectService.getUnpublishedObjectsForBook(book.getId(), updatedSince);
 	}
 
-	private PublishData getPublishData(String name) {
-		PublishData publishData = createPublishDataIfNotExists(
-				publishDataService.getMostRecentPublishDataForName(name),
-				null,
-				slugify.slugify(name),
-				0,
-				new Date());
-		// increase revision
-		publishData.setRevision(publishData.getRevision() + 1);
-		return publishData;
+	private PublishData getPublishData(String name, Game game) {
+		int revision = getRevisionFromPublishData(publishDataService.getMostRecentPublishDataForName(name));
+
+		return getPublishData(game, revision, slugify.slugify(name));
 	}
 
 	private PublishData getPublishData(Book book) {
-		PublishData publishData = createPublishDataIfNotExists(
-				publishDataService.getMostRecentPublishDataForBook(book),
-				book.getId(),
-				slugify.slugify(book.getName()),
-				0,
-				new Date());
-		// increase revision
-		publishData.setRevision(publishData.getRevision() + 1);
+		int revision = getRevisionFromPublishData( publishDataService.getMostRecentPublishDataForBook(book));
+		PublishData publishData = getPublishData(book.getGame(), revision, slugify.slugify(book.getName()));
+		publishData.setBookId(book.getId());
 		return publishData;
 	}
 
-	private PublishData createPublishDataIfNotExists(PublishData publishData, Long bookId, String name, int revision, Date publishDate) {
-		if(publishData != null) {
-			return publishData;
-		}
-
-		publishData = new PublishData();
-		publishData.setBookId(bookId);
+	private PublishData getPublishData(Game game, int revision, String name) {
+		PublishData publishData = new PublishData();
+		publishData.setGame(game);
 		publishData.setName(name);
-		publishData.setRevision(revision);
-		publishData.setPublishedDate(publishDate);
+		publishData.setRevision(revision + 1);
+		publishData.setPublishedDate(new Date());
 
 		return publishData;
+	}
+
+	private int getRevisionFromPublishData(PublishData publishData) {
+		if(publishData != null) {
+			return publishData.getRevision();
+		}
+
+		return 0;
 	}
 
 	private Date getLastPublishDate(PublishData publishData) {
-		Date updatedSince = new Date(0);
-
 		if(publishData != null) {
-			updatedSince = publishData.getPublishedDate();
+			return publishData.getPublishedDate();
 		}
 
-		return updatedSince;
+		return new Date(0);
 	}
 
 	private void validateObjects(Book book, List<DataObject> dataObjects) {
@@ -196,9 +188,11 @@ public class PublishingServiceImpl implements PublishingService {
 
 	private void addFileToZip(ZipOutputStream zipOutputStream, String nameInZipfile, File file) throws IOException {
 		if(!file.exists()) {
-			logger.warn("Attempting to add non existing file " + file.getAbsolutePath() + " to zip archive.");
+			logger.warn("Attempting to add non existing file " + file.getAbsolutePath() + " to zip archive. Aborting.");
 			return;
 		}
+
+		logger.info("Attempting to add file " + file.getAbsolutePath() + " to zip archive.");
 
 		ZipEntry zipEntry = new ZipEntry(nameInZipfile);
 		zipOutputStream.putNextEntry(zipEntry);
@@ -210,6 +204,7 @@ public class PublishingServiceImpl implements PublishingService {
 			zipOutputStream.write(bytes, 0, length);
 		}
 		fileInputStream.close();
+		logger.info("File added");
 	}
 
 	private void uploadFile(File file, String path) {

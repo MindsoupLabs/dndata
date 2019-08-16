@@ -18,8 +18,9 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 public class DashboardUIController extends BaseUIController {
 
+	@Override
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-	public String index(Model model, SecurityContextHolderAwareRequestWrapper requestWrapper) {
+	public String index(Model model) {
 		return "dashboard";
 	}
 
