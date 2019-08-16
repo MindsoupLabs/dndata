@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class PublishUIController extends BaseUIController{
 
 	@Secured({Constants.Rights.PF2.PUBLISH})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String publish(Model model, @PathVariable(value = "id") Long id) throws IOException {
+	public String publish(Model model, @PathVariable(value = "id") Long id) throws IOException, URISyntaxException {
 		Book book = bookService.getBookById(id);
 		publishingService.publish(book);
 		return "redirect:/ui/publish/";

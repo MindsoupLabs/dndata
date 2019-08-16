@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.helpers;
 
+import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectType;
 
@@ -8,14 +9,15 @@ import net.mindsoup.dndata.enums.ObjectType;
  */
 public class PathHelper {
 
-	private final static String JSON_SCHEMA_LOCATION = "/json-schemas/";
+	private final static String JSON_SCHEMA_ROOT = "json-schemas";
+	private final static String LEGAL_ROOT = "legal";
 
 	public static String getSchema(Game game, ObjectType type, int version) {
-		return String.format(JSON_SCHEMA_LOCATION + "%s/%s/v%s.json", game.name().toLowerCase(), type.name().toLowerCase(), version);
+		return String.format("/%s/%s/%s/v%s.json", JSON_SCHEMA_ROOT, game.name().toLowerCase(), type.name().toLowerCase(), version);
 	}
 
 	public static String getFormSchema(Game game, ObjectType type, int version) {
-		String uiSchema = String.format(JSON_SCHEMA_LOCATION + "%s/%s/ui/v%s.json", game.name().toLowerCase(), type.name().toLowerCase(), version);
+		String uiSchema = String.format("/%s/%s/%s/ui/v%s.json", JSON_SCHEMA_ROOT, game.name().toLowerCase(), type.name().toLowerCase(), version);
 
 		// load special ui-friendly schema if it exists (to get around allOf etc restrictions)
 		if(PathHelper.class.getResource(uiSchema) != null) {
@@ -27,7 +29,7 @@ public class PathHelper {
 	}
 
 	public static String getUISchema(Game game, ObjectType type, int version) {
-		return String.format(JSON_SCHEMA_LOCATION + "%s/%s/ui/v%s.uiSchema.json", game.name().toLowerCase(), type.name().toLowerCase(), version);
+		return String.format("/%s/%s/%s/ui/v%s.uiSchema.json", JSON_SCHEMA_ROOT, game.name().toLowerCase(), type.name().toLowerCase(), version);
 	}
 
 	public static String getZipFilePath(Game game, String identifier, int version) {
@@ -36,5 +38,9 @@ public class PathHelper {
 
 	public static String getJsonFilePath(String identifier, int version) {
 		return String.format("%s.%s.json", identifier, version);
+	}
+
+	public static String getLegalPAth(Game game) {
+		return String.format("/%s/%s/%s", LEGAL_ROOT, game.name(), Constants.Files.LEGAL_TEXT);
 	}
 }

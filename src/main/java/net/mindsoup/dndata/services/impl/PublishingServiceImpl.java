@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -48,7 +49,7 @@ public class PublishingServiceImpl implements PublishingService {
 	}
 
 	@Override
-	public void publish(Book book) throws IOException {
+	public void publish(Book book) throws IOException, URISyntaxException {
 		logger.info(String.format("Publishing changes in book %s: %s", book.getId(), book.getName()));
 		List<DataObject> objectsInThisBook = getUnpublishedDataForBook(book);
 
@@ -124,7 +125,7 @@ public class PublishingServiceImpl implements PublishingService {
 		return map;
 	}
 
-	private void createFileAndUpload(Map<ObjectType, List<JSONObject>> data, PublishContext context) throws IOException {
+	private void createFileAndUpload(Map<ObjectType, List<JSONObject>> data, PublishContext context) throws IOException, URISyntaxException {
 		logger.info("Creating JSON file");
 		File jsonFile = writeJsonToFile(data);
 		logger.info("Creating file archive");
@@ -145,23 +146,36 @@ public class PublishingServiceImpl implements PublishingService {
 		return jsonFile;
 	}
 
-	private File zipJsonFile(File jsonFile, PublishContext context) throws IOException  {
+	private File zipJsonFile(File jsonFile, PublishContext context) throws IOException, URISyntaxException {
 		File zipFile = File.createTempFile(Constants.Files.TEMP_PREFIX, Constants.Files.ZIP_SUFFIX);
 		FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
 		ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
-		FileInputStream fileInputStream = new FileInputStream(jsonFile);
-		ZipEntry zipEntry = new ZipEntry(PathHelper.getJsonFilePath(context.getIdentifier(), context.getRevision()));
+
+		addFileToZip(zipOutputStream, PathHelper.getJsonFilePath(context.getIdentifier(), context.getRevision()), jsonFile);
+		addFileToZip(zipOutputStream, Constants.Files.LEGAL_TEXT, new File(context.getClass().getResource(PathHelper.getLegalPAth(context.getGame())).toURI()));
+
+		zipOutputStream.close();
+		fileOutputStream.close();
+
+		return zipFile;
+	}
+
+	private void addFileToZip(ZipOutputStream zipOutputStream, String nameInZipfile, File file) throws IOException {
+		if(!file.exists()) {
+			logger.warn("Attempting to add non existing file " + file.getAbsolutePath() + " to zip archive.");
+			return;
+		}
+
+		ZipEntry zipEntry = new ZipEntry(nameInZipfile);
 		zipOutputStream.putNextEntry(zipEntry);
+
+		FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[1024];
 		int length;
 		while((length = fileInputStream.read(bytes)) >= 0) {
 			zipOutputStream.write(bytes, 0, length);
 		}
-		zipOutputStream.close();
 		fileInputStream.close();
-		fileOutputStream.close();
-
-		return zipFile;
 	}
 
 	private void uploadFile(File file, String path) {

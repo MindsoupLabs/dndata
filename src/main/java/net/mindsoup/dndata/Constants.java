@@ -54,5 +54,6 @@ public abstract class Constants {
 		public static final String TEMP_PREFIX = "temp_";
 		public static final String JSON_SUFFIX = ".json";
 		public static final String ZIP_SUFFIX = ".zip";
+		public static final String LEGAL_TEXT = "legal.txt";
 	}
 }
