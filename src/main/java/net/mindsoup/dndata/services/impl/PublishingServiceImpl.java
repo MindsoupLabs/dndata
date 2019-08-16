@@ -2,7 +2,6 @@ package net.mindsoup.dndata.services.impl;
 
 import com.github.slugify.Slugify;
 import com.google.gson.Gson;
-import com.google.gson.internal.$Gson$Preconditions;
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.ObjectType;
 import net.mindsoup.dndata.helpers.PathHelper;
@@ -11,11 +10,7 @@ import net.mindsoup.dndata.models.ValidationResult;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.PublishData;
-import net.mindsoup.dndata.services.DataObjectService;
-import net.mindsoup.dndata.services.JsonValidatorService;
-import net.mindsoup.dndata.services.PublishDataService;
-import net.mindsoup.dndata.services.PublishingService;
-import org.apache.commons.io.IOUtils;
+import net.mindsoup.dndata.services.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
@@ -24,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -40,12 +34,19 @@ public class PublishingServiceImpl implements PublishingService {
 	private PublishDataService publishDataService;
 	private DataObjectService dataObjectService;
 	private JsonValidatorService jsonValidatorService;
+	private UploadService uploadService;
+	private Slugify slugify;
 
 	@Autowired
-	public PublishingServiceImpl(PublishDataService publishDataService, DataObjectService dataObjectService, JsonValidatorService jsonValidatorService) {
+	public PublishingServiceImpl(PublishDataService publishDataService,
+								 DataObjectService dataObjectService,
+								 JsonValidatorService jsonValidatorService,
+								 UploadService uploadService) {
 		this.publishDataService = publishDataService;
 		this.dataObjectService = dataObjectService;
 		this.jsonValidatorService = jsonValidatorService;
+		this.uploadService = uploadService;
+		this.slugify = new Slugify();
 	}
 
 	@Override
@@ -55,25 +56,23 @@ public class PublishingServiceImpl implements PublishingService {
 
 		validateObjects(book, objectsInThisBook);
 
-		int bookRevision = getLastPublishRevision(publishDataService.getMostRecentPublishDataForBook(book));
+		PublishData publishData = getPublishData(book);
 
 		Set<ObjectType> publishingTypes = new HashSet<>();
 		objectsInThisBook.forEach(o -> publishingTypes.add(o.getType()));
 
-		Slugify slugify = new Slugify();
-
 		logger.info(String.format("Publishing book %s: %s", book.getId(), book.getName()));
-		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForBook(book.getId())), new PublishContext(book.getGame(), slugify.slugify(book.getName()), bookRevision));
+		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForBook(book.getId())), new PublishContext(book.getGame(), publishData));
 
 		for(ObjectType type : publishingTypes) {
 			logger.info(String.format("Publishing collection %s", type.name()));
-			int typeRevision = getLastPublishRevision(publishDataService.getMostRecentPublishDataForType(type));
-			createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForType(type)), new PublishContext(book.getGame(), slugify.slugify(type.name()), typeRevision));
+			publishData = getPublishData(type.name());
+			createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForType(type)), new PublishContext(book.getGame(), publishData));
 		}
 
 		logger.info("Publishing collection ALL");
-		int allRevision = getLastPublishRevision(publishDataService.getMostRecentPublishDataForName(Constants.Collections.ALL));
-		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), Constants.Collections.ALL, allRevision));
+		publishData = getPublishData(Constants.Collections.ALL);
+		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), publishData));
 
 		logger.info("Publishing completed");
 	}
@@ -84,6 +83,44 @@ public class PublishingServiceImpl implements PublishingService {
 		return dataObjectService.getUnpublishedObjectsForBook(book.getId(), updatedSince);
 	}
 
+	private PublishData getPublishData(String name) {
+		PublishData publishData = createPublishDataIfNotExists(
+				publishDataService.getMostRecentPublishDataForName(name),
+				null,
+				slugify.slugify(name),
+				0,
+				new Date());
+		// increase revision
+		publishData.setRevision(publishData.getRevision() + 1);
+		return publishData;
+	}
+
+	private PublishData getPublishData(Book book) {
+		PublishData publishData = createPublishDataIfNotExists(
+				publishDataService.getMostRecentPublishDataForBook(book),
+				book.getId(),
+				slugify.slugify(book.getName()),
+				0,
+				new Date());
+		// increase revision
+		publishData.setRevision(publishData.getRevision() + 1);
+		return publishData;
+	}
+
+	private PublishData createPublishDataIfNotExists(PublishData publishData, Long bookId, String name, int revision, Date publishDate) {
+		if(publishData != null) {
+			return publishData;
+		}
+
+		publishData = new PublishData();
+		publishData.setBookId(bookId);
+		publishData.setName(name);
+		publishData.setRevision(revision);
+		publishData.setPublishedDate(publishDate);
+
+		return publishData;
+	}
+
 	private Date getLastPublishDate(PublishData publishData) {
 		Date updatedSince = new Date(0);
 
@@ -92,16 +129,6 @@ public class PublishingServiceImpl implements PublishingService {
 		}
 
 		return updatedSince;
-	}
-
-	private int getLastPublishRevision(PublishData publishData) {
-		int revision = 1;
-
-		if(publishData != null) {
-			revision = publishData.getRevision();
-		}
-
-		return revision;
 	}
 
 	private void validateObjects(Book book, List<DataObject> dataObjects) {
@@ -134,6 +161,7 @@ public class PublishingServiceImpl implements PublishingService {
 		uploadFile(zipFile, PathHelper.getZipFilePath(context.getGame(), context.getIdentifier(), context.getRevision()));
 		logger.info("Updating publishing data");
 		updatePublishingData(context);
+		logger.info("Updating object status");
 	}
 
 	private File writeJsonToFile(Map<ObjectType, List<JSONObject>> data) throws IOException {
@@ -179,10 +207,10 @@ public class PublishingServiceImpl implements PublishingService {
 	}
 
 	private void uploadFile(File file, String path) {
-
+		uploadService.upload(file, path);
 	}
 
 	private void updatePublishingData(PublishContext context) {
-
+		publishDataService.save(context.getPublishData());
 	}
 }

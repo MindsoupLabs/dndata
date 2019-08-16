@@ -8,4 +8,8 @@ public class DnDataException extends RuntimeException {
 	public DnDataException(String message) {
 		super(message);
 	}
+
+	public DnDataException(Exception e) {
+		super(e);
+	}
 }

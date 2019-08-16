@@ -1,19 +1,18 @@
 package net.mindsoup.dndata.models;
 
 import net.mindsoup.dndata.enums.Game;
+import net.mindsoup.dndata.models.dao.PublishData;
 
 /**
  * PublishContext
  */
 public class PublishContext {
 	private Game game;
-	private String identifier;
-	private int revision;
+	private PublishData publishData;
 
-	public PublishContext(Game game, String identifier, int revision) {
+	public PublishContext(Game game, PublishData publishData) {
 		this.game = game;
-		this.identifier = identifier;
-		this.revision = revision;
+		this.publishData = publishData;
 	}
 
 	public Game getGame() {
@@ -21,10 +20,14 @@ public class PublishContext {
 	}
 
 	public String getIdentifier() {
-		return identifier;
+		return publishData.getName();
 	}
 
 	public int getRevision() {
-		return revision;
+		return publishData.getRevision();
+	}
+
+	public PublishData getPublishData() {
+		return publishData;
 	}
 }
