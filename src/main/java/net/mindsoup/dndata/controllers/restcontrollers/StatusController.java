@@ -11,6 +11,7 @@ import net.mindsoup.dndata.models.dao.PublishData;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.PublishDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ import java.util.*;
  * Created by Valentijn on 3-8-2019
  */
 @RestController
-@RequestMapping(value = "/status", method = RequestMethod.GET)
+@RequestMapping(value = "/status", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatusController extends ErrorController {
 
 	@Autowired
@@ -37,10 +38,8 @@ public class StatusController extends ErrorController {
 	private Slugify slugify = new Slugify();
 
 	@RequestMapping("/{game}")
-	public Map<String, List<CollectionStatus>> status(@PathVariable(value = "game") String game) {
-		Game gameType = Game.valueOf(game.toUpperCase());
-
-		Iterable<Book> books = bookService.getAllBooksByGame(gameType);
+	public Map<String, List<CollectionStatus>> status(@PathVariable(value = "game") Game game) {
+		Iterable<Book> books = bookService.getAllBooksByGame(game);
 		Map<String, List<CollectionStatus>> collection = new HashMap<>();
 		List<CollectionStatus> bookData = new LinkedList<>();
 		List<CollectionStatus> collectionsData = new LinkedList<>();
@@ -51,8 +50,8 @@ public class StatusController extends ErrorController {
 		books.forEach(b -> addIfNotNull(bookData, publishDataService.getMostRecentPublishDataForBook(b)));
 
 		// add collections
-		Arrays.stream(ObjectType.values()).forEach(t -> addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(gameType, slugify.slugify(t.name()))));
-		addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(gameType, Constants.Collections.COLLECTION_ALL));
+		Arrays.stream(ObjectType.values()).forEach(t -> addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, slugify.slugify(t.name()))));
+		addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, Constants.Collections.COLLECTION_ALL));
 
 		return collection;
 	}

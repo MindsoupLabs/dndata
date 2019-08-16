@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by Valentijn on 11-8-2019
  */
 @RestController
-@RequestMapping(value = "/validation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/validation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ValidationController {
 
 	private JsonValidatorService jsonValidatorService;
