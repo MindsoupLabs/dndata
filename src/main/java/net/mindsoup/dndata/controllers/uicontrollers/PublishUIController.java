@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
@@ -62,9 +59,29 @@ public class PublishUIController extends BaseUIController{
 
 	@Secured({Constants.Rights.PF2.PUBLISH})
 	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public String publish(Model model, @PathVariable(value = "id") Long id) throws IOException, URISyntaxException {
+	public String publish(Model model, @PathVariable(value = "id") Long id)  {
 		Book book = bookService.getBookById(id);
-		publishingService.publish(book);
+		if(book == null) {
+			return "redirect:/ui/publish";
+		}
+
+		List<DataObject> objects = publishingService.getUnpublishedDataForBook(book);
+
+		if(objects.isEmpty()) {
+			return "redirect:/ui/publish";
+		}
+
+		model.addAttribute("bookId", id);
+		model.addAttribute("bookWithObjects", new BookWithObjects(book, objects));
+
+		return "publish/detail";
+	}
+
+	@Secured({Constants.Rights.PF2.PUBLISH})
+	@RequestMapping(value = {"/publish"}, method = RequestMethod.POST)
+	public String publish(Model model, @RequestParam(value = "id") Long id, @RequestParam(value = "comment") String comment) throws IOException, URISyntaxException {
+		Book book = bookService.getBookById(id);
+		publishingService.publish(book, comment);
 		return "redirect:/ui/publish/";
 	}
 

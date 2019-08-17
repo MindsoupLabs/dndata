@@ -1,0 +1,57 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/base}" th:object="${pageModel}">
+	<section layout:fragment="content">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Publish <small>please ensure all objects in this book are accounted for</small>
+			</h1>
+		</section>
+
+		<!-- Main content -->
+		<section class="content container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title" th:text="${bookWithObjects.book.name + ' (' + bookWithObjects.objects.size() + ' Objects)'}"></h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body no-padding">
+							<table class="table table-striped">
+								<tbody>
+								<tr>
+									<th style="width: 20px">ID</th>
+									<th style="width: 20px">Rev</th>
+									<th>Name</th>
+									<th>Type</th>
+								</tr>
+								<tr th:each="object: ${bookWithObjects.objects}">
+									<td th:text="${object.id}">#</td>
+									<td th:text="${object.revision}">#</td>
+									<td th:text="${object.name}">name</td>
+									<td th:text="${object.type}">type</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box-header">
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body" >
+							<form role="form" method="post" action="/ui/publish/publish" id="reviewForm">
+								<div class="form-group">
+									<label for="comment">Changes in this release:</label>
+									<textarea class="form-control" id="comment" placeholder="Changes in this release" name="comment"></textarea>
+								</div>
+								<button type="submit" class="btn btn-success" name="action" value="approve">Publish</button>
+								<input type="hidden" name="id" th:value="${id}">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</div>

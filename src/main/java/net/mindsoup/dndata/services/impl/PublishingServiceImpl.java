@@ -52,13 +52,13 @@ public class PublishingServiceImpl implements PublishingService {
 	}
 
 	@Override
-	public void publish(Book book) throws IOException, URISyntaxException {
+	public void publish(Book book, String comment) throws IOException, URISyntaxException {
 		logger.info(String.format("Publishing changes in book %s: %s", book.getId(), book.getName()));
 		List<DataObject> objectsInThisBook = getUnpublishedDataForBook(book);
 
 		validateObjects(book, objectsInThisBook);
 
-		PublishData publishData = getPublishData(book);
+		PublishData publishData = getPublishData(book, comment);
 
 		Set<ObjectType> publishingTypes = new HashSet<>();
 		objectsInThisBook.forEach(o -> publishingTypes.add(o.getType()));
@@ -66,14 +66,15 @@ public class PublishingServiceImpl implements PublishingService {
 		logger.info(String.format("Publishing book %s: %s", book.getId(), book.getName()));
 		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForBook(book.getId())), new PublishContext(book.getGame(), publishData));
 
+		comment = book.getName() + ": " + comment;
 		for(ObjectType type : publishingTypes) {
 			logger.info(String.format("Publishing collection %s", type.name()));
-			publishData = getPublishData(type.name(), book.getGame());
+			publishData = getPublishData(type.name(), book.getGame(), comment);
 			createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjectsForType(type)), new PublishContext(book.getGame(), publishData));
 		}
 
 		logger.info("Publishing collection ALL");
-		publishData = getPublishData(Constants.Collections.COLLECTION_ALL, book.getGame());
+		publishData = getPublishData(Constants.Collections.COLLECTION_ALL, book.getGame(), comment);
 		createFileAndUpload(createObjectMapFromList(dataObjectService.getAllPublishableObjects()), new PublishContext(book.getGame(), publishData));
 
 		updatePublishedStatusForObjects(objectsInThisBook);
@@ -86,23 +87,24 @@ public class PublishingServiceImpl implements PublishingService {
 		return dataObjectService.getUnpublishedObjectsForBook(book.getId(), updatedSince);
 	}
 
-	private PublishData getPublishData(String name, Game game) {
+	private PublishData getPublishData(String name, Game game, String comment) {
 		int revision = getRevisionFromPublishData(publishDataService.getMostRecentPublishDataForName(game, name));
 
-		return getPublishData(game, revision, slugify.slugify(name));
+		return getPublishData(game, revision, slugify.slugify(name), comment);
 	}
 
-	private PublishData getPublishData(Book book) {
+	private PublishData getPublishData(Book book, String comment) {
 		int revision = getRevisionFromPublishData( publishDataService.getMostRecentPublishDataForBook(book));
-		PublishData publishData = getPublishData(book.getGame(), revision, slugify.slugify(book.getName()));
+		PublishData publishData = getPublishData(book.getGame(), revision, slugify.slugify(book.getName()), comment);
 		publishData.setBookId(book.getId());
 		return publishData;
 	}
 
-	private PublishData getPublishData(Game game, int revision, String name) {
+	private PublishData getPublishData(Game game, int revision, String name, String comment) {
 		PublishData publishData = new PublishData();
 		publishData.setGame(game);
 		publishData.setName(name);
+		publishData.setUpdateMessage(comment);
 		publishData.setRevision(revision + 1);
 		publishData.setPublishedDate(new Date());
 

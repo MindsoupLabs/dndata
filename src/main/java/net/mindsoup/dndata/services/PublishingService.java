@@ -11,6 +11,6 @@ import java.util.List;
  * Created by Valentijn on 15-8-2019
  */
 public interface PublishingService {
-	void publish(Book book) throws IOException, URISyntaxException;
+	void publish(Book book, String comment) throws IOException, URISyntaxException;
 	List<DataObject> getUnpublishedDataForBook(Book book);
 }

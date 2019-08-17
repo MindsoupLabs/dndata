@@ -150,7 +150,8 @@
 						},
 						"license": {
 							"type": "string",
-							"enum": ["OGL", "RESTRICTED"]
+							"enum": ["OGL", "RESTRICTED"],
+							"default": "OGL"
 						}
 					},
 					"required": ["sourceBook", "page", "publisher", "license"]
