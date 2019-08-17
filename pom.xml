@@ -142,6 +142,7 @@
 					<files>
 						<file>src/main/resources/application.properties</file>
 						<file>src/main/resources/application-local.properties</file>
+						<file>src/main/resources/application-remote.properties</file>
 					</files>
 				</configuration>
 				<executions>
@@ -166,7 +167,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>4.0.3</version>
 				<configuration>
-					<driver>com.mysql.jdbc.Driver</driver>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
 					<url>${flyway.url}</url>
 					<user>${flyway.user}</user>
 					<password>${flyway.password}</password>

@@ -3,6 +3,7 @@
 *.iml
 *.iws
 application-local.properties
+application-remote.properties
 
 # Maven
 log/
