@@ -7,9 +7,11 @@ import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.exceptions.JsonValidationException;
 import net.mindsoup.dndata.helpers.PathHelper;
+import net.mindsoup.dndata.helpers.RightsHelper;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
 import net.mindsoup.dndata.models.DataObjectUpdate;
+import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.dao.User;
@@ -95,7 +97,12 @@ public class EditUIController extends BaseUIController {
 		model.addAttribute("claimingUser", user);
 		claimService.claim(id, me);
 
-		model.addAttribute("statusesWithNames", dataObjectService.getAllStatusesWithNamesForObject(dataObject));
+		List<ObjectStatusWithUser> objectStatusWithUserList = dataObjectService.getAllStatusesWithNamesForObject(dataObject);
+		if(objectStatusWithUserList.get(0).getObjectStatus().getStatus() == ObjectStatus.DELETED  && !RightsHelper.hasRight(me, Constants.Rights.BOOKS)) {
+			return "redirect:/ui/edit";
+		}
+
+		model.addAttribute("statusesWithNames", objectStatusWithUserList);
 		model.addAttribute("dataObject", dataObject);
 		model.addAttribute("mostRecentdataObject", mostRecentDataObject);
 		model.addAttribute("overwriteValuesObject", new Gson().toJson(getOverwriteValueObject(mostRecentDataObject)));
@@ -136,6 +143,27 @@ public class EditUIController extends BaseUIController {
 		if(dataObjectUpdate.isReadyForReview()) {
 			dataObjectService.updateStatus(dataObjectUpdate.getDataObject(), Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.READY_FOR_REVIEW, ObjectStatus.AWAITING_REVIEW);
 		}
+
+		return "redirect:/ui/edit";
+	}
+
+	@Secured({Constants.Rights.PF2.BOOKS})
+	@RequestMapping(value = {"/delete"}, method = RequestMethod.POST)
+	public String delete(Integer id) {
+		DataObject dataObject = dataObjectService.getForId(id);
+		if(dataObject == null) {
+			return "redirect:/ui/edit";
+		}
+		User me = SecurityHelper.getAuthenticatedUser();
+		User claimUser = claimService.getClaimOn(id);
+
+		if(claimUser == null || me.getId() != claimUser.getId()) {
+			return "redirect:/ui/edit";
+		}
+
+		claimService.clearClaimForUser(me.getId());
+
+		dataObjectService.updateStatus(dataObject, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.DELETED, ObjectStatus.DELETED);
 
 		return "redirect:/ui/edit";
 	}

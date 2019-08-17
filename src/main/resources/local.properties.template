@@ -1,0 +1,17 @@
+# use this file to create a local.properties file
+
+spring.datasource.url=jdbc:mysql://SERVER:3306/SCHEMA?serverTimezone=UTC&useLegacyDatetimeCode=false
+spring.datasource.username=USERNAME
+spring.datasource.password=PASSWORD
+
+spring.jpa.properties.hibernate.default_schema=SCHEMA
+
+ftp.server=SERVER
+ftp.username=USERNAME
+ftp.password=PASSWORD
+ftp.path=
+
+#flyway.url=jdbc:mysql://SERVER:3306/
+#flyway.user=USERNAME
+#flyway.password=PASSWORD
+flyway.schemas=SCHEMA

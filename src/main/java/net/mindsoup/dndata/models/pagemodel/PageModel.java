@@ -1,6 +1,7 @@
 package net.mindsoup.dndata.models.pagemodel;
 
 import net.mindsoup.dndata.enums.PageType;
+import net.mindsoup.dndata.helpers.RightsHelper;
 import net.mindsoup.dndata.models.dao.User;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -31,17 +32,7 @@ public class PageModel {
 	 * match across games, or a complete matching right 'pf2_edit' will only match PF2_EDIT
 	 */
 	public boolean hasRight(String rightSuffix) {
-		if(user == null || user.getRoles() == null) {
-			return false;
-		}
-
-		for(GrantedAuthority grantedAuthority : user.getRoles()) {
-			if(grantedAuthority.getAuthority().toLowerCase().endsWith(rightSuffix.toLowerCase())) {
-				return true;
-			}
-		}
-
-		return false;
+		return RightsHelper.hasRight(user, rightSuffix);
 	}
 
 	public User getUser() {

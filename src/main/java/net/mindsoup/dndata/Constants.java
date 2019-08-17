@@ -10,12 +10,19 @@ public abstract class Constants {
 	}
 
 	public abstract static class Rights {
+		public static final String EDIT = "EDIT";
+		public static final String REVIEW = "REVIEW";
+		public static final String BOOKS = "BOOKS";
+		public static final String PUBLISH = "PUBLISH";
+		public static final String MANAGE_USERS = "MANAGE_USERS";
+
 		public abstract static class PF2 {
-			public static final String EDIT = "ROLE_PF2_EDIT";
-			public static final String REVIEW = "ROLE_PF2_REVIEW";
-			public static final String BOOKS = "ROLE_PF2_BOOKS";
-			public static final String PUBLISH = "ROLE_PF2_PUBLISH";
-			public static final String MANAGE_USERS = "ROLE_PF2_MANAGE_USERS";
+			private static final String prefix = "ROLE_PF2_";
+			public static final String EDIT = prefix + Rights.EDIT;
+			public static final String REVIEW = prefix + Rights.REVIEW;
+			public static final String BOOKS = prefix + Rights.BOOKS;
+			public static final String PUBLISH = prefix + Rights.PUBLISH;
+			public static final String MANAGE_USERS = prefix + Rights.MANAGE_USERS;
 		}
 	}
 
@@ -25,6 +32,7 @@ public abstract class Constants {
 		public static final String READY_FOR_REVIEW = "Submitted for review";
 		public static final String REVIEW_APPROVED = "Review approved";
 		public static final String PUBLISHED = "Published";
+		public static final String DELETED = "Deleted";
 	}
 
 	public abstract static class Status {

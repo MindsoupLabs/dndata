@@ -2,6 +2,7 @@
 .idea/
 *.iml
 *.iws
+application-local.properties
 
 # Maven
 log/
