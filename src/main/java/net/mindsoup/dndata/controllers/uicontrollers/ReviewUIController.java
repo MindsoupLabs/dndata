@@ -112,7 +112,7 @@ public class ReviewUIController extends BaseUIController {
 				if(StringUtils.isBlank(reviewResult.getComment())) {
 					return String.format("redirect:/ui/review/%s", objectStatus.getId());
 				}
-				dataObjectService.updateStatus(dataObject, reviewResult.getComment(), ObjectStatus.EDITING);
+				dataObjectService.updateStatus(dataObject, Constants.Comments.REOPENED + ": " + reviewResult.getComment(), ObjectStatus.EDITING);
 				break;
 			case "approve":
 				dataObjectService.updateStatus(dataObject, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.REVIEW_APPROVED, ObjectStatus.REVIEWED);

@@ -32,6 +32,7 @@ public abstract class Constants {
 		public static final String READY_FOR_REVIEW = "Submitted for review";
 		public static final String REVIEW_APPROVED = "Review approved";
 		public static final String PUBLISHED = "Published";
+		public static final String REOPENED = "Reopened";
 		public static final String DELETED = "Deleted";
 	}
 
