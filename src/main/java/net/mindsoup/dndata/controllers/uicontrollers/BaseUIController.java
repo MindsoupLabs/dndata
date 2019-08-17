@@ -33,6 +33,7 @@ public abstract class BaseUIController {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handleException(Exception e, Model model) {
 		logger.error(String.format("Error %s bubbled up: %s", e.getClass().toString(), e.getMessage()));
+		e.printStackTrace();
 
 		model.addAttribute("errorMessage", e.getMessage());
 		model.addAttribute("pageModel", new PageModel(PageType.ERROR));

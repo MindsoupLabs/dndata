@@ -9,7 +9,42 @@
 
 		<!-- Main content -->
 		<section class="content container-fluid">
-			<b th:text="${'example'}"></b>
+			<div class="row">
+				<div class="col-md-3 col-xm-6 col-xs-12" th:each="progress: ${editProgressList}">
+					<div class="info-box bg-yellow">
+						<span class="info-box-icon"><i class="fa fa-pencil"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">Editing</span>
+							<span class="info-box-number" th:text="${progress.book.name}">name</span>
+
+							<div class="progress">
+								<div class="progress-bar" th:style="${'width: ' + progress.getDonePercentage() + '%'}"></div>
+							</div>
+							<span class="progress-description" th:text="${progress.getDoneItems() + '/' + progress.getTotalItems() + ' Completed'}">progress</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-xm-6 col-xs-12" th:each="progress: ${reviewProgressList}">
+					<div class="info-box bg-blue">
+						<span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">Reviewing</span>
+							<span class="info-box-number dndata-name" th:text="${progress.book.name}">name</span>
+
+							<div class="progress">
+								<div class="progress-bar" th:style="${'width: ' + progress.getDonePercentage() + '%'}"></div>
+							</div>
+							<span class="progress-description" th:text="${progress.getDoneItems() + '/' + progress.getTotalItems() + ' Completed'}">progress</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+				</div>
+			</div>
 		</section>
 	</section>
 </div>
