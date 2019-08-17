@@ -62,7 +62,7 @@ public class DashboardUIController extends BaseUIController {
 			}
 
 			if(reviewTodo > 0) {
-				reviewProgress.add(new BookProgressModel(book, allSize, reviewTodo));
+				reviewProgress.add(new BookProgressModel(book, allSize, reviewTodo + editTodo));
 			}
 		}
 
