@@ -157,6 +157,8 @@ public class PublishingServiceImpl implements PublishingService {
 		uploadFile(zipFile, PathHelper.getZipFilePath(context.getGame(), context.getIdentifier(), context.getRevision()));
 		logger.info("Updating publishing data");
 		updatePublishingData(context);
+		jsonFile.delete();
+		zipFile.delete();
 	}
 
 	private void updatePublishedStatusForObjects(List<DataObject> objectsInThisBook) {
