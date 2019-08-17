@@ -6,10 +6,18 @@
 image: maven:3.6.1
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - maven
-        script: # Modify the commands below to build your repository.
-          - mvn clean install
-          - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:master 
+  branches:
+    staging:
+      - step:
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - mvn clean install
+            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master 
+    master:
+      - step:
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - mvn clean install
+            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-production.git HEAD:master 
