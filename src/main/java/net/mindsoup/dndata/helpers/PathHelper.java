@@ -41,6 +41,6 @@ public class PathHelper {
 	}
 
 	public static String getLegalPath(Game game) {
-		return String.format("%s/%s/%s", LEGAL_ROOT, game.name(), Constants.Files.LEGAL_TEXT);
+		return String.format("/%s/%s/%s", LEGAL_ROOT, game.name(), Constants.Files.LEGAL_TEXT);
 	}
 }
