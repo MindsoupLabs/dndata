@@ -197,7 +197,7 @@ public class PublishingServiceImpl implements PublishingService {
 
 	private InputStream getInputStreamFor(String resourcePath) {
 		logger.info("Getting InputStream for resource " + resourcePath);
-		return getClass().getResourceAsStream(resourcePath);
+		return PublishingServiceImpl.class.getResourceAsStream(resourcePath);
 	}
 
 	private void addFileToZip(ZipOutputStream zipOutputStream, String nameInZipfile, InputStream inputStream) throws IOException {

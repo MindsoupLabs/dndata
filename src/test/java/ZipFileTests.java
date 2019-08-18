@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -18,5 +19,7 @@ public class ZipFileTests {
 	public void legal_txt_exists() throws URISyntaxException, IOException {
 		File file = new ClassPathResource(PathHelper.getLegalPath(Game.PF2)).getFile();
 		assertTrue(file.exists());
+
+		assertNotNull(ZipFileTests.class.getResourceAsStream(PathHelper.getLegalPath(Game.PF2)));
 	}
 }
