@@ -17,7 +17,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -182,8 +181,8 @@ public class PublishingServiceImpl implements PublishingService {
 		FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
 		ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
-		addFileToZip(zipOutputStream, PathHelper.getJsonFilePath(context.getIdentifier(), context.getRevision()), jsonFile);
-		addFileToZip(zipOutputStream, Constants.Files.LEGAL_TEXT, new ClassPathResource(PathHelper.getLegalPath(Game.PF2)).getFile());
+		addFileToZip(zipOutputStream, PathHelper.getJsonFilePath(context.getIdentifier(), context.getRevision()), getInputStreamFor(jsonFile));
+		addFileToZip(zipOutputStream, Constants.Files.LEGAL_TEXT, getInputStreamFor(PathHelper.getLegalPath(Game.PF2)));
 
 		zipOutputStream.close();
 		fileOutputStream.close();
@@ -191,24 +190,28 @@ public class PublishingServiceImpl implements PublishingService {
 		return zipFile;
 	}
 
-	private void addFileToZip(ZipOutputStream zipOutputStream, String nameInZipfile, File file) throws IOException {
-		if(!file.exists()) {
-			logger.warn("Attempting to add non existing file " + file.getAbsolutePath() + " to zip archive. Aborting.");
-			return;
-		}
+	private InputStream getInputStreamFor(File file) throws FileNotFoundException {
+		logger.info("Getting InputStream for " + file.getAbsolutePath());
+		return new FileInputStream(file);
+	}
 
-		logger.info("Attempting to add file " + file.getAbsolutePath() + " to zip archive.");
+	private InputStream getInputStreamFor(String resourcePath) {
+		logger.info("Getting InputStream for resource " + resourcePath);
+		return getClass().getResourceAsStream(resourcePath);
+	}
+
+	private void addFileToZip(ZipOutputStream zipOutputStream, String nameInZipfile, InputStream inputStream) throws IOException {
+		logger.info("Attempting to add file " + nameInZipfile + " to zip archive.");
 
 		ZipEntry zipEntry = new ZipEntry(nameInZipfile);
 		zipOutputStream.putNextEntry(zipEntry);
 
-		FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[1024];
 		int length;
-		while((length = fileInputStream.read(bytes)) >= 0) {
+		while((length = inputStream.read(bytes)) >= 0) {
 			zipOutputStream.write(bytes, 0, length);
 		}
-		fileInputStream.close();
+		inputStream.close();
 		logger.info("File added");
 	}
 
