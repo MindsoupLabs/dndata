@@ -41,19 +41,24 @@ public class UploadServiceImpl implements UploadService {
 		try {
 			FTPClient client = new FTPClient();
 			client.connect(ftpConfiguration.getServer());
+
 			boolean successfulLogin = client.login(ftpConfiguration.getUsername(), ftpConfiguration.getPassword());
 			String loginMessage = client.getReplyString();
 			if(!successfulLogin) {
+				client.disconnect();
 				logger.warn("Unable to log in to FTP server: " + loginMessage);
 				throw new DnDataException("Unable to log in to FTP server: " + loginMessage);
 			}
 
 			logger.info(String.format("Connected to %s", ftpConfiguration.getServer()));
+			client.enterLocalPassiveMode();
+
 			InputStream inputStream = new FileInputStream(file);
 			client.setFileType(FTP.BINARY_FILE_TYPE);
 			boolean successCopy = client.storeFile(remotePath, inputStream);
 			String messageCopy = client.getReplyString();
 			client.logout();
+			client.disconnect();
 			if(!successCopy) {
 				logger.warn(String.format("Unable to copy file to FTP server: %s", messageCopy));
 				throw new DnDataException(String.format("Unable to copy file to FTP server: %s", messageCopy));
