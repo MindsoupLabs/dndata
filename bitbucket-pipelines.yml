@@ -31,5 +31,5 @@ pipelines:
           name: deploy to heroku
           deployment: production
           script: # Modify the commands below to build your repository.
-            - git fetch --all --unshallow
+            - git filter-branch -- --all
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master 
