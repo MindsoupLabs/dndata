@@ -5,6 +5,7 @@ import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.configuration.DnDataConfiguration;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectType;
+import net.mindsoup.dndata.helpers.PathHelper;
 import net.mindsoup.dndata.models.CollectionStatus;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.PublishData;
@@ -12,11 +13,10 @@ import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.PublishDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -54,6 +54,13 @@ public class StatusController extends ErrorController {
 		addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, Constants.Collections.COLLECTION_ALL));
 
 		return collection;
+	}
+
+	@RequestMapping("/test")
+	public boolean test(@RequestParam(value = "path") String path) throws IOException {
+		InputStream inputStream = StatusController.class.getResourceAsStream(path);
+		inputStream.read();
+		return true;
 	}
 
 	private void addIfNotNull(List<CollectionStatus> dataList, PublishData data) {
