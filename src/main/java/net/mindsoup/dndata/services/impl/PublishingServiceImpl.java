@@ -191,7 +191,7 @@ public class PublishingServiceImpl implements PublishingService {
 	}
 
 	private InputStream getInputStreamFor(File file) throws FileNotFoundException {
-		logger.info("Getting InputStream for " + file.getAbsolutePath());
+		logger.info("Getting InputStream for file " + file.getAbsolutePath());
 		return new FileInputStream(file);
 	}
 
