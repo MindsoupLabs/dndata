@@ -1,19 +1,22 @@
-# This is a sample build configuration for Java (Maven).
-# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
 image: maven:3.6.1
+
+clone:
+  depth: full
 
 pipelines:
   branches:
     staging:
       - step:
+          name: build and test
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - mvn clean install -DskipTests
+      - step:
           name: deploy to heroku
           deployment: staging
           script: # Modify the commands below to build your repository.
-            - git filter-branch -- --all
-            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master 
+            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master
     master:
       - step:
           name: build and test
@@ -25,5 +28,4 @@ pipelines:
           name: deploy to heroku
           deployment: production
           script: # Modify the commands below to build your repository.
-            - git filter-branch -- --all
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-production.git HEAD:master
