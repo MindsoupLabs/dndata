@@ -141,8 +141,7 @@
 				<configuration>
 					<files>
 						<file>src/main/resources/application.properties</file>
-						<file>src/main/resources/application-local.properties</file>
-						<file>src/main/resources/application-remote.properties</file>
+						<file>src/main/resources/application-secrets.properties</file>
 					</files>
 				</configuration>
 				<executions>
