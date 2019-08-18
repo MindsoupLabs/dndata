@@ -177,8 +177,8 @@
 		"alignment": {
 			"description": "Alignment of the monster.",
 			"type": "string",
-			"enum": ["LAWFUL_GOOD", "LAWFUL_NEUTRAL", "LAWFUL_EVIL", "NEUTRAL_GOOD", "NEUTRAL", "NEUTRAL_EVIL", "CHAOTIC_GOOD", "CHAOTIC_NEUTRAL", "CHAOTIC_EVIL"],
-			"default": "NEUTRAL"
+			"enum": ["LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE"],
+			"default": "N"
 		},
 		"size": {
 			"description": "Size of the monster.",

@@ -16,7 +16,7 @@
 							<h3 class="box-title" th:text="${dataObject.name}"></h3>
 						</div>
 						<!-- /.box-header -->
-						<div class="box-body" th:insert="${'/layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
+						<div class="box-body" th:insert="${'layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
 
 						</div>
 					</div>
