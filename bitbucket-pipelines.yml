@@ -32,4 +32,4 @@ pipelines:
           deployment: production
           script: # Modify the commands below to build your repository.
             - git filter-branch -- --all
-            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master 
+            - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-production.git HEAD:master
