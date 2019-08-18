@@ -9,6 +9,10 @@ public class UsersPageModel extends PageModel {
 
 	private Iterable<User> users;
 
+	public UsersPageModel(String version) {
+		super(version);
+	}
+
 	public Iterable<User> getUsers() {
 		return users;
 	}

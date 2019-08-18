@@ -9,10 +9,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DnDataConfiguration {
 
+	@Value("${app.version}")
+	private String version;
+
 	@Value("${archives.download.baseurl}")
 	private String downloadBaseUrl;
 
 	public String getDownloadBaseUrl() {
 		return downloadBaseUrl;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 }

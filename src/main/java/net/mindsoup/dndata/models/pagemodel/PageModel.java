@@ -3,19 +3,22 @@ package net.mindsoup.dndata.models.pagemodel;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.helpers.RightsHelper;
 import net.mindsoup.dndata.models.dao.User;
-import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Created by Valentijn on 7-8-2019
  */
 public class PageModel {
 
+	private final String version;
 	private PageType pageType;
 	private User user;
 
-	public PageModel() {}
+	public PageModel(String version) {
+		this.version = version;
+	}
 
-	public PageModel(PageType pageType) {
+	public PageModel(String version, PageType pageType) {
+		this(version);
 		this.pageType = pageType;
 	}
 
@@ -41,5 +44,9 @@ public class PageModel {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 }

@@ -1,7 +1,9 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
+import net.mindsoup.dndata.configuration.DnDataConfiguration;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -22,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @ApiIgnore
 public class LoginUIController {
 
+	@Autowired
+	private DnDataConfiguration configuration;
+
 	@RequestMapping(value = {"login", "/", ""}, method = RequestMethod.GET)
 	public String login() {
 		if(SecurityHelper.isAuthenticated()) {
@@ -41,6 +46,6 @@ public class LoginUIController {
 
 	@ModelAttribute("pageModel")
 	public PageModel getPageModel() {
-		return new PageModel();
+		return new PageModel(configuration.getVersion());
 	}
 }

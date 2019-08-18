@@ -1,11 +1,13 @@
 package net.mindsoup.dndata.controllers.uicontrollers;
 
+import net.mindsoup.dndata.configuration.DnDataConfiguration;
 import net.mindsoup.dndata.domain.ErrorResponse;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,13 +18,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 public abstract class BaseUIController {
 
+	@Autowired
+	private DnDataConfiguration configuration;
+
 	private static Log logger = LogFactory.getLog(BaseUIController.class);
 
 	public abstract PageModel getPageModel();
 	public abstract String index(Model model);
 
 	PageModel getBasePageModel() {
-		PageModel pageModel = new PageModel();
+		PageModel pageModel = new PageModel(configuration.getVersion());
 		if(SecurityHelper.isAuthenticated()) {
 			pageModel.setUser(SecurityHelper.getAuthenticatedUser());
 		}
@@ -36,7 +41,7 @@ public abstract class BaseUIController {
 		e.printStackTrace();
 
 		model.addAttribute("errorMessage", e.getMessage());
-		model.addAttribute("pageModel", new PageModel(PageType.ERROR));
+		model.addAttribute("pageModel", new PageModel(configuration.getVersion(), PageType.ERROR));
 		return "error/index";
 	}
 }
