@@ -40,7 +40,7 @@ public class PathHelper {
 		return String.format("%s.%s.json", identifier, version);
 	}
 
-	public static String getLegalPAth(Game game) {
+	public static String getLegalPath(Game game) {
 		return String.format("/%s/%s/%s", LEGAL_ROOT, game.name(), Constants.Files.LEGAL_TEXT);
 	}
 }

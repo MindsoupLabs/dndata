@@ -55,14 +55,15 @@ public class DashboardUIController extends BaseUIController {
 
 			int allSize = (int) StreamSupport.stream(all.spliterator(), false).count();
 			int editTodo = (int) StreamSupport.stream(all.spliterator(), false).filter(d -> d.getStatus() == ObjectStatus.EDITING || d.getStatus() == ObjectStatus.CREATED).count();
-			int reviewTodo = (int) StreamSupport.stream(all.spliterator(), false).filter(d -> d.getStatus() == ObjectStatus.AWAITING_REVIEW).count();
+			// everything with a review status or with edit status (since anything to be edited will also need to be reviewed)
+			int reviewTodo = (int) StreamSupport.stream(all.spliterator(), false).filter(d -> d.getStatus() == ObjectStatus.AWAITING_REVIEW).count() + editTodo;
 
 			if(editTodo > 0) {
 				editProgress.add(new BookProgressModel(book, allSize, editTodo));
 			}
 
 			if(reviewTodo > 0) {
-				reviewProgress.add(new BookProgressModel(book, allSize, reviewTodo + editTodo));
+				reviewProgress.add(new BookProgressModel(book, allSize, reviewTodo));
 			}
 		}
 

@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -182,7 +183,7 @@ public class PublishingServiceImpl implements PublishingService {
 		ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
 		addFileToZip(zipOutputStream, PathHelper.getJsonFilePath(context.getIdentifier(), context.getRevision()), jsonFile);
-		addFileToZip(zipOutputStream, Constants.Files.LEGAL_TEXT, new File(context.getClass().getResource(PathHelper.getLegalPAth(context.getGame())).toURI()));
+		addFileToZip(zipOutputStream, Constants.Files.LEGAL_TEXT, new ClassPathResource(PathHelper.getLegalPath(Game.PF2)).getFile());
 
 		zipOutputStream.close();
 		fileOutputStream.close();
