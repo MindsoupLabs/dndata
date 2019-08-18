@@ -9,12 +9,6 @@ pipelines:
   branches:
     staging:
       - step:
-          name: build and test
-          caches:
-            - maven
-          script: # Modify the commands below to build your repository.
-            - mvn clean install -DskipTests
-      - step:
           name: deploy to heroku
           deployment: staging
           script: # Modify the commands below to build your repository.
