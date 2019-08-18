@@ -12,7 +12,7 @@ pipelines:
           caches:
             - maven
           script: # Modify the commands below to build your repository.
-            - mvn clean install
+            - mvn clean install -DskipTests
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dndata-staging.git HEAD:master 
     master:
       - step:
