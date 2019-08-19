@@ -129,18 +129,18 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		<plugin>
-		     <groupId>org.apache.maven.plugins</groupId>
-		     <artifactId>maven-resources-plugin</artifactId>
-		     <configuration>
-			  <nonFilteredFileExtensions>
-			       <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-			       <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-			       <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-			  </nonFilteredFileExtensions>
-		     </configuration>
-		</plugin>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
