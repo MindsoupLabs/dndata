@@ -1,11 +1,11 @@
-$(document).ready(function() {
+window.onload = function() {
 	$('.js-preview-container').each(function() {
 		$(this).change(function() {
 			initialisePreview($(this));
 		});
 		initialisePreview($(this));
 	});
-});
+};
 
 function initialisePreview(element) {
 	try {
