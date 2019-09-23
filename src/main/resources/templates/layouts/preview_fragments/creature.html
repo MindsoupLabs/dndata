@@ -1,27 +1,46 @@
 <div class="preview-box" xmlns:th="http://www.thymeleaf.org" th:fragment="preview">
-	<h3 class="js-preview" data-preview-key="name"></h3>
-	<span class="js-preview" data-preview-key="description"></span><br><br>
-	<b class="js-preview" data-preview-key="name"></b><b class="pull-right js-preview" data-preview-key="challengeRating"></b>
-	<hr>
-	<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait alignment" data-preview-key="alignment"></span> <span class="js-preview trait size" data-preview-key="size"></span>
-	<br>
-	<b>Perception</b> <span class="js-preview trait" data-preview-key="perception.bonus"></span>
-	<br>
-	<b>Languages</b>
-	<br>
-	<b>Skills</b>
-	<br>
-	<b>Str</b> <span class="js-preview" data-preview-key="statistics.strength"></span>,
-	<b>Dex</b> <span class="js-preview" data-preview-key="statistics.dexterity"></span>,
-	<b>Con</b> <span class="js-preview" data-preview-key="statistics.constitution"></span>,
-	<b>Int</b> <span class="js-preview" data-preview-key="statistics.intelligence"></span>,
-	<b>Wis</b> <span class="js-preview" data-preview-key="statistics.wisdom"></span>,
-	<b>Cha</b> <span class="js-preview" data-preview-key="statistics.charisma"></span>
-	<hr>
-	<b>AC</b> <span class="js-preview" data-preview-key="armorClass"></span>;
-	<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>,
-	<b>Ref</b> <span class="js-preview" data-preview-key="savingThrows.reflex.bonus"></span>,
-	<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>
-	<br>
-	<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>
+	<div>
+		<h3 class="js-preview" data-preview-key="name"></h3>
+	</div>
+	<div>
+		<span class="js-preview" data-preview-key="description"></span><br><br>
+	</div>
+	<div>
+		<b class="js-preview" data-preview-key="name"></b><b class="pull-right js-preview" data-preview-key="challengeRating"></b>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait alignment" data-preview-key="alignment"></span> <span class="js-preview trait size" data-preview-key="size"></span> <span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview trait" data-preview-key=""></span> </span></span>
+	</div>
+	<div>
+		<b>Perception</b> <span class="js-preview" data-preview-key="perception.bonus"></span>
+	</div>
+	<div>
+		<b>Languages</b> <span class="js-preview-list" data-preview-key="communication.languages"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+	</div>
+	<div>
+		<b>Skills</b> <span class="js-preview-list" data-preview-key="skills"><span><span class="js-preview" data-preview-key="skill"></span> +<span class="js-preview" data-preview-key="bonus"></span>, </span></span>
+	</div>
+	<div>
+		<b>Str</b> <span class="js-preview" data-preview-key="statistics.strength"></span>,
+		<b>Dex</b> <span class="js-preview" data-preview-key="statistics.dexterity"></span>,
+		<b>Con</b> <span class="js-preview" data-preview-key="statistics.constitution"></span>,
+		<b>Int</b> <span class="js-preview" data-preview-key="statistics.intelligence"></span>,
+		<b>Wis</b> <span class="js-preview" data-preview-key="statistics.wisdom"></span>,
+		<b>Cha</b> <span class="js-preview" data-preview-key="statistics.charisma"></span>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<b>AC</b> <span class="js-preview" data-preview-key="armorClass"></span>;
+		<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>,
+		<b>Ref</b> <span class="js-preview" data-preview-key="savingThrows.reflex.bonus"></span>,
+		<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>
+	</div>
+	<div>
+		<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>
+	</div>
 </div>

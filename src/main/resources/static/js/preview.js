@@ -1,4 +1,5 @@
 window.onload = function() {
+	$(".js-preview-container").data('preview-json', $("#jsonInput").val());
 	$('.js-preview-container').each(function() {
 		$(this).change(function() {
 			initialisePreview($(this));
@@ -32,14 +33,17 @@ function initialisePreview(element) {
 function renderPreview(parent, data, parentListElement) {
 
 	// for each preview element
-	// simply verify we're not finding one too deep in the hierarchy
-	// then fetch the correct data and append it
 	$(parent).find(".js-preview").each(function(index, element) {
+		// clear each preview element
+		$(element).empty();
+
+		// verify we're not finding one too deep in the hierarchy
 		var parentElement = $(element).closest('.js-preview-list');
 		if(parentElement.length != 0 && parentElement[0] != parentListElement) {
 			return;
 		}
 
+		// fetch the correct data and append it
 		$(element).html(getDataForElement(element, data));
 	});
 

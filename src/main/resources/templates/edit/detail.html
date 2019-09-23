@@ -70,12 +70,7 @@
 				</div>
 				<div class="col-md-4 col-sm-12 col-xs-12">
 					<div class="box js-preview-container">
-						<div class="box-header">
-							<h3 class="box-title">Preview</h3>
-						</div>
-						<!-- /.box-header -->
 						<div class="box-body" th:insert="${'layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
-
 						</div>
 					</div>
 				</div>
@@ -87,7 +82,7 @@
 							<span class="info-box-text">&nbsp;</span>
 							<form action="/ui/edit/delete" method="POST">
 								<input type="hidden" name="id" th:value="${mostRecentdataObject.id}">
-								<button type="submit" class="btn btn-block btn-danger btn-lg">Delete this item</button>
+								<button type="submit" class="btn btn-block btn-danger btn-lg">Delete this object</button>
 							</form>
 						</div>
 						<!-- /.info-box-content -->

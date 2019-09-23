@@ -6,5 +6,8 @@
 	},
 	"description": {
 		"ui:widget": "textarea"
+	},
+	"traits": {
+		"classNames": "traits"
 	}
 }
