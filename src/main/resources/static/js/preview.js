@@ -56,15 +56,15 @@ function renderPreview(parent, data, parentListElement) {
 			return;
 		}
 
-		// get the list data for this element
-		var listData = getDataForElement(element, data);
-		if(listData == null) {
-			return;
-		}
-
 		// store its current child (it should only ever have 1) and then empty it
-		var childElement = $(element).children()[0];
+		var childElement = getListChild($(element));
 		$(element).empty();
+
+        // get the list data for this element
+        var listData = filterNullValuesFromArray(getDataForElement(element, data));
+        if(listData == null || listData.length == 0) {
+            return;
+        }
 
 		// for each item in the list, append a child clone
 		// then render the child with the correct data from the list
@@ -118,4 +118,34 @@ function getDataForElement(element, data) {
 	}
 
 	return getDataByPath(previewKey, data[parentLevel]);
+}
+
+function filterNullValuesFromArray(array) {
+    var newArray = [];
+
+    if(array == null) {
+        return newArray;
+    }
+
+    for(item of array) {
+        if(item != null) {
+            newArray.push(item);
+        }
+    }
+
+    return newArray;
+}
+
+function getListChild(parentElement) {
+    var listChildDataAttribute = "list-child";
+    var listChild = $(parentElement).data(listChildDataAttribute);
+
+    if(listChild == null) {
+        listChild = $(parentElement).children()[0];
+        $(parentElement).data(listChildDataAttribute, listChild.outerHTML);
+    } else {
+        listChild == $(listChild)[0];
+    }
+
+    return listChild;
 }
