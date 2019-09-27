@@ -1,4 +1,4 @@
-window.onload = function() {
+window.addEventListener("load", function() {
 	$(".js-preview-container").data('preview-json', $("#jsonInput").val());
 	$('.js-preview-container').each(function() {
 		$(this).change(function() {
@@ -6,7 +6,7 @@ window.onload = function() {
 		});
 		initialisePreview($(this));
 	});
-};
+}, false);
 
 function initialisePreview(element) {
 	try {
@@ -90,6 +90,11 @@ function shallowCloneArray(array) {
 }
 
 function getDataByPath(path, data) {
+    // early out
+    if(!data) {
+        return '';
+    }
+
 	var paths = path.split('.');
 
 	if(paths.length > 1) {

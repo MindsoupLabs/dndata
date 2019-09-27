@@ -1,4 +1,4 @@
-window.onload = function() {
+window.addEventListener("load", function() {
     $(window).on('scroll', function() {
         $('.js-preview-container').each(function(index, element) {
             if(elementShouldSticky()) {
@@ -8,7 +8,7 @@ window.onload = function() {
             }
         });
     });
-};
+}, false);
 
 function elementShouldSticky() {
     var triggerElement = $("#js-preview-sticky-trigger");
