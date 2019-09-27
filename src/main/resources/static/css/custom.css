@@ -40,3 +40,7 @@ hr {
 .traits input {
 	text-transform: uppercase;
 }
+
+.sticky {
+    position: fixed;
+}

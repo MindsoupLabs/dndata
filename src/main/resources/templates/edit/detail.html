@@ -68,6 +68,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12" id="js-preview-sticky-trigger"></div>
 				<div class="col-md-4 col-sm-12 col-xs-12">
 					<div class="box js-preview-container">
 						<div class="box-body" th:insert="${'layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
@@ -99,5 +100,6 @@
 		<script crossorigin src="https://unpkg.com/react-jsonschema-form/dist/react-jsonschema-form.js"></script>
 		<script src="/static/js/JSONFormCreator.js" type="module"></script>
 		<script src="/static/js/preview.js"></script>
+		<script src="/static/js/stickypreview.js"></script>
 	</section>
 </div>
