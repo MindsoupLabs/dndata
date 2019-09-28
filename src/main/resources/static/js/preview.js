@@ -151,11 +151,14 @@ function filterNullValuesFromArray(array) {
 
 function getListChild(parentElement) {
     var listChildDataAttribute = "list-child";
-    var listChild = $(parentElement).data(listChildDataAttribute);
+    var listChild = parentElement.data(listChildDataAttribute);
 
     if(listChild == null) {
-        listChild = $(parentElement).children()[0];
-        $(parentElement).data(listChildDataAttribute, listChild.outerHTML);
+        listChild = parentElement.children()[0];
+
+        if(listChild != null) {
+        	parentElement.data(listChildDataAttribute, listChild.outerHTML);
+        }
     } else {
         listChild == $(listChild)[0];
     }

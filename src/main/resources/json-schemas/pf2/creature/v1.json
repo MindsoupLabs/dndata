@@ -562,7 +562,7 @@
 					"type": {
 						"$ref": "#/definitions/tradition"
 					},
-					"dc": {
+					"ritualsDC": {
 						"type": "integer"
 					},
 					"rituals": {
