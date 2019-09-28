@@ -43,9 +43,31 @@ hr {
 
 .sticky {
     position: fixed;
+    overflow-y: scroll;
 }
 
 .form-group {
 	background-color: #bbc7ce33;
 	padding: 5px;
+}
+
+/* scrollbar */
+/* width */
+.sticky::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.sticky::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.sticky::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.sticky::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

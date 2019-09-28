@@ -13,6 +13,11 @@ window.addEventListener("load", function() {
 function elementShouldSticky() {
     var triggerElement = $("#js-preview-sticky-trigger");
 
+    // do not sticky on mobile
+    if($(window).width() < 992) {
+    	return false;
+    }
+
     if(triggerElement.length != 1) {
         return true;
     }
@@ -23,6 +28,7 @@ function elementShouldSticky() {
 function sticky(element) {
     element = $(element);
     element.css('width', element.width());
+    element.css('height', $(window).height() - 20);
     element.css('top', 10);
     element.css('z-index', 9001);
     element.addClass('sticky');
@@ -32,6 +38,7 @@ function unsticky(element) {
     element = $(element);
     element.removeClass('sticky');
     element.css('width', '');
+    element.css('height', '');
     element.css('top', '');
     element.css('z-index', '');
 }
