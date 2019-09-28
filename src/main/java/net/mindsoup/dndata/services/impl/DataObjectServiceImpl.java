@@ -68,7 +68,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 	public DataObject updateStatus(DataObject dataObject, String comment, ObjectStatus status) {
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, status);
 		objectStatusRepository.save(objectStatus);
-		logger.info(String.format("Updated object '%s' with id %s to status %s", dataObject.getName(), dataObject.getId(), status.name()));
+		logger.info(String.format("Updated object '%s' (%s.%s) to status %s", dataObject.getName(), dataObject.getId(), dataObject.getRevision(), status.name()));
 		return dataObject;
 	}
 
@@ -201,7 +201,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 		ObjectStatusDAO objectStatus = createObjectStatusForObject(dataObject, comment, ObjectStatus.EDITING);
 		objectStatusRepository.save(objectStatus);
 
-		logger.info(String.format("Updated object '%s' with id %s, current status: %s", dataObject.getName(), dataObject.getId(), objectStatus.getStatus().name()));
+		logger.info(String.format("Updated object '%s' (%s.%s), current status: %s", dataObject.getName(), dataObject.getId(), dataObject.getRevision(), objectStatus.getStatus().name()));
 
 		return dataObject;
 	}

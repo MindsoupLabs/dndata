@@ -1,27 +1,149 @@
 <div class="preview-box" xmlns:th="http://www.thymeleaf.org" th:fragment="preview">
-	<h3 class="js-preview" data-preview-key="name"></h3>
-	<span class="js-preview" data-preview-key="description"></span><br><br>
-	<b class="js-preview" data-preview-key="name"></b><b class="pull-right js-preview" data-preview-key="challengeRating"></b>
-	<hr>
-	<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait alignment" data-preview-key="alignment"></span> <span class="js-preview trait size" data-preview-key="size"></span>
-	<br>
-	<b>Perception</b> <span class="js-preview trait" data-preview-key="perception.bonus"></span>
-	<br>
-	<b>Languages</b>
-	<br>
-	<b>Skills</b>
-	<br>
-	<b>Str</b> <span class="js-preview" data-preview-key="statistics.strength"></span>,
-	<b>Dex</b> <span class="js-preview" data-preview-key="statistics.dexterity"></span>,
-	<b>Con</b> <span class="js-preview" data-preview-key="statistics.constitution"></span>,
-	<b>Int</b> <span class="js-preview" data-preview-key="statistics.intelligence"></span>,
-	<b>Wis</b> <span class="js-preview" data-preview-key="statistics.wisdom"></span>,
-	<b>Cha</b> <span class="js-preview" data-preview-key="statistics.charisma"></span>
-	<hr>
-	<b>AC</b> <span class="js-preview" data-preview-key="armorClass"></span>;
-	<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>,
-	<b>Ref</b> <span class="js-preview" data-preview-key="savingThrows.reflex.bonus"></span>,
-	<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>
-	<br>
-	<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>
+	<div>
+		<h3 class="js-preview" data-preview-key="name"></h3>
+	</div>
+	<div>
+		<span class="js-preview" data-preview-key="description"></span><br><br>
+	</div>
+	<div>
+		<b class="js-preview" data-preview-key="name"></b><b class="pull-right js-preview" data-preview-key="challengeRating"></b>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait alignment" data-preview-key="alignment"></span> <span class="js-preview trait size" data-preview-key="size"></span> <span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview trait" data-preview-key=""></span> </span></span>
+	</div>
+	<div>
+		<b>Perception</b> <span class="js-preview" data-preview-key="perception.bonus"></span>; <span class="js-preview-list" data-preview-key="perception.abilities"><span><span class="js-preview" data-preview-key=""></span>, </span></span> <span class="js-preview-list" data-preview-key="perception.rangedAbilities"><span><span class="js-preview" data-preview-key="ability"></span> (<span class="js-preview" data-preview-key="accuracy"></span>)<span class="js-preview" data-preview-key="range"></span> feet, </span></span>
+	</div>
+	<div>
+		<b>Languages</b> <span class="js-preview-list" data-preview-key="communication.languages"><span><span class="js-preview" data-preview-key=""></span>, </span></span>; <span class="js-preview-list" data-preview-key="communication.abilities"><span><span class="js-preview" data-preview-key=""></span>, </span></span> <span class="js-preview-list" data-preview-key="communication.rangedAbilities"><span><span class="js-preview" data-preview-key="ability"></span> <span class="js-preview" data-preview-key="range"></span> feet, </span></span>
+	</div>
+	<div>
+		<b>Skills</b> <span class="js-preview-list" data-preview-key="skills"><span><span class="js-preview" data-preview-key="skill"></span> +<span class="js-preview" data-preview-key="bonus"></span>, </span></span>
+	</div>
+	<div>
+		<b>Str</b> <span class="js-preview" data-preview-key="statistics.strength"></span>,
+		<b>Dex</b> <span class="js-preview" data-preview-key="statistics.dexterity"></span>,
+		<b>Con</b> <span class="js-preview" data-preview-key="statistics.constitution"></span>,
+		<b>Int</b> <span class="js-preview" data-preview-key="statistics.intelligence"></span>,
+		<b>Wis</b> <span class="js-preview" data-preview-key="statistics.wisdom"></span>,
+		<b>Cha</b> <span class="js-preview" data-preview-key="statistics.charisma"></span>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<b>AC</b> <span class="js-preview" data-preview-key="armorClass"></span>;
+		<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>
+		<span class="js-preview-list" data-preview-key="savingThrows.fortitude.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="type"></span> (<span class="js-preview" data-preview-key="bonus"></span> v. <span class="js-preview" data-preview-key="against"></span>),
+			</span>
+		</span>,
+		<b>Ref</b> <span class="js-preview" data-preview-key="savingThrows.reflex.bonus"></span>,
+		<span class="js-preview-list" data-preview-key="savingThrows.reflex.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="type"></span> (<span class="js-preview" data-preview-key="bonus"></span> v. <span class="js-preview" data-preview-key="against"></span>),
+			</span>
+		</span>,
+		<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>
+		<span class="js-preview-list" data-preview-key="savingThrows.willpower.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="type"></span> (<span class="js-preview" data-preview-key="bonus"></span> v. <span class="js-preview" data-preview-key="against"></span>),
+			</span>
+		</span>;
+		<span class="js-preview-list" data-preview-key="savingThrows.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="bonus"></span> <span class="js-preview" data-preview-key="type"></span> v. <span class="js-preview" data-preview-key="against"></span>,
+			</span>
+		</span>
+	</div>
+	<div>
+		<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>;
+		<b>Immunities</b>
+		<span class="js-preview-list" data-preview-key="immunities">
+			<span>
+				<span class="js-preview" data-preview-key=""></span>,
+			</span>
+		</span>;
+		<b>Weaknesses</b>
+		<span class="js-preview-list" data-preview-key="weaknesses">
+			<span>
+				<span class="js-preview" data-preview-key="to"></span>
+				<span class="js-preview" data-preview-key="amount"></span> (except
+				<span class="js-preview-list" data-preview-key="exceptions">
+					<span>
+						<span class="js-preview" data-preview-key=""></span>,
+					</span>
+				</span>),
+			</span>
+		</span>;
+		<b>Resistances</b>
+		<span class="js-preview-list" data-preview-key="resistances">
+			<span>
+				<span class="js-preview" data-preview-key="to"></span>
+				<span class="js-preview" data-preview-key="amount"></span> (except
+				<span class="js-preview-list" data-preview-key="exceptions">
+					<span>
+						<span class="js-preview" data-preview-key=""></span>,
+					</span>
+				</span>),
+			</span>
+		</span>
+	</div>
+	<div class="js-preview-list" data-preview-key="auras">
+		<div>
+			<b class="js-preview" data-preview-key="name"></b> (<span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview" data-preview-key=""></span>, </span></span>) <span class="js-preview" data-preview-key="range"></span> feet. <span class="js-preview" data-preview-key="description"></span>
+		</div>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<b>Speed</b> <span class="js-preview" data-preview-key="speed.land"></span> feet,
+		climb <span class="js-preview" data-preview-key="speed.climb"></span> feet,
+		fly <span class="js-preview" data-preview-key="speed.fly"></span> feet,
+		swim <span class="js-preview" data-preview-key="speed.swim"></span> feet,
+		burrow <span class="js-preview" data-preview-key="speed.burrow"></span> feet
+	</div>
+	<div class="js-preview-list" data-preview-key="attacks">
+		<div>
+			<b class="js-preview" data-preview-key="type"></b> <span class="js-preview" data-preview-key="name"></span> <span class="js-preview" data-preview-key="attack.bonus"></span> (<span class="js-preview-list" data-preview-key="attack.traits"><span><span class="js-preview" data-preview-key=""></span>, </span></span>),
+			<b>Damage</b> <span class="js-preview-list" data-preview-key="damage.damageRolls">
+				<span>
+					<span class="js-preview" data-preview-key="roll.dice"></span>d<span class="js-preview" data-preview-key="roll.sides"></span>+<span class="js-preview" data-preview-key="bonus"></span> <span class="js-preview" data-preview-key="damageType"></span> plus
+				</span>
+			</span> and
+			<span class="js-preview-list" data-preview-key="damage.effects"><span><span class="js-preview" data-preview-key=""></span> and </span></span>
+		</div>
+	</div>
+	<div class="js-preview-list" data-preview-key="spellCasting">
+		<div>
+			<b class="js-preview" data-preview-key="tradition"></b> <b class="js-preview" data-preview-key="type"></b> <b>Spells</b> DC <span class="js-preview" data-preview-key="spellDC"></span>;
+			<span class="js-preview-list" data-preview-key="spells">
+				<span>
+					<b class="js-preview" data-preview-key="level"></b> <i class="js-preview" data-preview-key="spell"></i>  (<span class="js-preview" data-preview-key="availability"></span>),
+				</span>
+			</span>
+		</div>
+	</div>
+	<div class="js-preview-list" data-preview-key="rituals">
+		<div>
+			<b class="js-preview" data-preview-key="type"></b> <b>Rituals</b> DC <span class="js-preview" data-preview-key="ritualsDC"></span>;
+			<span class="js-preview-list" data-preview-key="rituals">
+				<span>
+					<i class="js-preview" data-preview-key=""></i>,
+				</span>
+			</span>
+		</div>
+	</div>
+	<div class="js-preview-list" data-preview-key="abilities">
+		<div>
+			<b class="js-preview" data-preview-key="name"></b> <i class="js-preview" data-preview-key="action"></i>
+			(<span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview" data-preview-key=""></span>, </span></span>)
+			<span class="js-preview" data-preview-key="description"></span>
+		</div>
+	</div>
 </div>

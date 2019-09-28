@@ -4,6 +4,11 @@
 	"title": "Creature",
 	"description": "Creature statistics for Pathfinder 2E",
 	"definitions": {
+		"tradition": {
+			"type": "string",
+			"enum": ["ARCANE", "DIVINE", "OCCULT", "PRIMAL"],
+			"default": "ARCANE"
+		},
 		"savingThrow": {
 			"type": "object",
 			"properties": {
@@ -54,7 +59,9 @@
 					"items": {
 						"type": "string",
 						"minLength": 1
-					}
+					},
+					"minItems": 0,
+					"default": []
 				}
 			},
 			"required": ["to", "amount", "exceptions"]
@@ -96,6 +103,8 @@
 						"type": "string",
 						"minLength": 1
 					},
+					"minItems": 0,
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -241,7 +250,22 @@
 				"rangedAbilities": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/rangedAbility"
+						"allOf": [
+							{
+								"$ref": "#/definitions/rangedAbility"
+							},
+							{
+								"type": "object",
+								"properties": {
+									"accuracy": {
+										"type": "string",
+										"enum": ["PRECISE", "IMPRECISE"],
+										"default": "IMPRECISE"
+									}
+								},
+								"required": ["accuracy"]
+							}
+						]
 					},
 					"default": [],
 					"uniqueItems": true
@@ -287,11 +311,7 @@
 			"description": "Basic stats of the monster",
 			"type": "object",
 			"properties": {
-				"charisma": {
-					"type": "integer",
-					"default": 0
-				},
-				"constitution": {
+				"strength": {
 					"type": "integer",
 					"default": 0
 				},
@@ -299,20 +319,24 @@
 					"type": "integer",
 					"default": 0
 				},
-				"intelligence": {
+				"constitution": {
 					"type": "integer",
 					"default": 0
 				},
-				"strength": {
+				"intelligence": {
 					"type": "integer",
 					"default": 0
 				},
 				"wisdom": {
 					"type": "integer",
 					"default": 0
+				},
+				"charisma": {
+					"type": "integer",
+					"default": 0
 				}
 			},
-			"required": ["charisma", "constitution", "dexterity", "intelligence", "strength", "wisdom"]
+			"required": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 		},
 		"skills": {
 			"description": "Skills of the monster",
@@ -533,10 +557,34 @@
 		"rituals": {
 			"type": "array",
 			"items": {
-				"type": "string",
-				"minLength": 1
+				"type": "object",
+				"properties": {
+					"type": {
+						"$ref": "#/definitions/tradition"
+					},
+					"ritualsDC": {
+						"type": "integer"
+					},
+					"rituals": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						},
+						"uniqueItems": true,
+						"minItems": 1
+					}
+				},
+				"default": null,
+				"required": [
+					"type",
+					"dc",
+					"rituals"
+				]
 			},
-			"uniqueItems": true
+			"default": [],
+			"minItems": 0,
+			"maxItems": 1
 		},
 		"attacks": {
 			"type": "array",
@@ -565,6 +613,7 @@
 								}
 							},
 							"valueTraits": {
+								"description": "Example: reach 10 feet",
 								"type": "array",
 								"items": {
 									"type": "object",
@@ -613,7 +662,8 @@
 											"$ref": "#/definitions/dice"
 										},
 										"bonus": {
-											"type": "integer"
+											"type": "integer",
+											"default": 0
 										},
 										"damageType": {
 											"type": "string",
@@ -645,8 +695,7 @@
 				"type": "object",
 				"properties": {
 					"tradition": {
-						"type": "string",
-						"enum": ["ARCANE", "DIVINE", "OCCULT", "PRIMAL"]
+						"$ref": "#/definitions/tradition"
 					},
 					"type": {
 						"type": "string",
@@ -775,7 +824,6 @@
 		"abilities",
 		"triggeredAbilities",
 		"speed",
-		"rituals",
 		"attacks",
 		"spellCasting",
 		"classPowers"

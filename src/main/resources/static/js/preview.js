@@ -1,11 +1,12 @@
-window.onload = function() {
+window.addEventListener("load", function() {
+	$(".js-preview-container").data('preview-json', $("#jsonInput").val());
 	$('.js-preview-container').each(function() {
 		$(this).change(function() {
 			initialisePreview($(this));
 		});
 		initialisePreview($(this));
 	});
-};
+}, false);
 
 function initialisePreview(element) {
 	try {
@@ -32,15 +33,18 @@ function initialisePreview(element) {
 function renderPreview(parent, data, parentListElement) {
 
 	// for each preview element
-	// simply verify we're not finding one too deep in the hierarchy
-	// then fetch the correct data and append it
 	$(parent).find(".js-preview").each(function(index, element) {
+		// clear each preview element
+		$(element).empty();
+
+		// verify we're not finding one too deep in the hierarchy
 		var parentElement = $(element).closest('.js-preview-list');
 		if(parentElement.length != 0 && parentElement[0] != parentListElement) {
 			return;
 		}
 
-		$(element).html(getDataForElement(element, data));
+		// fetch the correct data and append it
+		$(element).html(convertNewlinesToBr(getDataForElement(element, data)));
 	});
 
 
@@ -52,15 +56,15 @@ function renderPreview(parent, data, parentListElement) {
 			return;
 		}
 
-		// get the list data for this element
-		var listData = getDataForElement(element, data);
-		if(listData == null) {
-			return;
-		}
-
 		// store its current child (it should only ever have 1) and then empty it
-		var childElement = $(element).children()[0];
+		var childElement = getListChild($(element));
 		$(element).empty();
+
+        // get the list data for this element
+        var listData = filterNullValuesFromArray(getDataForElement(element, data));
+        if(listData == null || listData.length == 0) {
+            return;
+        }
 
 		// for each item in the list, append a child clone
 		// then render the child with the correct data from the list
@@ -85,7 +89,20 @@ function shallowCloneArray(array) {
 	return newArray;
 }
 
+function convertNewlinesToBr(string) {
+	if(typeof string !== 'string') {
+		return string;
+	}
+
+	return string.replace(/\n/g,'<br>');
+}
+
 function getDataByPath(path, data) {
+    // early out
+    if(!data) {
+        return '';
+    }
+
 	var paths = path.split('.');
 
 	if(paths.length > 1) {
@@ -114,4 +131,37 @@ function getDataForElement(element, data) {
 	}
 
 	return getDataByPath(previewKey, data[parentLevel]);
+}
+
+function filterNullValuesFromArray(array) {
+    var newArray = [];
+
+    if(array == null) {
+        return newArray;
+    }
+
+    for(item of array) {
+        if(item != null) {
+            newArray.push(item);
+        }
+    }
+
+    return newArray;
+}
+
+function getListChild(parentElement) {
+    var listChildDataAttribute = "list-child";
+    var listChild = parentElement.data(listChildDataAttribute);
+
+    if(listChild == null) {
+        listChild = parentElement.children()[0];
+
+        if(listChild != null) {
+        	parentElement.data(listChildDataAttribute, listChild.outerHTML);
+        }
+    } else {
+        listChild == $(listChild)[0];
+    }
+
+    return listChild;
 }
