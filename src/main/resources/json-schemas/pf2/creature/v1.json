@@ -54,7 +54,9 @@
 					"items": {
 						"type": "string",
 						"minLength": 1
-					}
+					},
+					"minItems": 0,
+					"default": []
 				}
 			},
 			"required": ["to", "amount", "exceptions"]
@@ -94,8 +96,10 @@
 					"type": "array",
 					"items": {
 						"type": "string",
-						"minLength": 1
+						"minLength": 0
 					},
+					"minItems": 0,
+					"default": [],
 					"uniqueItems": true
 				}
 			},
@@ -302,11 +306,7 @@
 			"description": "Basic stats of the monster",
 			"type": "object",
 			"properties": {
-				"charisma": {
-					"type": "integer",
-					"default": 0
-				},
-				"constitution": {
+				"strength": {
 					"type": "integer",
 					"default": 0
 				},
@@ -314,20 +314,24 @@
 					"type": "integer",
 					"default": 0
 				},
-				"intelligence": {
+				"constitution": {
 					"type": "integer",
 					"default": 0
 				},
-				"strength": {
+				"intelligence": {
 					"type": "integer",
 					"default": 0
 				},
 				"wisdom": {
 					"type": "integer",
 					"default": 0
+				},
+				"charisma": {
+					"type": "integer",
+					"default": 0
 				}
 			},
-			"required": ["charisma", "constitution", "dexterity", "intelligence", "strength", "wisdom"]
+			"required": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 		},
 		"skills": {
 			"description": "Skills of the monster",

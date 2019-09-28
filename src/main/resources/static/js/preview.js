@@ -44,7 +44,7 @@ function renderPreview(parent, data, parentListElement) {
 		}
 
 		// fetch the correct data and append it
-		$(element).html(getDataForElement(element, data));
+		$(element).html(convertNewlinesToBr(getDataForElement(element, data)));
 	});
 
 
@@ -87,6 +87,14 @@ function shallowCloneArray(array) {
 	}
 
 	return newArray;
+}
+
+function convertNewlinesToBr(string) {
+	if(typeof string !== 'string') {
+		return string;
+	}
+
+	return string.replace(/\n/g,'<br>');
 }
 
 function getDataByPath(path, data) {
