@@ -238,7 +238,24 @@
 				"rangedAbilities": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/rangedAbility"
+						"type": "object",
+						"properties": {
+							"ability": {
+								"type": "string",
+								"minLength": 1
+							},
+							"range": {
+								"description": "Ability range in feet",
+								"type": "integer",
+								"exclusiveMinimum": 0
+							},
+							"accuracy": {
+								"type": "string",
+								"enum": ["PRECISE", "IMPRECISE"],
+								"default": "IMPRECISE"
+							}
+						},
+						"required": ["ability", "range", "accuracy"]
 					},
 					"default": [],
 					"uniqueItems": true

@@ -15,10 +15,10 @@
 		<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait alignment" data-preview-key="alignment"></span> <span class="js-preview trait size" data-preview-key="size"></span> <span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview trait" data-preview-key=""></span> </span></span>
 	</div>
 	<div>
-		<b>Perception</b> <span class="js-preview" data-preview-key="perception.bonus"></span>; <span class="js-preview-list" data-preview-key="perception.abilities"><span><span class="js-preview" data-preview-key=""></span>, </span></span> <span class="js-preview-list" data-preview-key="perception.rangedAbilities"><span><span class="js-preview" data-preview-key="ability"></span> <span class="js-preview" data-preview-key="range"></span> feet, </span></span>
+		<b>Perception</b> <span class="js-preview" data-preview-key="perception.bonus"></span>; <span class="js-preview-list" data-preview-key="perception.abilities"><span><span class="js-preview" data-preview-key=""></span>, </span></span> <span class="js-preview-list" data-preview-key="perception.rangedAbilities"><span><span class="js-preview" data-preview-key="ability"></span> (<span class="js-preview" data-preview-key="accuracy"></span>)<span class="js-preview" data-preview-key="range"></span> feet, </span></span>
 	</div>
 	<div>
-		<b>Languages</b> <span class="js-preview-list" data-preview-key="communication.languages"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+		<b>Languages</b> <span class="js-preview-list" data-preview-key="communication.languages"><span><span class="js-preview" data-preview-key=""></span>, </span></span>; <span class="js-preview-list" data-preview-key="communication.abilities"><span><span class="js-preview" data-preview-key=""></span>, </span></span> <span class="js-preview-list" data-preview-key="communication.rangedAbilities"><span><span class="js-preview" data-preview-key="ability"></span> <span class="js-preview" data-preview-key="range"></span> feet, </span></span>
 	</div>
 	<div>
 		<b>Skills</b> <span class="js-preview-list" data-preview-key="skills"><span><span class="js-preview" data-preview-key="skill"></span> +<span class="js-preview" data-preview-key="bonus"></span>, </span></span>
@@ -36,9 +36,19 @@
 	</div>
 	<div>
 		<b>AC</b> <span class="js-preview" data-preview-key="armorClass"></span>;
-		<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>,
+		<b>Fort</b> <span class="js-preview" data-preview-key="savingThrows.fortitude.bonus"></span>
+		(<span class="js-preview-list" data-preview-key="savingThrows.fortitude.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="type"></span> <span class="js-preview" data-preview-key="bonus"></span> v. <span class="js-preview" data-preview-key="against"></span>,
+			</span>
+		</span>),
 		<b>Ref</b> <span class="js-preview" data-preview-key="savingThrows.reflex.bonus"></span>,
-		<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>
+		<b>Will</b> <span class="js-preview" data-preview-key="savingThrows.willpower.bonus"></span>;
+		<span class="js-preview-list" data-preview-key="savingThrows.bonuses">
+			<span>
+				<span class="js-preview" data-preview-key="type"></span> <span class="js-preview" data-preview-key="bonus"></span> v. <span class="js-preview" data-preview-key="against"></span>,
+			</span>
+		</span>
 	</div>
 	<div>
 		<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>; <b>Immunities</b> <span class="js-preview-list" data-preview-key="immunities"><span><span class="js-preview" data-preview-key=""></span>, </span></span>; <b>Resistances</b> <span class="js-preview-list" data-preview-key="resistances"><span><span class="js-preview" data-preview-key="to"></span> <span class="js-preview" data-preview-key="amount"></span> (except <span class="js-preview-list" data-preview-key="exceptions"><span><span class="js-preview" data-preview-key=""></span>, </span></span>), </span></span>; <b>Weaknesses</b> <span class="js-preview-list" data-preview-key="weaknesses"><span><span class="js-preview" data-preview-key="to"></span> <span class="js-preview" data-preview-key="amount"></span> (except <span class="js-preview-list" data-preview-key="exceptions"><span><span class="js-preview" data-preview-key=""></span>, </span></span>), </span></span>

@@ -241,7 +241,22 @@
 				"rangedAbilities": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/rangedAbility"
+						"allOf": [
+							{
+								"$ref": "#/definitions/rangedAbility"
+							},
+							{
+								"type": "object",
+								"properties": {
+									"accuracy": {
+										"type": "string",
+										"enum": ["PRECISE", "IMPRECISE"],
+										"default": "IMPRECISE"
+									}
+								},
+								"required": ["accuracy"]
+							}
+						]
 					},
 					"default": [],
 					"uniqueItems": true
