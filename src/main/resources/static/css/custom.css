@@ -44,3 +44,8 @@ hr {
 .sticky {
     position: fixed;
 }
+
+.form-group {
+	background-color: #bbc7ce33;
+	padding: 5px;
+}

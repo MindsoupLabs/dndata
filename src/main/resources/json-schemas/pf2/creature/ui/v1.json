@@ -2,6 +2,11 @@
 	"title": "Monster",
 	"description": "Monster statistics for Pathfinder 2E",
 	"definitions": {
+		"tradition": {
+			"type": "string",
+			"enum": ["ARCANE", "DIVINE", "OCCULT", "PRIMAL"],
+			"default": "ARCANE"
+		},
 		"savingThrow": {
 			"type": "object",
 			"properties": {
@@ -94,7 +99,7 @@
 					"type": "array",
 					"items": {
 						"type": "string",
-						"minLength": 0
+						"minLength": 1
 					},
 					"minItems": 0,
 					"default": [],
@@ -579,11 +584,34 @@
 		"rituals": {
 			"type": "array",
 			"items": {
-				"type": "string",
-				"minLength": 1
+				"type": "object",
+				"properties": {
+					"type": {
+						"$ref": "#/definitions/tradition"
+					},
+					"dc": {
+						"type": "integer"
+					},
+					"rituals": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						},
+						"uniqueItems": true,
+						"minItems": 1
+					}
+				},
+				"default": null,
+				"required": [
+					"type",
+					"dc",
+					"rituals"
+				]
 			},
 			"default": [],
-			"uniqueItems": true
+			"minItems": 0,
+			"maxItems": 1
 		},
 		"attacks": {
 			"type": "array",
@@ -612,6 +640,7 @@
 								}
 							},
 							"valueTraits": {
+								"description": "Example: reach 10 feet",
 								"type": "array",
 								"items": {
 									"type": "object",
@@ -646,7 +675,8 @@
 											"$ref": "#/definitions/dice"
 										},
 										"bonus": {
-											"type": "integer"
+											"type": "integer",
+											"default": 0
 										},
 										"damageType": {
 											"type": "string",
@@ -678,8 +708,7 @@
 				"type": "object",
 				"properties": {
 					"tradition": {
-						"type": "string",
-						"enum": ["ARCANE", "DIVINE", "OCCULT", "PRIMAL"]
+						"$ref": "#/definitions/tradition"
 					},
 					"type": {
 						"type": "string",
@@ -808,7 +837,6 @@
 		"abilities",
 		"triggeredAbilities",
 		"speed",
-		"rituals",
 		"attacks",
 		"spellCasting",
 		"classPowers"

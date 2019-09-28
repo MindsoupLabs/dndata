@@ -61,7 +61,42 @@
 		</span>
 	</div>
 	<div>
-		<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>; <b>Immunities</b> <span class="js-preview-list" data-preview-key="immunities"><span><span class="js-preview" data-preview-key=""></span>, </span></span>; <b>Resistances</b> <span class="js-preview-list" data-preview-key="resistances"><span><span class="js-preview" data-preview-key="to"></span> <span class="js-preview" data-preview-key="amount"></span> (except <span class="js-preview-list" data-preview-key="exceptions"><span><span class="js-preview" data-preview-key=""></span>, </span></span>), </span></span>; <b>Weaknesses</b> <span class="js-preview-list" data-preview-key="weaknesses"><span><span class="js-preview" data-preview-key="to"></span> <span class="js-preview" data-preview-key="amount"></span> (except <span class="js-preview-list" data-preview-key="exceptions"><span><span class="js-preview" data-preview-key=""></span>, </span></span>), </span></span>
+		<b>HP</b> <span class="js-preview" data-preview-key="hitpoints"></span>;
+		<b>Immunities</b>
+		<span class="js-preview-list" data-preview-key="immunities">
+			<span>
+				<span class="js-preview" data-preview-key=""></span>,
+			</span>
+		</span>;
+		<b>Weaknesses</b>
+		<span class="js-preview-list" data-preview-key="weaknesses">
+			<span>
+				<span class="js-preview" data-preview-key="to"></span>
+				<span class="js-preview" data-preview-key="amount"></span> (except
+				<span class="js-preview-list" data-preview-key="exceptions">
+					<span>
+						<span class="js-preview" data-preview-key=""></span>,
+					</span>
+				</span>),
+			</span>
+		</span>;
+		<b>Resistances</b>
+		<span class="js-preview-list" data-preview-key="resistances">
+			<span>
+				<span class="js-preview" data-preview-key="to"></span>
+				<span class="js-preview" data-preview-key="amount"></span> (except
+				<span class="js-preview-list" data-preview-key="exceptions">
+					<span>
+						<span class="js-preview" data-preview-key=""></span>,
+					</span>
+				</span>),
+			</span>
+		</span>
+	</div>
+	<div class="js-preview-list" data-preview-key="auras">
+		<div>
+			<b class="js-preview" data-preview-key="name"></b> (<span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview" data-preview-key=""></span>, </span></span>) <span class="js-preview" data-preview-key="range"></span> feet. <span class="js-preview" data-preview-key="description"></span>
+		</div>
 	</div>
 	<div>
 		<hr>
@@ -72,5 +107,16 @@
 		fly <span class="js-preview" data-preview-key="speed.fly"></span> feet,
 		swim <span class="js-preview" data-preview-key="speed.swim"></span> feet,
 		burrow <span class="js-preview" data-preview-key="speed.burrow"></span> feet
+	</div>
+	<div class="js-preview-list" data-preview-key="attacks">
+		<div>
+			<b class="js-preview" data-preview-key="type"></b> <span class="js-preview" data-preview-key="name"></span> <span class="js-preview" data-preview-key="attack.bonus"></span> (<span class="js-preview-list" data-preview-key="attack.traits"><span><span class="js-preview" data-preview-key=""></span>, </span></span>),
+			<b>Damage</b> <span class="js-preview-list" data-preview-key="damage.damageRolls">
+				<span>
+					<span class="js-preview" data-preview-key="roll.dice"></span>d<span class="js-preview" data-preview-key="roll.sides"></span>+<span class="js-preview" data-preview-key="bonus"></span> <span class="js-preview" data-preview-key="damageType"></span> plus
+				</span>
+			</span> and
+			<span class="js-preview-list" data-preview-key="damage.effects"><span><span class="js-preview" data-preview-key=""></span> and </span></span>
+		</div>
 	</div>
 </div>

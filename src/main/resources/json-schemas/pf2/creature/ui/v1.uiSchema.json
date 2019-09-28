@@ -7,6 +7,13 @@
 	"description": {
 		"ui:widget": "textarea"
 	},
+	"abilities": {
+		"items": {
+			"description": {
+				"ui:widget": "textarea"
+			}
+		}
+	},
 	"traits": {
 		"classNames": "traits"
 	}
