@@ -263,10 +263,10 @@
 						"type": "string",
 						"enum": [
 							"BY_INCREMENT",
-							"BY_LEVEL"
+							"TO_LEVEL"
 						],
 						"minLength": 1,
-						"default": "BY_LEVEL"
+						"default": "TO_LEVEL"
 					},
 					"heighten": {
 						"type": "integer",

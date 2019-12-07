@@ -32,6 +32,20 @@ function initialisePreview(element) {
 
 function renderPreview(parent, data, parentListElement) {
 
+	// for each filter element
+	$(parent).find(".js-preview-filter").each(function(index, element) {
+		var filterValue = getDataForElement(element, data.slice());
+
+		// if data is false, null, undefined, '' or []
+		// hide this element
+		if(filterValue && (!Array.isArray(filterValue) || filterValue.length > 0)) {
+			$(element).removeClass('hidden');
+		} else {
+			console.log("removing element");
+			$(element).addClass('hidden');
+		}
+	});
+
 	// for each preview element
 	$(parent).find(".js-preview").each(function(index, element) {
 		// clear each preview element
@@ -44,7 +58,7 @@ function renderPreview(parent, data, parentListElement) {
 		}
 
 		// fetch the correct data and append it
-		$(element).html(convertNewlinesToBr(getDataForElement(element, data)));
+		$(element).html(convertNewlinesToBr(getDataForElement(element, data.slice())));
 	});
 
 
@@ -61,7 +75,7 @@ function renderPreview(parent, data, parentListElement) {
 		$(element).empty();
 
         // get the list data for this element
-        var listData = filterNullValuesFromArray(getDataForElement(element, data));
+        var listData = filterNullValuesFromArray(getDataForElement(element, data.slice()));
         if(listData == null || listData.length == 0) {
             return;
         }
@@ -69,24 +83,13 @@ function renderPreview(parent, data, parentListElement) {
 		// for each item in the list, append a child clone
 		// then render the child with the correct data from the list
 		for(listItem of listData) {
-			var newData = shallowCloneArray(data);
+			var newData = data.slice();
 			var childClone = $(childElement).clone();
 			newData.push(listItem);
 			$(element).append(childClone);
 			renderPreview(childClone, newData, element);
 		}
 	});
-
-}
-
-function shallowCloneArray(array) {
-	var newArray = [];
-
-	for(item of array) {
-		newArray.push(item);
-	}
-
-	return newArray;
 }
 
 function convertNewlinesToBr(string) {
