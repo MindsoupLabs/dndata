@@ -33,7 +33,7 @@ function sticky(element) {
     }
 
     element.css('width', element.width());
-    element.css('height', Math.min(element.height() + 10, $(window).height() - 20));
+    element.css('height', Math.min(element.height() + 25, $(window).height() - 20));
     element.css('top', 10);
     element.css('z-index', 9001);
     element.addClass('sticky');
