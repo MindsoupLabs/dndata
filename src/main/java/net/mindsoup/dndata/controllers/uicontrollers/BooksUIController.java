@@ -52,6 +52,7 @@ public class BooksUIController extends BaseUIController {
 	@Secured({Constants.Rights.PF2.BOOKS})
 	@RequestMapping(value = {"/new"}, method = RequestMethod.GET)
 	public String newUser(Model model) {
+		model.addAttribute("showCreateObject", false);
 		model.addAttribute("book", new Book());
 		model.addAttribute("games", Game.values());
 		return "books/detail";
