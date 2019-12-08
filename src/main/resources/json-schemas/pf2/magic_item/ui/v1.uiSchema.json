@@ -1,0 +1,17 @@
+{
+	"metaInformation": {
+		"objectData": {
+			"ui:widget": "hidden"
+		}
+	},
+	"description": {
+		"ui:widget": "textarea"
+	},
+	"activation": {
+		"items": {
+			"components": {
+				"ui:widget": "checkboxes"
+			}
+		}
+	}
+}

@@ -84,7 +84,7 @@
 						</form>
 					</div>
 
-					<div class="box box-primary" th:if="${showCreateObject}">
+					<div class="box box-primary" th:if="${showCreateObject && pageModel?.hasRight('PUBLISH')}">
 						<div class="box-header with-border">
 							<h3 class="box-title" th:text="${'Publish ' + book.name}"></h3>
 						</div>

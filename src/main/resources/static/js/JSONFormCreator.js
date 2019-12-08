@@ -64,7 +64,8 @@ function init() {
 };
 
 function sanitizeJson(json) {
-	return json.replace(/’/g, "'");
+	// sanitise json that might be copy pasted from source books and contains unusual characters
+	return json.replace(/’/g, "'").replace(/×/g, "x");
 }
 
 // script entry

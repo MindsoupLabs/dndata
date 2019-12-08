@@ -1,0 +1,56 @@
+<div class="preview-box" xmlns:th="http://www.thymeleaf.org" th:fragment="preview">
+	<div>
+		<h3 class="js-preview" data-preview-key="name"></h3>
+	</div>
+	<div>
+		<b class="js-preview" data-preview-key="name"></b><b class="pull-right">ITEM <span class="js-preview" data-preview-key="level"></span></b>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview trait rarity" data-preview-key="rarity"></span> <span class="js-preview trait" data-preview-key="school"></span> <span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview trait" data-preview-key=""></span> </span></span>
+	</div>
+	<div>
+		<b>Price</b> <span class="js-preview" data-preview-key="price"></span> gp
+	</div>
+	<div>
+		<span class="js-preview-filter" data-preview-key="usage.usage"><b>Usage</b> <span class="js-preview" data-preview-key="usage.usage"></span>;&nbsp;</span>
+		<span class="js-preview-filter" data-preview-key="bulk"><b>Bulk</b> <span class="js-preview" data-preview-key="bulk"></span></span>
+	</div>
+	<div class="js-preview-filter" data-preview-key="ammunition">
+		<b>Ammunition</b> <span class="js-preview-list" data-preview-key="ammunition"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+	</div>
+	<div class="js-preview-filter" data-preview-key="requirements">
+		<b>Requirement</b> <span class="js-preview-list" data-preview-key="requirements"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview" data-preview-key="description"></span>
+	</div>
+	<div>
+		<span class="js-preview-list" data-preview-key="activation">
+			<div>
+				<b>Activation</b> <span class="js-preview" data-preview-key="action.time"></span> <span class="js-preview" data-preview-key="action.unit"></span>&nbsp;
+				(<span class="js-preview-list" data-preview-key="components"><span><span class="js-preview" data-preview-key=""></span>, </span></span>);&nbsp;
+				<span class="js-preview-filter" data-preview-key="frequency"><b>Frequency</b> <span class="js-preview" data-preview-key="frequency"></span>;&nbsp;</span>
+				<span class="js-preview-filter" data-preview-key="requirement"><b>Requirement</b> <span class="js-preview" data-preview-key="requirement"></span>;&nbsp;</span>
+				<span class="js-preview-filter" data-preview-key="trigger"><b>Trigger</b> <span class="js-preview" data-preview-key="trigger"></span>;&nbsp;</span>
+				<b>Effect</b> <span class="js-preview" data-preview-key="effect"></span>
+			</div>
+		</span>
+	</div>
+	<div class="js-preview-filter js-preview-list" data-preview-key="types">
+		<div>
+			<hr>
+			<b>Type</b> <span class="js-preview" data-preview-key="name"></span>; <b>Level</b> <span class="js-preview" data-preview-key="level"></span>; <b>Price</b> <span class="js-preview" data-preview-key="price"></span><br>
+			<span class="js-preview" data-preview-key="description"></span>
+		</div>
+	</div>
+	<div class="js-preview-filter" data-preview-key="craftRequirements">
+		<hr>
+		<b>Craft Requirement</b> <span class="js-preview-list" data-preview-key="craftRequirements"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+	</div>
+</div>

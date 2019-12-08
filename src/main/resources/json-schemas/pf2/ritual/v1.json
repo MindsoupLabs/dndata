@@ -1,8 +1,8 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://mindsoup.net/affliction/v1.json",
-	"title": "Affliction",
-	"description": "Afflictions for Pathfinder 2E",
+	"$id": "http://mindsoup.net/ritual/v1.json",
+	"title": "Ritual",
+	"description": "Rituals for Pathfinder 2E",
 	"definitions": {
 	},
 	"type": "object",
@@ -65,21 +65,22 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"type": {
-			"type": "string",
-			"enum": ["CURSE", "DISEASE", "POISON", "RADIATION"],
-			"minLength": 1
-		},
 		"level": {
 			"type": "integer",
+			"enum": [1,2,3,4,5,6,7,8,9,10],
 			"minimum": 1,
-			"maximum": 25
+			"maximum": 10
 		},
 		"rarity": {
-			"description": "Rarity of this affliction.",
+			"description": "Rarity of this Ritual.",
 			"type": "string",
 			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
-			"default": "COMMON"
+			"default": "UNCOMMON"
+		},
+		"school": {
+			"type": "string",
+			"enum": ["ABJURATION", "CONJURATION", "DIVINATION", "ENCHANTMENT", "EVOCATION", "ILLUSION", "NECROMANCY", "TRANSMUTATION"],
+			"minLength": 1
 		},
 		"traits": {
 			"type": "array",
@@ -95,90 +96,128 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"savingThrow": {
+		"casting": {
 			"type": "object",
 			"properties": {
-				"dc": {
+				"time": {
 					"type": "integer",
 					"minimum": 1,
-					"maximum": 50
-				},
-				"save": {
-					"type": "string",
-					"enum": ["FORTITUDE", "REFLEX",	"WILL"],
-					"minLength": 1
-				}
-			},
-			"required": ["dc", "save"]
-		},
-		"onset": {
-			"type": "object",
-			"properties": {
-				"time": {
-					"type": "integer",
-					"minimum": 1
+					"default": 1
 				},
 				"unit": {
 					"type": "string",
-					"enum": ["DAY", "HOUR", "IMMEDIATE", "MINUTE", "ROUND"],
+					"enum": ["DAY", "HOUR"],
 					"minLength": 1,
-					"default": "IMMEDIATE"
+					"default": "DAY"
 				}
 			},
-			"required": ["unit"]
+			"required": ["time", "unit"]
 		},
-		"maximumDuration": {
+		"cost": {
 			"type": "object",
 			"properties": {
-				"time": {
-					"type": "integer",
-					"minimum": 1
+				"cost": {
+					"type": "string"
 				},
-				"unit": {
-					"type": "string",
-					"enum": ["DAY", "HOUR", "MINUTE", "ROUND", "UNTIL_SAVED"],
-					"minLength": 1,
-					"default": "UNTIL_SAVED"
+				"goldvalue": {
+					"type": "integer",
+					"minimum": 0
 				}
-			},
-			"required": ["unit"]
+			}
 		},
-		"stages": {
+		"secondaryCasters": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "integer",
+					"minimum": 0,
+					"default": 1
+				},
+				"note": {
+					"type": "string"
+				}
+
+			},
+			"required": ["amount"]
+		},
+		"primaryCheck": {
 			"type": "array",
 			"items": {
 				"type": "object",
 				"properties": {
-					"stage": {
-						"type": "integer",
-						"enum": [1,2,3,4,5,6],
+					"skill": {
+						"type": "string",
+						"enum": ["ACROBATICS", "ARCANA", "ATHLETICS", "CRAFTING", "DECEPTION", "DIPLOMACY", "INTIMIDATION", "LORE", "MEDICINE", "NATURE", "OCCULTISM", "PERFORMANCE", "RELIGION", "SOCIETY", "STEALTH", "SURVIVAL", "THIEVERY"],
 						"minLength": 1
 					},
-					"effect": {
-						"type": "array",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1
-					},
-					"duration": {
-						"type": "object",
-						"properties": {
-							"time": {
-								"type": "integer",
-								"minimum": 1,
-								"default": 1
-							},
-							"unit": {
-								"type": "string",
-								"enum": ["DAY", "HOUR", "MINUTE", "ROUND"],
-								"minLength": 1
-							}
-						},
-						"required": ["time", "unit"]
+					"proficiency": {
+						"type": "string",
+						"enum": ["TRAINED", "EXPERT", "MASTER", "LEGENDARY"]
 					}
 				},
-				"required": ["stage", "effect", "duration"]
+				"required": ["skill"]
+			},
+			"uniqueItems": true,
+			"minItems": 1
+		},
+		"secondaryChecks": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"range": {
+			"type": "object",
+			"properties": {
+				"unit": {
+					"type": "string",
+					"enum": ["FEET", "MILES"]
+				},
+				"range": {
+					"type": "integer",
+					"minimum": 0
+				}
+			}
+		},
+		"area": {
+			"type": "string"
+		},
+		"duration": {
+			"type": "string"
+		},
+		"target": {
+			"type": "string"
+		},
+		"heightening": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"enum": [
+							"BY_INCREMENT",
+							"TO_LEVEL"
+						],
+						"minLength": 1,
+						"default": "TO_LEVEL"
+					},
+					"heighten": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 10
+					},
+					"description": {
+						"type": "string",
+						"minLength": 1
+					}
+
+				},
+				"required": ["type", "heighten", "description"]
 			},
 			"default": [],
 			"minItems": 0
@@ -189,10 +228,10 @@
 		"name",
 		"description",
 		"traits",
-		"type",
+		"school",
 		"rarity",
-		"savingThrow",
-		"onset",
-		"stages"
+		"casting",
+		"secondaryCasters",
+		"primaryCheck"
 	]
 }
