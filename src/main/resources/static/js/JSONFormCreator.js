@@ -9,12 +9,12 @@ var log = function log(type) {
 };
 var onSubmit = function onSubmit(_ref, e) {
 	var formData = _ref.formData;
-	return $("#jsonInput").val(JSON.stringify(formData));
+	return $("#jsonInput").val(sanitizeJson(JSON.stringify(formData)));
 };
 var onChange = function onChange(_ref2, e) {
 	var formData = _ref2.formData;
 
-	$(".js-preview-container").data('preview-json', JSON.stringify(formData));
+	$(".js-preview-container").data('preview-json', sanitizeJson(JSON.stringify(formData)));
 	$(".js-preview-container").trigger('change');
 };
 
@@ -54,7 +54,7 @@ function mergeFormData() {
 	var jsonInput = $("#jsonInput");
 
 	previousFormData = $.extend(true, presetValuesObject, previousFormData, overwriteValuesObject);
-	jsonInput.val(JSON.stringify(previousFormData));
+	jsonInput.val(sanitizeJson(JSON.stringify(previousFormData)));
 };
 
 function init() {
@@ -62,6 +62,10 @@ function init() {
 	initReactForm();
 	bindEvents();
 };
+
+function sanitizeJson(json) {
+	return json.replace(/’/g, "'");
+}
 
 // script entry
 var previousFormData = JSON.parse($("#jsonInput").val());

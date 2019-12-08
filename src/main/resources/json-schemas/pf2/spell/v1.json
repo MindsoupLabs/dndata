@@ -61,36 +61,33 @@
 			},
 			"required": ["objectData", "publicationData"]
 		},
-		"traits": {
-			"description": "List of traits of this spell",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 1,
-			"uniqueItems": true
-		},
 		"name": {
 			"type": "string",
 			"minLength": 1
 		},
 		"type": {
 			"type": "string",
-			"enum": ["CANTRIP", "SPELL"],
+			"enum": ["CANTRIP", "FOCUS", "SPELL"],
 			"default": "SPELL",
 			"minLength": 1
 		},
 		"level": {
 			"description": "Level of this spell",
 			"type": "integer",
-			"minimum": 1
+			"enum": [1,2,3,4,5,6,7,8,9,10],
+			"minimum": 1,
+			"maximum": 10
 		},
 		"rarity": {
 			"description": "Rarity of this spell.",
 			"type": "string",
 			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
 			"default": "COMMON"
+		},
+		"school": {
+			"type": "string",
+			"enum": ["ABJURATION", "CONJURATION", "DIVINATION", "ENCHANTMENT", "EVOCATION", "ILLUSION", "NECROMANCY", "TRANSMUTATION"],
+			"minLength": 1
 		},
 		"traditions": {
 			"type": "array",
@@ -100,45 +97,215 @@
 				"default": "ARCANE",
 				"minLength": 1
 			},
-			"minItems": 1,
-			"uniqueItems": true
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
 		},
-		"action": {
+		"traits": {
+			"description": "List of traits of this spell",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"domain": {
+			"description": "Cleric domain if applicable.",
 			"type": "string",
-			"enum": ["NONE", "FREE_ACTION", "REACTION", "ACTION", "TWO_ACTIONS", "THREE_ACTIONS", "VARIABLE"],
-			"default": "TWO_ACTIONS",
-			"minLength": 1
+			"enum": ["AMBITION", "AIR", "CITIES", "CONFIDENCE", "CREATION", "DARKNESS", "DEATH", "DESTRUCTION", "DREAMS", "EARTH", "FAMILY", "FATE", "FIRE", "FREEDOM", "HEALING", "INDULGENCE", "KNOWLEDGE", "LUCK", "MAGIC", "MIGHT", "MOON", "NATURE", "NIGHTMARES", "PAIN", "PASSION", "PERFECTION", "PROTECTION", "SECRECY", "SUN", "TRAVEL", "TRICKERY", "TRUTH", "TYRANNY", "UNDEATH", "WATER", "WEALTH", "ZEAL"],
+			"minLength": 0
 		},
-		"castingTime": {
+		"casting": {
 			"type": "object",
 			"properties": {
 				"time": {
 					"type": "integer",
-					"enum": [1, 10],
-					"minimum": 1
+					"minimum": 1,
+					"default": 2
 				},
 				"unit": {
 					"type": "string",
-					"enum": ["MINUTE", "HOUR"],
-					"minLength": 1
+					"enum": ["ACTION", "DAY","FREE_ACTION", "HOUR", "MINUTE", "REACTION", "ROUND"],
+					"minLength": 1,
+					"default": "ACTION"
+				},
+				"trigger": {
+					"type": "string",
+					"default": ""
 				}
 			},
 			"required": ["time", "unit"]
+		},
+		"components": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": ["FOCUS", "MATERIAL", "SOMATIC", "VERBAL"],
+				"minLength": 1
+			},
+			"minItems": 1,
+			"uniqueItems": true
+		},
+		"cost": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"range": {
+			"type": "object",
+			"properties": {
+				"unit": {
+					"type": "string",
+					"enum": ["PERSONAL", "TOUCH", "FEET", "MILES", "PLANETARY"]
+				},
+				"range": {
+					"type": "integer"
+				}
+			},
+			"default": null
+		},
+		"area": {
+			"type": "object",
+			"properties": {
+				"area": {
+					"type": "string",
+					"enum": ["BURST", "CONE", "CONTIGUOUS_AREA", "EMANATION", "LINE"],
+					"minLength": 1
+				},
+				"unit": {
+					"type": "string",
+					"enum": ["FEET", "SQUARES"],
+					"minLength": 1
+				},
+				"size": {
+					"type": "integer",
+					"minimum": 1
+				},
+				"height":{
+					"description": "Height of this area in feet",
+					"type": "integer"
+				},
+				"note": {
+					"type": "string",
+					"default": ""
+				}
+			},
+			"default": null
+		},
+		"targets": {
+			"type": "object",
+			"properties": {
+				"targets": {
+					"type": "string",
+					"minLength": 1
+				},
+				"canTargetMultiple": {
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"default": null
+		},
+		"duration": {
+			"type": "object",
+			"properties": {
+				"unit": {
+					"type": "string",
+					"enum": ["DAY", "HOUR", "INSTANTANEOUS", "MINUTE", "SUSTAINED", "SUSTAINED_UP_TO_MINUTE", "SUSTAINED_UP_TO_HOUR", "UNLIMITED", "UNTIL_DELIVERED", "UNTIL_TARGETS_NEXT_TURN", "UNTIL_YOUR_DAILY_PREPARATIONS", "UNTIL_YOUR_NEXT_TURN", "VARIES"],
+					"minLength": 1,
+					"default": "INSTANTANEOUS"
+				},
+				"time": {
+					"type": "integer",
+					"minimum": 1
+				}
+			},
+			"required": ["unit"]
+		},
+		"save": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"save": {
+						"type": "string",
+						"enum": [
+							"FORTITUDE",
+							"REFLEX",
+							"WILL"
+						],
+						"minLength": 1,
+						"default": "WILL"
+					},
+					"basic": {
+						"type": "boolean",
+						"default": false
+					}
+
+				},
+				"required": ["save", "basic"]
+			},
+			"default": [],
+			"minItems": 0
 		},
 		"description": {
 			"description": "Description of the spell",
 			"type": "string",
 			"minLength": 1
+		},
+		"heightening": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"enum": [
+							"BY_INCREMENT",
+							"TO_LEVEL"
+						],
+						"minLength": 1,
+						"default": "TO_LEVEL"
+					},
+					"heighten": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 10
+					},
+					"description": {
+						"type": "string",
+						"minLength": 1
+					}
+
+				},
+				"required": ["type", "heighten", "description"]
+			},
+			"default": [],
+			"minItems": 0
 		}
 	},
 	"required": [
 		"metaInformation",
-		"traits",
 		"name",
+		"description",
+		"school",
+		"traits",
 		"type",
 		"level",
 		"rarity",
-		"traditions",
-		"description"
+		"casting",
+		"components",
+		"range",
+		"duration",
+		"save",
+		"heightening"
 	]
 }

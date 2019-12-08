@@ -1,0 +1,199 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://mindsoup.net/affliction/v1.json",
+	"title": "Affliction",
+	"description": "Afflictions for Pathfinder 2E",
+	"definitions": {
+	},
+	"type": "object",
+	"properties": {
+		"metaInformation": {
+			"description": "Meta information regarding this object: publishing information, internal system data, etc",
+			"type": "object",
+			"properties": {
+				"objectData": {
+					"description": "Various properties that are relevant in our data management system",
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer"
+						},
+						"revision": {
+							"type": "integer"
+						}
+					},
+					"required": ["id", "revision"]
+				},
+				"publicationData": {
+					"description": "Publication related information",
+					"type": "object",
+					"properties": {
+						"sourceBook": {
+							"type": "string",
+							"minLength": 1
+						},
+						"page": {
+							"type": "integer"
+						},
+						"publisher": {
+							"type": "string",
+							"minLength": 1
+						},
+						"license": {
+							"type": "string",
+							"enum": ["OGL", "RESTRICTED"],
+							"default": "OGL"
+						}
+					},
+					"required": ["sourceBook", "page", "publisher", "license"]
+				},
+				"pathfinderSocietyData": {
+					"description": "Pathfinder society related data",
+					"type": "object",
+					"properties": {
+						"legal": {
+							"type": "boolean",
+							"default": true
+						}
+					},
+					"required": ["legal"]
+				}
+			},
+			"required": ["objectData", "publicationData"]
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"type": {
+			"type": "string",
+			"enum": ["CURSE", "DISEASE", "POISON", "RADIATION"],
+			"minLength": 1
+		},
+		"level": {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 25
+		},
+		"rarity": {
+			"description": "Rarity of this affliction.",
+			"type": "string",
+			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
+			"default": "COMMON"
+		},
+		"traits": {
+			"description": "List of traits of this spell",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"description": {
+			"type": "string",
+			"minLength": 1
+		},
+		"savingThrow": {
+			"type": "object",
+			"properties": {
+				"dc": {
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 50
+				},
+				"save": {
+					"type": "string",
+					"enum": ["FORTITUDE", "REFLEX",	"WILL"],
+					"minLength": 1
+				}
+			},
+			"required": ["dc", "save"]
+		},
+		"onset": {
+			"type": "object",
+			"properties": {
+				"time": {
+					"type": "integer",
+					"minimum": 1
+				},
+				"unit": {
+					"type": "string",
+					"enum": ["DAY", "HOUR", "IMMEDIATE", "MINUTE", "ROUND"],
+					"minLength": 1,
+					"default": "IMMEDIATE"
+				}
+			},
+			"required": ["unit"]
+		},
+		"maximumDuration": {
+			"type": "object",
+			"properties": {
+				"time": {
+					"type": "integer",
+					"minimum": 1
+				},
+				"unit": {
+					"type": "string",
+					"enum": ["DAY", "HOUR", "MINUTE", "ROUND", "UNTIL_SAVED"],
+					"minLength": 1,
+					"default": "UNTIL_SAVED"
+				}
+			},
+			"required": ["unit"]
+		},
+		"stages": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"stage": {
+						"type": "integer",
+						"enum": [1,2,3,4,5,6],
+						"minLength": 1
+					},
+					"effect": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						},
+						"minItems": 1
+					},
+					"duration": {
+						"type": "object",
+						"properties": {
+							"time": {
+								"type": "integer",
+								"minimum": 1,
+								"default": 1
+							},
+							"unit": {
+								"type": "string",
+								"enum": ["DAY", "HOUR", "MINUTE", "ROUND"],
+								"minLength": 1
+							}
+						},
+						"required": ["time", "unit"]
+					}
+				},
+				"required": ["stage", "effect", "duration"]
+			},
+			"default": [],
+			"minItems": 0
+		}
+	},
+	"required": [
+		"metaInformation",
+		"name",
+		"description",
+		"traits",
+		"type",
+		"rarity",
+		"savingThrow",
+		"onset",
+		"stages"
+	]
+}

@@ -46,7 +46,7 @@ hr {
     overflow-y: scroll;
 }
 
-.form-group {
+.edit-form .form-group {
 	background-color: #bbc7ce33;
 	padding: 5px;
 }

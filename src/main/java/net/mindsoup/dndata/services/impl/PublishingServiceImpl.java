@@ -2,6 +2,7 @@ package net.mindsoup.dndata.services.impl;
 
 import com.github.slugify.Slugify;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
@@ -168,7 +169,8 @@ public class PublishingServiceImpl implements PublishingService {
 
 	private File writeJsonToFile(Map<ObjectType, List<JSONObject>> data) throws IOException {
 		File jsonFile = File.createTempFile(Constants.Files.TEMP_PREFIX, Constants.Files.JSON_SUFFIX);
-		String jsonData = new Gson().toJson(data);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String jsonData = gson.toJson(data);
 		FileWriter writer = new FileWriter(jsonFile);
 		writer.write(jsonData);
 		writer.close();

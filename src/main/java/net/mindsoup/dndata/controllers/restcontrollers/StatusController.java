@@ -44,7 +44,7 @@ public class StatusController extends ErrorController {
 		List<CollectionStatus> bookData = new LinkedList<>();
 		List<CollectionStatus> collectionsData = new LinkedList<>();
 		collection.put(Constants.Collections.BOOKS, bookData);
-		collection.put(Constants.Collections.TYPES, collectionsData);
+		collection.put(Constants.Collections.COLLECTIONS, collectionsData);
 
 		// add book data
 		books.forEach(b -> addIfNotNull(bookData, publishDataService.getMostRecentPublishDataForBook(b)));

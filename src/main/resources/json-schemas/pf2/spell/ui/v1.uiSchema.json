@@ -6,5 +6,28 @@
 	},
 	"description": {
 		"ui:widget": "textarea"
+	},
+	"traditions": {
+		"ui:widget": "checkboxes"
+	},
+	"components": {
+		"ui:widget": "checkboxes"
+	},
+	"area": {
+		"ui:emptyValue": null,
+		"note": {
+			"ui:emptyValue": null
+		}
+	},
+	"targets": {
+		"ui:emptyValue": null
+	},
+	"range": {
+		"ui:emptyValue": null
+	},
+	"castingTime": {
+		"trigger": {
+			"ui:emptyValue": null
+		}
 	}
 }

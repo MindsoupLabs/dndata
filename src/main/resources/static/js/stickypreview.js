@@ -27,8 +27,13 @@ function elementShouldSticky() {
 
 function sticky(element) {
     element = $(element);
+
+    if(element.hasClass('sticky')) {
+    	return;
+    }
+
     element.css('width', element.width());
-    element.css('height', $(window).height() - 20);
+    element.css('height', Math.min(element.height() + 25, $(window).height() - 20));
     element.css('top', 10);
     element.css('z-index', 9001);
     element.addClass('sticky');
@@ -36,9 +41,14 @@ function sticky(element) {
 
 function unsticky(element) {
     element = $(element);
-    element.removeClass('sticky');
+
+    if(!element.hasClass('sticky')) {
+		return;
+	}
+
     element.css('width', '');
     element.css('height', '');
     element.css('top', '');
     element.css('z-index', '');
+    element.removeClass('sticky');
 }

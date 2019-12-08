@@ -1,5 +1,6 @@
 package net.mindsoup.dndata.services.impl;
 
+import com.google.gson.Gson;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.ObjectType;
@@ -228,6 +229,7 @@ public class DataObjectServiceImpl implements DataObjectService {
 	}
 
 	private DataObject improveDataObject(DataObject dataObject) {
+		dataObject.setObjectJson(sanitizeJson(dataObject.getObjectJson()));
 		dataObject.setName(WordUtils.capitalizeFully(dataObject.getName()));
 		return dataObject;
 	}
@@ -255,5 +257,9 @@ public class DataObjectServiceImpl implements DataObjectService {
 		});
 
 		return new LinkedList<>(objectsMap.values());
+	}
+
+	private String sanitizeJson(String json) {
+		return json;
 	}
 }

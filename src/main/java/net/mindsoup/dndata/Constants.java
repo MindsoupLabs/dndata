@@ -59,7 +59,7 @@ public abstract class Constants {
 	public abstract static class Collections {
 		public static final String COLLECTION_ALL = "all";
 		public static final String BOOKS = "books";
-		public static final String TYPES = "types";
+		public static final String COLLECTIONS = "collections";
 	}
 
 	public abstract static class Files {
