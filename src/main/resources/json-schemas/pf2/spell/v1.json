@@ -301,7 +301,7 @@
 		"type",
 		"level",
 		"rarity",
-		"castingTime",
+		"casting",
 		"components",
 		"range",
 		"duration",
