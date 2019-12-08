@@ -65,27 +65,6 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"description": {
-			"description": "Description of the spell",
-			"type": "string",
-			"minLength": 1
-		},
-		"school": {
-			"type": "string",
-			"enum": ["ABJURATION", "CONJURATION", "DIVINATION", "ENCHANTMENT", "EVOCATION", "ILLUSION", "NECROMANCY", "TRANSMUTATION"],
-			"minLength": 1
-		},
-		"traits": {
-			"description": "List of traits of this spell",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 0,
-			"uniqueItems": true,
-			"default": []
-		},
 		"type": {
 			"type": "string",
 			"enum": ["CANTRIP", "FOCUS", "SPELL"],
@@ -105,6 +84,11 @@
 			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
 			"default": "COMMON"
 		},
+		"school": {
+			"type": "string",
+			"enum": ["ABJURATION", "CONJURATION", "DIVINATION", "ENCHANTMENT", "EVOCATION", "ILLUSION", "NECROMANCY", "TRANSMUTATION"],
+			"minLength": 1
+		},
 		"traditions": {
 			"type": "array",
 			"items": {
@@ -113,10 +97,28 @@
 				"default": "ARCANE",
 				"minLength": 1
 			},
-			"minItems": 1,
-			"uniqueItems": true
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
 		},
-		"castingTime": {
+		"traits": {
+			"description": "List of traits of this spell",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"domain": {
+			"description": "Cleric domain if applicable.",
+			"type": "string",
+			"enum": ["AMBITION", "AIR", "CITIES", "CONFIDENCE", "CREATION", "DARKNESS", "DEATH", "DESTRUCTION", "DREAMS", "EARTH", "FAMILY", "FATE", "FIRE", "FREEDOM", "HEALING", "INDULGENCE", "KNOWLEDGE", "LUCK", "MAGIC", "MIGHT", "MOON", "NATURE", "NIGHTMARES", "PAIN", "PASSION", "PERFECTION", "PROTECTION", "SECRECY", "SUN", "TRAVEL", "TRICKERY", "TRUTH", "TYRANNY", "UNDEATH", "WATER", "WEALTH", "ZEAL"],
+			"minLength": 0
+		},
+		"casting": {
 			"type": "object",
 			"properties": {
 				"time": {
@@ -254,6 +256,11 @@
 			"default": [],
 			"minItems": 0
 		},
+		"description": {
+			"description": "Description of the spell",
+			"type": "string",
+			"minLength": 1
+		},
 		"heightening": {
 			"type": "array",
 			"items": {
@@ -294,7 +301,6 @@
 		"type",
 		"level",
 		"rarity",
-		"traditions",
 		"castingTime",
 		"components",
 		"range",
