@@ -61,6 +61,11 @@
 			},
 			"required": ["objectData", "publicationData"]
 		},
+		"type": {
+			"type": "string",
+			"enum": ["ANCESTRY", "CLASS", "GENERAL"],
+			"minLength": 1
+		},
 		"traits": {
 			"description": "List of traits of this feat",
 			"type": "array",
@@ -77,28 +82,96 @@
 		},
 		"action": {
 			"type": "string",
-			"enum": ["NONE", "FREE_ACTION", "REACTION", "ACTION", "TWO_ACTIONS", "THREE_ACTIONS"],
-			"default": "NONE",
-			"minLength": 1
+			"enum": ["FREE_ACTION", "REACTION", "ACTION", "TWO_ACTIONS", "THREE_ACTIONS"],
+			"minLength": 0
 		},
 		"level": {
 			"description": "Minimum level required for this skill",
 			"type": "integer",
-			"minimum": 1
-		},
-		"type": {
-			"type": "string",
-			"enum": ["ANCESTRY", "CLASS", "GENERAL", "SKILL"],
-			"minLength": 1
+			"minimum": 1,
+			"maximum": 20
 		},
 		"prerequisites": {
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
+			"type": "object",
+			"properties": {
+				"skills": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"proficiency": {
+								"type": "string",
+								"enum": ["UNTRAINED", "TRAINED", "EXPERT", "MASTER", "LEGENDARY"],
+								"minLength": 1
+							},
+							"skill": {
+								"type": "string",
+								"enum": ["ACROBATICS", "ARCANA", "ATHLETICS", "CRAFTING", "DECEPTION", "DIPLOMACY", "INTIMIDATION", "LORE", "MEDICINE", "NATURE", "OCCULTISM", "PERFORMANCE", "RELIGION", "SOCIETY", "STEALTH", "SURVIVAL", "THIEVERY"],
+								"minLength": 1
+							}
+						},
+						"required": ["proficiency", "skill"]
+					},
+					"uniqueItems": true,
+					"default": []
+				},
+				"feats": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 1
+					},
+					"uniqueItems": true,
+					"default": []
+				},
+				"attributes": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"attribute": {
+								"type": "string",
+								"enum": ["CHARISMA","CONSTITUTION", "DEXTERITY", "INTELLIGENCE", "STRENGTH", "WISDOM"],
+								"minLength": 1
+							},
+							"score": {
+								"type": "integer",
+								"minimum": 10,
+								"maximum": 20
+							}
+						},
+						"required": ["attribute", "score"]
+					},
+					"uniqueItems": true,
+					"default": []
+				},
+				"classFeatures": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 1
+					},
+					"uniqueItems": true,
+					"default": []
+				},
+				"miscellaneous": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 1
+					},
+					"uniqueItems": true,
+					"default": []
+				}
 			},
-			"uniqueItems": true,
-			"default": []
+			"required": ["skills", "feats", "attributes", "classFeatures", "miscellaneous"]
+		},
+		"frequency": {
+			"type": "string",
+			"enum": ["ONCE_PER_TURN", "ONCE_PER_ROUND", "ONCE_PER_MINUTE", "ONCE_PER_TEN_MINUTES", "ONCE_PER_HOUR", "ONCE_PER_DAY"]
+		},
+		"trigger": {
+			"type": "string"
 		},
 		"requirements": {
 			"type": "array",
@@ -109,43 +182,7 @@
 			"uniqueItems": true,
 			"default": []
 		},
-		"frequency": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"uses": {
-						"description": "amount of uses",
-						"type": "integer",
-						"minimum": 1
-					},
-					"per": {
-						"description": "...per minute/day/hour/etc",
-						"type": "string",
-						"minLength": 1
-					}
-				},
-				"required": [
-					"uses",
-					"per"
-				]
-			},
-			"minItems": 0,
-			"maxItems": 1,
-			"default": []
-		},
-		"trigger": {
-			"description": "Trigger of the feat",
-			"type": "string",
-			"minLength": 1
-		},
 		"description": {
-			"description": "Description of the feat",
-			"type": "string",
-			"minLength": 1
-		},
-		"special": {
-			"description": "Special quality of the feat",
 			"type": "string",
 			"minLength": 1
 		}
@@ -154,7 +191,6 @@
 		"metaInformation",
 		"traits",
 		"name",
-		"action",
 		"level",
 		"type",
 		"description"

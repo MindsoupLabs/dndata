@@ -47,7 +47,6 @@ function renderPreview(parent, data, parentListElement) {
 		if(filterValue && (!Array.isArray(filterValue) || filterValue.length > 0)) {
 			$(element).removeClass('hidden');
 		} else {
-			console.log("removing element");
 			$(element).addClass('hidden');
 		}
 	});

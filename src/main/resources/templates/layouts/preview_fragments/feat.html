@@ -1,11 +1,36 @@
 <div class="preview-box" xmlns:th="http://www.thymeleaf.org" th:fragment="preview">
-	<h3 class="js-preview" data-preview-key="name"></h3>
-	<b class="js-preview" data-preview-key="name"></b><b class="pull-right js-preview" data-preview-key="level"></b>
-	<hr>
-	<span class="js-preview" data-preview-key="traits"></span>
-	<br>
-	<b>Trigger</b> <span class="js-preview" data-preview-key="trigger"></span>
-	<hr>
-	<span class="js-preview" data-preview-key="description"></span><br>
-	<b>Special</b> <span class="js-preview" data-preview-key="special"></span><br>
+	<div>
+		<h3 class="js-preview" data-preview-key="name"></h3>
+	</div>
+	<div>
+		<b class="js-preview" data-preview-key="name"></b> <span class="js-preview js-preview-filter" data-preview-key="action"></span> <b class="pull-right js-preview" data-preview-key="level"></b><span class="pull-right">FEAT&nbsp;</span>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview-list" data-preview-key="traits"><span><span class="js-preview trait" data-preview-key=""></span> </span></span>
+	</div>
+	<div>
+		<b>Prerequisites</b> <span class="js-preview-list js-preview-filter" data-preview-key="prerequisites.skills"><span><span class="js-preview" data-preview-key="proficiency"></span> in <span class="js-preview" data-preview-key="skill"></span> or </span></span>
+		<span class="js-preview-list js-preview-filter" data-preview-key="prerequisites.feats"><span>, <span class="js-preview" data-preview-key=""></span></span></span>
+		<span class="js-preview-list js-preview-filter" data-preview-key="prerequisites.attributes"><span>, <span class="js-preview" data-preview-key="attribute"></span> <span class="js-preview" data-preview-key="score"></span></span></span>
+		<span class="js-preview-list js-preview-filter" data-preview-key="prerequisites.classFeatures"><span>, <span class="js-preview" data-preview-key=""></span></span></span>
+		<span class="js-preview-list js-preview-filter" data-preview-key="prerequisites.miscellaneous"><span>, <span class="js-preview" data-preview-key=""></span></span></span>
+	</div>
+	<div class="js-preview-filter" data-preview-key="frequency">
+		<b>Frequency</b> <span class="js-preview" data-preview-key="frequency"></span>
+	</div>
+	<div class="js-preview-filter" data-preview-key="trigger">
+		<b>Trigger</b> <span class="js-preview" data-preview-key="trigger"></span>
+	</div>
+	<div class="js-preview-filter" data-preview-key="requirements">
+		<b>Requirements</b> <span class="js-preview-list" data-preview-key="requirements"><span><span class="js-preview" data-preview-key=""></span>, </span></span>
+	</div>
+	<div>
+		<hr>
+	</div>
+	<div>
+		<span class="js-preview" data-preview-key="description"></span>
+	</div>
 </div>

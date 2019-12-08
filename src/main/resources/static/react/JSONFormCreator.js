@@ -5,9 +5,9 @@
 const Section = JSONSchemaForm.default;
 
 const log = (type) => console.log.bind(console, type);
-const onSubmit = ({formData}, e) => $("#jsonInput").val(JSON.stringify(formData));
+const onSubmit = ({formData}, e) => $("#jsonInput").val(sanitizeJson(JSON.stringify(formData)));
 const onChange = ({formData}, e) => {
-	$(".js-preview-container").data('preview-json', JSON.stringify(formData))
+	$(".js-preview-container").data('preview-json', sanitizeJson(JSON.stringify(formData)));
 	$(".js-preview-container").trigger('change');
 };
 
@@ -50,7 +50,7 @@ function mergeFormData() {
 	var jsonInput = $("#jsonInput");
 
 	previousFormData = $.extend(true, presetValuesObject, previousFormData, overwriteValuesObject);
-	jsonInput.val(JSON.stringify(previousFormData));
+	jsonInput.val(sanitizeJson(JSON.stringify(previousFormData)));
 };
 
 function init() {
@@ -58,6 +58,10 @@ function init() {
 	initReactForm();
 	bindEvents();
 };
+
+function sanitizeJson(json) {
+	return json.replace(/’/g, "'");
+}
 
 // script entry
 var previousFormData = JSON.parse($("#jsonInput").val());
