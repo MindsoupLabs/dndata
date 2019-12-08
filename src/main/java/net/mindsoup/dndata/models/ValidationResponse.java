@@ -15,10 +15,18 @@ public class ValidationResponse {
 
 	public ValidationResponse(ValidationResult result) {
 		this.valid = result.isValid();
-		if(result.getValidationException() instanceof ValidationException) {
-			((ValidationException)result.getValidationException()).getCausingExceptions().forEach(e -> validationProblems.add(e.getMessage()));
-		} else {
-			validationProblems.add(result.getValidationException().getMessage());
+
+		if(!isValid()) {
+			if (result.getValidationException() instanceof ValidationException) {
+				ValidationException validationException = (ValidationException)result.getValidationException();
+				if(validationException.getCausingExceptions().isEmpty()) {
+					validationProblems.add(validationException.getMessage());
+				} else {
+					validationException.getCausingExceptions().forEach(e -> validationProblems.add(e.getMessage()));
+				}
+			} else {
+				validationProblems.add(result.getValidationException().getMessage());
+			}
 		}
 	}
 

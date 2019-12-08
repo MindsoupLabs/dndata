@@ -1,8 +1,6 @@
 package net.mindsoup.dndata.services.impl;
 
 import com.github.slugify.Slugify;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
@@ -16,13 +14,17 @@ import net.mindsoup.dndata.models.dao.PublishData;
 import net.mindsoup.dndata.services.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -137,19 +139,19 @@ public class PublishingServiceImpl implements PublishingService {
 		}
 	}
 
-	private Map<ObjectType, List<JSONObject>> createObjectMapFromList(List<DataObject> dataObjects) {
-		Map<ObjectType,  List<JSONObject>> map = new HashMap<>();
+	private JSONObject createObjectMapFromList(List<DataObject> dataObjects) {
+		JSONObject collections = new JSONObject();
 		dataObjects.forEach(d -> {
-			if(!map.containsKey(d.getType())) {
-				map.put(d.getType(), new LinkedList<>());
+			if(collections.opt(d.getType().name()) == null) {
+				collections.put(d.getType().name(), new JSONArray());
 			}
-			map.get(d.getType()).add(new JSONObject(d.getObjectJson()));
+			collections.getJSONArray(d.getType().name()).put(new JSONObject(d.getObjectJson()));
 		});
 
-		return map;
+		return collections;
 	}
 
-	private void createFileAndUpload(Map<ObjectType, List<JSONObject>> data, PublishContext context) throws IOException, URISyntaxException {
+	private void createFileAndUpload(JSONObject data, PublishContext context) throws IOException, URISyntaxException {
 		logger.info("Creating JSON file");
 		File jsonFile = writeJsonToFile(data);
 		logger.info("Creating file archive");
@@ -167,10 +169,9 @@ public class PublishingServiceImpl implements PublishingService {
 		objectsInThisBook.forEach(this::publish);
 	}
 
-	private File writeJsonToFile(Map<ObjectType, List<JSONObject>> data) throws IOException {
+	private File writeJsonToFile(JSONObject data) throws IOException {
 		File jsonFile = File.createTempFile(Constants.Files.TEMP_PREFIX, Constants.Files.JSON_SUFFIX);
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String jsonData = gson.toJson(data);
+		String jsonData = data.toString(4);
 		FileWriter writer = new FileWriter(jsonFile);
 		writer.write(jsonData);
 		writer.close();

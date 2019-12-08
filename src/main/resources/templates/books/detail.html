@@ -88,6 +88,11 @@
 				<div class="col-md-6 col-sm-12 col-xs-12" th:if="${showCreateObject}">
 					<div class="box">
 						<div class="box-header">
+							<form method="post" action="/ui/publish/publish" id="publishForm">
+								<input type="hidden" name="id" th:value="${book?.id}">
+								<input type="hidden" name="comment" th:value="${'Republished by ' + pageModel?.user?.name}">
+								<input type="submit" class="btn btn-xs btn-default pull-right" value="Publish">
+							</form>
 							<h3 class="box-title" th:text="${objects.size() + ' Objects in ' + book.name}"></h3>
 						</div>
 						<!-- /.box-header -->
