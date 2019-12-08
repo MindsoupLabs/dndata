@@ -1,0 +1,298 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://mindsoup.net/ritual/v1.json",
+	"title": "Ritual",
+	"description": "Rituals for Pathfinder 2E",
+	"definitions": {
+	},
+	"type": "object",
+	"properties": {
+		"metaInformation": {
+			"description": "Meta information regarding this object: publishing information, internal system data, etc",
+			"type": "object",
+			"properties": {
+				"objectData": {
+					"description": "Various properties that are relevant in our data management system",
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer"
+						},
+						"revision": {
+							"type": "integer"
+						}
+					},
+					"required": [
+						"id",
+						"revision"
+					]
+				},
+				"publicationData": {
+					"description": "Publication related information",
+					"type": "object",
+					"properties": {
+						"sourceBook": {
+							"type": "string",
+							"minLength": 1
+						},
+						"page": {
+							"type": "integer"
+						},
+						"publisher": {
+							"type": "string",
+							"minLength": 1
+						},
+						"license": {
+							"type": "string",
+							"enum": [
+								"OGL",
+								"RESTRICTED"
+							],
+							"default": "OGL"
+						}
+					},
+					"required": [
+						"sourceBook",
+						"page",
+						"publisher",
+						"license"
+					]
+				},
+				"pathfinderSocietyData": {
+					"description": "Pathfinder society related data",
+					"type": "object",
+					"properties": {
+						"legal": {
+							"type": "boolean",
+							"default": true
+						}
+					},
+					"required": [
+						"legal"
+					]
+				}
+			},
+			"required": [
+				"objectData",
+				"publicationData"
+			]
+		},
+		"category": {
+			"type": "string",
+			"enum": [
+				"ARMOR",
+				"CONSUMABLE",
+				"HELD",
+				"SHIELD",
+				"STAFF",
+				"WAND",
+				"WEAPON",
+				"WORN"
+			],
+			"minLength": 1
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"level": {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 40
+		},
+		"rarity": {
+			"type": "string",
+			"enum": [
+				"COMMON",
+				"UNCOMMON",
+				"RARE",
+				"UNIQUE"
+			],
+			"default": "COMMON"
+		},
+		"school": {
+			"type": "string",
+			"enum": [
+				"ABJURATION",
+				"CONJURATION",
+				"DIVINATION",
+				"ENCHANTMENT",
+				"EVOCATION",
+				"ILLUSION",
+				"NECROMANCY",
+				"TRANSMUTATION"
+			],
+			"minLength": 1
+		},
+		"traits": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"price": {
+			"type": "integer",
+			"minimum": 1
+		},
+		"usage": {
+			"type": "object",
+			"properties": {
+				"usage": {
+					"type": "string"
+				},
+				"category": {
+					"type": "string",
+					"enum": [
+						"HELD",
+						"WORN",
+						"AFFIXED"
+					]
+				}
+			}
+		},
+		"bulk": {
+			"type": "string",
+			"enum": [
+				"NEGLIGIBLE",
+				"L",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5"
+			],
+			"minLength": 1
+		},
+		"requirements": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"description": {
+			"type": "string",
+			"minLength": 1
+		},
+		"activation": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"action": {
+						"type": "object",
+						"properties": {
+							"time": {
+								"type": "integer",
+								"minimum": 0
+							},
+							"unit": {
+								"type": "string",
+								"enum": ["ACTION", "DAY", "FREE_ACTION", "HOUR", "MINUTE", "REACTION", "ROUND"],
+								"minLength": 1,
+								"default": "ACTION"
+							}
+						},
+						"required": ["time","unit"]
+					},
+					"components": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["COMMAND",	"ENVISION",	"INTERACT",	"CAST_A_SPELL"],
+							"minLength": 1
+						},
+						"minItems": 1,
+						"uniqueItems": true
+					},
+					"frequency": {
+						"type": "string"
+					},
+					"requirement": {
+						"type": "string"
+					},
+					"trigger": {
+						"type": "string"
+					},
+					"effect": {
+						"type": "string"
+					}
+				},
+				"required": ["action","components","effect"]
+			},
+			"uniqueItems": true,
+			"minItems": 0,
+			"default": []
+		},
+		"ammunition": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
+		"types": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"minLength": 1
+					},
+					"level": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 40
+					},
+					"price": {
+						"type": "integer",
+						"minimum": 1
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"level",
+					"price"
+				]
+			},
+			"uniqueItems": true,
+			"minItems": 0,
+			"default": []
+		},
+		"craftRequirements": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		}
+	},
+	"required": [
+		"metaInformation",
+		"name",
+		"description",
+		"traits",
+		"category",
+		"school",
+		"rarity",
+		"price",
+		"bulk"
+	]
+}

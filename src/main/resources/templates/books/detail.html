@@ -83,16 +83,38 @@
 							<input type="hidden" name="bookId" th:value="${book?.id}">
 						</form>
 					</div>
+
+					<div class="box box-primary" th:if="${showCreateObject && pageModel?.hasRight('PUBLISH')}">
+						<div class="box-header with-border">
+							<h3 class="box-title" th:text="${'Publish ' + book.name}"></h3>
+						</div>
+						<!-- /.box-header -->
+						<!-- form start -->
+						<form role="form" method="post" action="/ui/publish/publish" id="publishForm">
+							<input type="hidden" name="id" th:value="${book?.id}">
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-9 col-sm-9 col-xs-12">
+										<div class="form-group">
+											<textarea class="form-control" id="comment" placeholder="Changes in this release" name="comment" minlength="5" required="required"></textarea>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<div class="form-group">
+											<button type="submit" class="btn btn-success" name="action" value="approve">Publish</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /.box-body -->
+							<input type="hidden" name="bookId" th:value="${book?.id}">
+						</form>
+					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-12 col-xs-12" th:if="${showCreateObject}">
 					<div class="box">
 						<div class="box-header">
-							<form method="post" action="/ui/publish/publish" id="publishForm">
-								<input type="hidden" name="id" th:value="${book?.id}">
-								<input type="hidden" name="comment" th:value="${'Republished by ' + pageModel?.user?.name}">
-								<input type="submit" class="btn btn-xs btn-default pull-right" value="Publish">
-							</form>
 							<h3 class="box-title" th:text="${objects.size() + ' Objects in ' + book.name}"></h3>
 						</div>
 						<!-- /.box-header -->
