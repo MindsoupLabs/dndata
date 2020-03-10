@@ -227,7 +227,7 @@
 		"challengeRating": {
 			"description": "Challenge rating of the monster",
 			"type": "integer",
-			"minimum": 0
+			"minimum": -1
 		},
 		"perception": {
 			"description": "Perception stats and abilities of the monster",
@@ -535,6 +535,8 @@
 							"type": "string",
 							"minLength": 1
 						},
+					  	"default": [],
+					  	"minItems": 0,
 						"uniqueItems": true
 					},
 					"trigger": {
