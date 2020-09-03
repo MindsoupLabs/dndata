@@ -67,6 +67,7 @@ public class DataObjectServiceTests {
 		dataObject.setBookId(1L);
 		dataObject.setType(ObjectType.CREATURE);
 		dataObject.setName("creature");
+		dataObject.setRevision(1);
 		dataObject.setObjectJson(loadJsonFromResource("/json-schemas/creature.v1.json"));
 		return dataObject;
 	}
