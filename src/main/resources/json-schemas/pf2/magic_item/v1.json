@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://mindsoup.net/ritual/v1.json",
-	"title": "Ritual",
+	"$id": "https://dndata-production.herokuapp.com/schema/PF2/MAGIC_ITEM/1",
+	"title": "Magic Item",
 	"description": "Rituals for Pathfinder 2E",
 	"definitions": {
 	},

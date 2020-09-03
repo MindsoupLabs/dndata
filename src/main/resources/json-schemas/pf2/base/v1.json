@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://mindsoup.net/base/v1.json",
+	"$id": "https://dndata-production.herokuapp.com/schema/PF2/BASE/1",
 	"title": "Base",
 	"description": "Base attributes for Pathfinder 2E objects",
 	"definitions": {
