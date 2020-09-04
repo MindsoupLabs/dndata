@@ -66,6 +66,12 @@
 			"enum": ["ANCESTRY", "CLASS", "GENERAL"],
 			"minLength": 1
 		},
+		"rarity": {
+			"description": "Rarity of this feat.",
+			"type": "string",
+			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
+			"default": "COMMON"
+		},
 		"traits": {
 			"description": "List of traits of this feat",
 			"type": "array",
@@ -189,6 +195,7 @@
 	},
 	"required": [
 		"metaInformation",
+		"rarity",
 		"traits",
 		"name",
 		"level",
