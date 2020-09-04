@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Created by Valentijn on 3-8-2019
  */
-public class ErrorController {
+public abstract class ErrorController {
 
 	private static Log logger = LogFactory.getLog(ErrorController.class);
 

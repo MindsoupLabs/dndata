@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
  */
 @RestController
 @RequestMapping(value = "/schema", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-public class SchemaController {
+public class SchemaController extends ErrorController {
 
 	@RequestMapping("/{game}/{type}/{version}")
 	public String schema(@PathVariable(value = "game") Game game, @PathVariable(value = "type") ObjectType type, @PathVariable(value = "version") int version) throws IOException {
