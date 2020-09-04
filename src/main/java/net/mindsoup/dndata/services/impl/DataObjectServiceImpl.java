@@ -1,6 +1,5 @@
 package net.mindsoup.dndata.services.impl;
 
-import com.google.gson.Gson;
 import net.mindsoup.dndata.enums.Game;
 import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.ObjectType;

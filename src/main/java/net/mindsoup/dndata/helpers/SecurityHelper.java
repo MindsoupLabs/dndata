@@ -2,6 +2,7 @@ package net.mindsoup.dndata.helpers;
 
 import net.mindsoup.dndata.models.dao.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.concurrent.DelegatingSecurityContextRunnable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -34,5 +35,9 @@ public class SecurityHelper {
 
 	public static void logout() {
 		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+	}
+
+	public static DelegatingSecurityContextRunnable wrapSecurityAwareRunnable(Runnable runnable) {
+		return new DelegatingSecurityContextRunnable(runnable, SecurityContextHolder.getContext());
 	}
 }
