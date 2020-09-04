@@ -60,7 +60,15 @@
 						<div class="info-box" th:each="status: ${statusesWithNames}">
 							<span class="info-box-icon" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getColorClass(status.objectStatus.status)}"><i class="fa" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getIcon(status.objectStatus.status)}"></i></span>
 							<div class="info-box-content">
-								<a th:href="@{'/ui/edit/' + ${dataObject.id} + '?rev=' + ${status.objectStatus.objectRevision}}" class="btn btn-xs btn-default pull-right" th:if="${dataObject.revision != status.objectStatus.objectRevision}">Inspect</a>
+								<div class="pull-right buttons">
+									<div>
+										<a th:href="@{'/ui/edit/' + ${dataObject.id} + '?rev=' + ${status.objectStatus.objectRevision}}" class="btn btn-xs btn-default pull-right" th:if="${dataObject.revision != status.objectStatus.objectRevision}">Inspect</a>
+									</div>
+									<div>
+										<a th:href="@{'/inspect/object/' + ${dataObject.id} + '/' + ${status.objectStatus.objectRevision}}" class="btn btn-xs btn-default pull-right" target="_blank">Raw JSON</a>
+									</div>
+								</div>
+
 								<strong th:text="${status.objectStatus.status}">status</strong> by <strong th:text="${status.user.name}">name</strong>
 								<span class="info-box-text" th:text="${'rev ' + status.objectStatus.objectRevision + ', ' + status.objectStatus.date}">Rev 1, 2019-08-10 13:34:59</span>
 								<span th:text="${status.objectStatus.comment}"></span>
