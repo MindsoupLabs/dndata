@@ -18,6 +18,10 @@ hr {
 	overflow: hidden;
 }
 
+.info-box-content .btn {
+	margin-bottom: 5px;
+}
+
 .trait {
 	background-color: #940000;
 	color: #ffffff;

@@ -4,6 +4,114 @@
 	"title": "Feat",
 	"description": "Feats for Pathfinder 2E",
 	"type": "object",
+	"definitions": {
+		"prerequisite": {
+			"oneOf": [
+				{
+					"title": "Skill",
+					"type": "object",
+					"properties": {
+						"skill": {
+							"type": "string",
+							"enum": ["ACROBATICS", "ARCANA", "ATHLETICS", "CRAFTING", "DECEPTION", "DIPLOMACY", "INTIMIDATION", "LORE", "MEDICINE", "NATURE", "OCCULTISM", "PERFORMANCE", "RELIGION", "SOCIETY", "STEALTH", "SURVIVAL", "THIEVERY"],
+							"minLength": 1
+						},
+						"proficiency": {
+							"type": "string",
+							"enum": ["UNTRAINED", "TRAINED", "EXPERT", "MASTER", "LEGENDARY"],
+							"minLength": 1
+						},
+						"skillSpecialty": {
+							"title": "Skill specialisation",
+							"description": "Skill specific information like the Lore subtype (optional)",
+							"type": "string"
+						}
+					},
+					"required": ["proficiency", "skill"]
+				},
+				{
+					"title": "Feat",
+					"type":  "object",
+					"properties": {
+						"feat": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": ["feat"]
+				},
+				{
+					"title": "Attribute",
+					"type": "object",
+					"properties": {
+						"attribute": {
+							"type": "string",
+							"enum": ["CHARISMA","CONSTITUTION", "DEXTERITY", "INTELLIGENCE", "STRENGTH", "WISDOM"],
+							"minLength": 1
+						},
+						"score": {
+							"type": "integer",
+							"minimum": 10,
+							"maximum": 20
+						}
+					},
+					"required": ["attribute", "score"]
+				},
+				{
+					"title": "Class feature",
+					"type":  "object",
+					"properties": {
+						"classFeature": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": ["classFeature"]
+				},
+				{
+					"title": "Miscellaneous",
+					"type":  "object",
+					"properties": {
+						"miscellaneous": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": ["miscellaneous"]
+				}
+			]
+		},
+		"prerequisiteGroup": {
+			"type": "object",
+			"properties": {
+				"groupRelationship": {
+					"title": "Group relationship",
+					"type": "string",
+					"enum": ["AND", "OR"],
+					"default": "AND"
+				},
+				"prerequisitesGroup": {
+					"title": "prerequisites in this group",
+					"type": "array",
+					"items": {
+						"oneOf": [
+							{
+								"title": "Prerequisite",
+								"$ref": "#/definitions/prerequisite"
+							},
+							{
+								"title": "Prerequisite group",
+								"$ref": "#/definitions/prerequisiteGroup"
+							}
+						]
+					},
+					"minItems": 0,
+					"default": []
+				}
+			},
+			"required": ["groupRelationship"]
+		}
+	},
 	"properties": {
 		"metaInformation": {
 			"description": "Meta information regarding this object: publishing information, internal system data, etc",
@@ -102,83 +210,7 @@
 			"maximum": 20
 		},
 		"prerequisites": {
-			"type": "object",
-			"properties": {
-				"skills": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"proficiency": {
-								"type": "string",
-								"enum": ["UNTRAINED", "TRAINED", "EXPERT", "MASTER", "LEGENDARY"],
-								"minLength": 1
-							},
-							"skill": {
-								"type": "string",
-								"enum": ["ACROBATICS", "ARCANA", "ATHLETICS", "CRAFTING", "DECEPTION", "DIPLOMACY", "INTIMIDATION", "LORE", "MEDICINE", "NATURE", "OCCULTISM", "PERFORMANCE", "RELIGION", "SOCIETY", "STEALTH", "SURVIVAL", "THIEVERY"],
-								"minLength": 1
-							},
-							"skillSpecialty": {
-								"description": "Skill specific information like the Lore subtype",
-								"type": "string"
-							}
-						},
-						"required": ["proficiency", "skill"]
-					},
-					"uniqueItems": true,
-					"default": []
-				},
-				"feats": {
-					"type": "array",
-					"items": {
-						"type": "string",
-						"minLength": 1
-					},
-					"uniqueItems": true,
-					"default": []
-				},
-				"attributes": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"attribute": {
-								"type": "string",
-								"enum": ["CHARISMA","CONSTITUTION", "DEXTERITY", "INTELLIGENCE", "STRENGTH", "WISDOM"],
-								"minLength": 1
-							},
-							"score": {
-								"type": "integer",
-								"minimum": 10,
-								"maximum": 20
-							}
-						},
-						"required": ["attribute", "score"]
-					},
-					"uniqueItems": true,
-					"default": []
-				},
-				"classFeatures": {
-					"type": "array",
-					"items": {
-						"type": "string",
-						"minLength": 1
-					},
-					"uniqueItems": true,
-					"default": []
-				},
-				"miscellaneous": {
-					"type": "array",
-					"items": {
-						"type": "string",
-						"minLength": 1
-					},
-					"uniqueItems": true,
-					"default": []
-				}
-			},
-			"required": ["skills", "feats", "attributes", "classFeatures", "miscellaneous"]
+			"$ref": "#/definitions/prerequisiteGroup"
 		},
 		"frequency": {
 			"type": "string",
