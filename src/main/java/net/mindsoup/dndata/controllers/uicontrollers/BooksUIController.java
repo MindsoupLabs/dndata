@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Arrays;
+
 /**
  * Created by Valentijn on 7-8-2019
  */
@@ -79,6 +81,23 @@ public class BooksUIController extends BaseUIController {
 	public String addObject(DataObject object) {
 		dataObjectService.save(object, Constants.Comments.AUTO_COMMENT_PREFIX + Constants.Comments.OBJECT_CREATED);
 
+		return "redirect:/ui/books/" + object.getBookId() + "?previousType=" + object.getType();
+	}
+
+	@Secured({Constants.Rights.PF2.BOOKS})
+	@RequestMapping(value = {"/addObjects"}, method = RequestMethod.POST)
+	public String addObjects(DataObject object) {
+		String names = object.getName();
+		String[] namesArray = names.split("(\r\n|\n|\r)");
+		Arrays.stream(namesArray).forEach(name -> {
+			name = name.trim();
+			DataObject dataObject = new DataObject();
+			dataObject.setName(name);
+			dataObject.setBookId(object.getBookId());
+			dataObject.setType(object.getType());
+
+			addObject(dataObject);
+		});
 		return "redirect:/ui/books/" + object.getBookId() + "?previousType=" + object.getType();
 	}
 
