@@ -88,8 +88,11 @@ public class BooksUIController extends BaseUIController {
 	@RequestMapping(value = {"/addObjects"}, method = RequestMethod.POST)
 	public String addObjects(DataObject object) {
 		String names = object.getName();
+		// split giant string of object names by newlines
 		String[] namesArray = names.split("(\r\n|\n|\r)");
-		Arrays.stream(namesArray).forEach(name -> {
+
+		// for each object, add it
+		for(String name : namesArray) {
 			name = name.trim();
 			DataObject dataObject = new DataObject();
 			dataObject.setName(name);
@@ -97,7 +100,7 @@ public class BooksUIController extends BaseUIController {
 			dataObject.setType(object.getType());
 
 			addObject(dataObject);
-		});
+		}
 		return "redirect:/ui/books/" + object.getBookId() + "?previousType=" + object.getType();
 	}
 
