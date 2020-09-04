@@ -62,15 +62,18 @@
 			"required": ["objectData", "publicationData"]
 		},
 		"type": {
+			"description": "Type of this feat.",
 			"type": "string",
-			"enum": ["ANCESTRY", "CLASS", "GENERAL"],
-			"minLength": 1
+			"enum": ["ANCESTRY", "ARCHETYPE", "CLASS", "GENERAL"],
+			"minLength": 1,
+			"default": "GENERAL"
 		},
 		"rarity": {
 			"description": "Rarity of this feat.",
 			"type": "string",
 			"enum": ["COMMON", "UNCOMMON", "RARE", "UNIQUE"],
-			"default": "COMMON"
+			"default": "COMMON",
+			"minLength": 1
 		},
 		"traits": {
 			"description": "List of traits of this feat",
