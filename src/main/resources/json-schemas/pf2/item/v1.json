@@ -51,12 +51,14 @@
 					"description": "Pathfinder society related data",
 					"type": "object",
 					"properties": {
-						"legal": {
-							"type": "boolean",
-							"default": true
+						"availability": {
+							"type": "string",
+							"enum": ["STANDARD", "LIMITED", "RESTRICTED"],
+							"default": "STANDARD",
+							"minLength": 1
 						}
 					},
-					"required": ["legal"]
+					"required": ["availability"]
 				}
 			},
 			"required": ["objectData", "publicationData"]
