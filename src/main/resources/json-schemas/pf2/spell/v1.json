@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://mindsoup.net/spell/v1.json",
+	"$id": "https://dndata-production.herokuapp.com/schema/PF2/SPELL/1",
 	"title": "Spell",
 	"description": "Spells for Pathfinder 2E",
 	"definitions": {
@@ -97,7 +97,7 @@
 				"default": "ARCANE",
 				"minLength": 1
 			},
-			"minItems": 0,
+			"minItems": 1,
 			"uniqueItems": true,
 			"default": []
 		},
@@ -297,6 +297,7 @@
 		"name",
 		"description",
 		"school",
+		"traditions",
 		"traits",
 		"type",
 		"level",

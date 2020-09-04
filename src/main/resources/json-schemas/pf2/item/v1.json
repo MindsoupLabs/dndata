@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "http://mindsoup.net/item/v1.json",
+	"$id": "https://dndata-production.herokuapp.com/schema/PF2/ITEM/1",
 	"title": "Item",
 	"description": "Items for Pathfinder 2E",
 	"definitions": {

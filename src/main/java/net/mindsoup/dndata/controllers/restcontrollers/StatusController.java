@@ -50,7 +50,7 @@ public class StatusController extends ErrorController {
 		books.forEach(b -> addIfNotNull(bookData, publishDataService.getMostRecentPublishDataForBook(b)));
 
 		// add collections
-		Arrays.stream(ObjectType.values()).forEach(t -> addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, slugify.slugify(t.name()))));
+		Arrays.stream(ObjectType.getActiveObjectTypes()).forEach(t -> addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, slugify.slugify(t.name()))));
 		addIfNotNull(collectionsData, publishDataService.getMostRecentPublishDataForName(game, Constants.Collections.COLLECTION_ALL));
 
 		return collection;
