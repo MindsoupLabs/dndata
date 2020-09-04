@@ -362,7 +362,7 @@
 			"revision":3
 		},
 		"pathfinderSocietyData":{
-			"legal":true
+			"availability":"STANDARD"
 		}
 	},
 	"alignment":"LE",

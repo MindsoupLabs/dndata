@@ -11,7 +11,7 @@
 			"license": "OGL"
 		},
 		"pathfinderSocietyData": {
-			"legal": true
+			"availability": "STANDARD"
 		}
 	},
 	"traits": ["demon"],
