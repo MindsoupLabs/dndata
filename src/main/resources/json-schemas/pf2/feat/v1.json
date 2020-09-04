@@ -79,8 +79,9 @@
 				"type": "string",
 				"minLength": 1
 			},
-			"minItems": 1,
-			"uniqueItems": true
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
 		},
 		"name": {
 			"type": "string",
