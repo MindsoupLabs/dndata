@@ -67,7 +67,7 @@ public class BooksUIController extends BaseUIController {
 
 		model.addAttribute("book", bookService.getBookById(id));
 		model.addAttribute("games", Game.values());
-		model.addAttribute("objectTypes", ObjectType.values());
+		model.addAttribute("objectTypes", ObjectType.getActiveObjectTypes());
 		model.addAttribute("showCreateObject", true);
 		model.addAttribute("objects", dataObjectService.getAllForBook(id));
 		model.addAttribute("previousType", previousType);

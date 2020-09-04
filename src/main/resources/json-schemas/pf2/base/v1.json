@@ -1,12 +1,10 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"$id": "https://dndata-production.herokuapp.com/schema/PF2/BASE/1",
-	"title": "Base",
 	"description": "Base attributes for Pathfinder 2E objects",
-	"definitions": {
-	},
+	"additionalProperties": false,
 	"type": "object",
-	"properties": {
+	"definitions": {
 		"metaInformation": {
 			"description": "Meta information regarding this object: publishing information, internal system data, etc",
 			"type": "object",
@@ -18,11 +16,11 @@
 						"id": {
 							"type": "integer"
 						},
-						"version": {
+						"revision": {
 							"type": "integer"
 						}
 					},
-					"required": ["id", "version"]
+					"required": ["id", "revision"]
 				},
 				"publicationData": {
 					"description": "Publication related information",
@@ -60,36 +58,6 @@
 				}
 			},
 			"required": ["objectData", "publicationData"]
-		},
-		"traits": {
-			"description": "List of traits of this monster",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 1,
-			"uniqueItems": true
-		},
-		"names": {
-			"description": "List of names of this monster",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 1,
-			"uniqueItems": true
-		},
-		"description": {
-			"description": "Description of the monster",
-			"type": "string"
 		}
-	},
-	"required": [
-		"metaInformation",
-		"traits",
-		"names",
-		"description"
-	]
+	}
 }

@@ -3,8 +3,6 @@
 	"$id": "https://dndata-production.herokuapp.com/schema/PF2/FEAT/1",
 	"title": "Feat",
 	"description": "Feats for Pathfinder 2E",
-	"definitions": {
-	},
 	"type": "object",
 	"properties": {
 		"metaInformation": {
