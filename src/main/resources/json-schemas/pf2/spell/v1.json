@@ -97,7 +97,7 @@
 				"default": "ARCANE",
 				"minLength": 1
 			},
-			"minItems": 0,
+			"minItems": 1,
 			"uniqueItems": true,
 			"default": []
 		},
@@ -297,6 +297,7 @@
 		"name",
 		"description",
 		"school",
+		"traditions",
 		"traits",
 		"type",
 		"level",
