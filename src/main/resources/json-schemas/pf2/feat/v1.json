@@ -118,6 +118,10 @@
 								"type": "string",
 								"enum": ["ACROBATICS", "ARCANA", "ATHLETICS", "CRAFTING", "DECEPTION", "DIPLOMACY", "INTIMIDATION", "LORE", "MEDICINE", "NATURE", "OCCULTISM", "PERFORMANCE", "RELIGION", "SOCIETY", "STEALTH", "SURVIVAL", "THIEVERY"],
 								"minLength": 1
+							},
+							"skillSpecialty": {
+								"description": "Skill specific information like the Lore subtype",
+								"type": "string"
 							}
 						},
 						"required": ["proficiency", "skill"]
@@ -178,7 +182,7 @@
 		},
 		"frequency": {
 			"type": "string",
-			"enum": ["ONCE_PER_TURN", "ONCE_PER_ROUND", "ONCE_PER_MINUTE", "ONCE_PER_TEN_MINUTES", "ONCE_PER_HOUR", "ONCE_PER_DAY"]
+			"enum": ["ONCE_PER_TURN", "ONCE_PER_ROUND", "ONCE_PER_MINUTE", "ONCE_PER_TEN_MINUTES", "ONCE_PER_HOUR", "ONCE_PER_DAY", "THRICE_PER_DAY"]
 		},
 		"trigger": {
 			"type": "string"
