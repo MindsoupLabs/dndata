@@ -212,6 +212,9 @@
 		"prerequisites": {
 			"$ref": "#/definitions/prerequisiteGroup"
 		},
+		"access": {
+			"type": "string"
+		},
 		"frequency": {
 			"type": "string",
 			"enum": ["ONCE_PER_TURN", "ONCE_PER_ROUND", "ONCE_PER_MINUTE", "ONCE_PER_TEN_MINUTES", "ONCE_PER_HOUR", "ONCE_PER_DAY", "THRICE_PER_DAY"]
