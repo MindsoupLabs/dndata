@@ -151,6 +151,15 @@
 			"minItems": 1,
 			"uniqueItems": true
 		},
+		"requirements": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"uniqueItems": true,
+			"default": []
+		},
 		"cost": {
 			"type": "array",
 			"items": {
