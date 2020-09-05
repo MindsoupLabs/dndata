@@ -8,6 +8,14 @@ window.addEventListener("load", function() {
             }
         });
     });
+
+    $('.js-preview-container').on("change", function(event) {
+    	if(!$(this).hasClass('sticky')) {
+    		return;
+    	}
+    	unsticky(this);
+    	sticky(this);
+    });
 }, false);
 
 function elementShouldSticky() {
