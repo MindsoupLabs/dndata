@@ -149,6 +149,12 @@
 							"type": "string",
 							"enum": ["OGL", "RESTRICTED"],
 							"default": "OGL"
+						},
+						"containsIntellectualProperty": {
+							"title": "contains intellectual property",
+							"description": "check this if the this feat mentions any setting specific proper names",
+							"type": "boolean",
+							"default": false
 						}
 					},
 					"required": ["sourceBook", "page", "publisher", "license"]
