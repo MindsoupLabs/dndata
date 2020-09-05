@@ -55,6 +55,11 @@ hr {
 	padding: 5px;
 }
 
+.preview-iframe {
+	width: 500px;
+	height: 700px;
+}
+
 /* scrollbar */
 /* width */
 .sticky::-webkit-scrollbar {

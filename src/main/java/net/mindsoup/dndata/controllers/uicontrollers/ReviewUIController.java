@@ -5,6 +5,7 @@ import net.mindsoup.dndata.enums.ObjectStatus;
 import net.mindsoup.dndata.enums.PageType;
 import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
+import net.mindsoup.dndata.models.ObjectStatusWithUser;
 import net.mindsoup.dndata.models.ReviewResult;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
@@ -82,8 +83,12 @@ public class ReviewUIController extends BaseUIController {
 			return "redirect:/ui/review";
 		}
 
+		List<ObjectStatusWithUser> objectStatusWithUserList = dataObjectService.getAllStatusesWithNamesForObject(dataObject);
+
 		model.addAttribute("dataObject", dataObject);
 		model.addAttribute("objectStatus", objectStatus);
+		model.addAttribute("statusesWithNames", objectStatusWithUserList);
+		model.addAttribute("hideChangelogButtons", true);
 
 		return "review/detail";
 	}

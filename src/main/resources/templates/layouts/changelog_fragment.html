@@ -1,0 +1,27 @@
+<section xmlns:th="http://www.thymeleaf.org" th:fragment="changelog">
+	<div class="box">
+		<div class="box-header">
+			<a th:href="@{'/ui/edit/' + ${dataObject.id}}" class="btn btn-xs btn-default pull-right" th:if="${!hideChangelogButtons}">Latest revision</a>
+			<h3 class="box-title">Changes</h3> &nbsp;<i class="fa fa-eye-slash" onclick="if($('#changelog').is(':visible')) {$('#changelog').hide(); $(this).addClass('fa-eye'); $(this).removeClass('fa-eye-slash');} else {$('#changelog').show(); $(this).removeClass('fa-eye'); $(this).addClass('fa-eye-slash');}"></i>
+		</div>
+	</div>
+	<div class="box-body no-padding" id="changelog">
+		<div class="info-box" th:each="status: ${statusesWithNames}">
+			<span class="info-box-icon" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getColorClass(status.objectStatus.status)}"><i class="fa" th:classappend="${T(net.mindsoup.dndata.helpers.HtmlHelper).getIcon(status.objectStatus.status)}"></i></span>
+			<div class="info-box-content">
+				<div class="pull-right buttons" th:if="${!hideChangelogButtons}">
+					<div>
+						<a th:href="@{'/ui/edit/' + ${dataObject.id} + '?rev=' + ${status.objectStatus.objectRevision}}" class="btn btn-xs btn-default pull-right" th:if="${dataObject.revision != status.objectStatus.objectRevision}">Inspect</a>
+					</div>
+					<div>
+						<a th:href="@{'/inspect/object/' + ${dataObject.id} + '/' + ${status.objectStatus.objectRevision}}" class="btn btn-xs btn-default pull-right" target="_blank">Raw JSON</a>
+					</div>
+				</div>
+
+				<strong th:text="${status.objectStatus.status}">status</strong> by <strong th:text="${status.user.name}">name</strong>
+				<span class="info-box-text" th:text="${'rev ' + status.objectStatus.objectRevision + ', ' + status.objectStatus.date}">Rev 1, 2019-08-10 13:34:59</span>
+				<span th:text="${status.objectStatus.comment}"></span>
+			</div>
+		</div>
+	</div>
+</section>
