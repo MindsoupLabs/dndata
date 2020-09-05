@@ -5,6 +5,9 @@
 		}
 	},
 	"description": {
-		"ui:widget": "textarea"
+		"ui:widget": "textarea",
+		"ui:options": {
+			"rows": 6
+		}
 	}
 }

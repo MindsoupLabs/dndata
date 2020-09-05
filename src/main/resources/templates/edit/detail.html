@@ -20,8 +20,8 @@
 						<div class="box-header with-border">
 							<h3 class="box-title" th:text="${dataObject.type + ': ' + dataObject.name}">name</h3>
 							<div class="pull-right">
-								<a th:href="@{'https://duckduckgo.com/?q=\\' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="_blank" class="btn btn-xs btn-default">Direct to AoN</a>
-								<a th:href="@{'https://duckduckgo.com/?q=' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="_blank" class="btn btn-xs btn-default">Search</a>
+								<a th:href="@{'https://duckduckgo.com/?q=\\' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="edittab" class="btn btn-xs btn-default">Direct to AoN</a>
+								<a th:href="@{'https://duckduckgo.com/?q=' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="edittab" class="btn btn-xs btn-default">Search</a>
 							</div>
 						</div>
 						<!-- /.box-header -->

@@ -91,6 +91,17 @@
 			"enum": ["ABJURATION", "CONJURATION", "DIVINATION", "ENCHANTMENT", "EVOCATION", "ILLUSION", "NECROMANCY", "TRANSMUTATION"],
 			"minLength": 1
 		},
+		"traits": {
+			"description": "List of traits of this spell",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
 		"traditions": {
 			"type": "array",
 			"items": {
@@ -103,21 +114,10 @@
 			"uniqueItems": true,
 			"default": []
 		},
-		"traits": {
-			"description": "List of traits of this spell",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"minLength": 1
-			},
-			"minItems": 0,
-			"uniqueItems": true,
-			"default": []
-		},
 		"domain": {
 			"description": "Cleric domain if applicable.",
 			"type": "string",
-			"enum": ["AMBITION", "AIR", "CITIES", "CONFIDENCE", "CREATION", "DARKNESS", "DEATH", "DESTRUCTION", "DREAMS", "EARTH", "FAMILY", "FATE", "FIRE", "FREEDOM", "HEALING", "INDULGENCE", "KNOWLEDGE", "LUCK", "MAGIC", "MIGHT", "MOON", "NATURE", "NIGHTMARES", "PAIN", "PASSION", "PERFECTION", "PROTECTION", "SECRECY", "SUN", "TRAVEL", "TRICKERY", "TRUTH", "TYRANNY", "UNDEATH", "WATER", "WEALTH", "ZEAL"],
+			"enum": ["Air", "Ambition", "Change", "Cities", "Cold", "Confidence", "Creation", "Darkness", "Death", "Decay", "Delirium", "Destruction", "Dreams", "Dust", "Duty", "Earth", "Family", "Fate", "Fire", "Freedom", "Glyph", "Healing", "Indulgence", "Knowledge", "Lightning", "Luck", "Magic", "Might", "Moon", "Nature", "Nightmares", "Pain", "Passion", "Perfection", "Plague", "Protection", "Repose", "Secrecy", "Sorrow", "Soul", "Star", "Sun", "Swarm", "Time", "Toil", "Travel", "Trickery", "Truth", "Tyranny", "Undeath", "Vigil", "Void", "Water", "Wealth", "Wyrmkin", "Zeal"],
 			"minLength": 0
 		},
 		"casting": {

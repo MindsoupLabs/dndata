@@ -5,7 +5,10 @@
 		}
 	},
 	"description": {
-		"ui:widget": "textarea"
+		"ui:widget": "textarea",
+		"ui:options": {
+			"rows": 6
+		}
 	},
 	"traditions": {
 		"ui:widget": "checkboxes"
