@@ -14,10 +14,10 @@
 					<div class="box js-preview-container" id="js-preview-container">
 						<div class="box-header">
 							<h3 class="box-title" th:text="${dataObject.name}"></h3>
-							<p>
+							<div class="pull-right">
 								<a th:href="@{'https://duckduckgo.com/?q=\\' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="_blank" class="btn btn-xs btn-default">Direct link</a>
 								<a th:href="@{'https://duckduckgo.com/?q=' + ${dataObject.name} + '+site%3A2e.aonprd.com'}" target="_blank" class="btn btn-xs btn-default">Search</a>
-							</p>
+							</div>
 						</p>
 						<!-- /.box-header -->
 						<div class="box-body" th:insert="${'layouts/preview_fragments/' + dataObject.type.name().toLowerCase()} :: preview">
