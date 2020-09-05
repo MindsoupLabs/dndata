@@ -231,22 +231,6 @@
 			},
 			"default": null
 		},
-		"duration": {
-			"type": "object",
-			"properties": {
-				"unit": {
-					"type": "string",
-					"enum": ["DAY", "HOUR", "INSTANTANEOUS", "MINUTE", "ROUND","SUSTAINED", "SUSTAINED_UP_TO_MINUTE", "SUSTAINED_UP_TO_HOUR", "UNLIMITED", "UNTIL_DELIVERED", "UNTIL_TARGETS_NEXT_TURN", "UNTIL_YOUR_DAILY_PREPARATIONS", "UNTIL_YOUR_NEXT_TURN", "VARIES"],
-					"minLength": 1,
-					"default": "INSTANTANEOUS"
-				},
-				"time": {
-					"type": "integer",
-					"minimum": 1
-				}
-			},
-			"required": ["unit"]
-		},
 		"save": {
 			"type": "array",
 			"items": {
@@ -272,6 +256,22 @@
 			},
 			"default": [],
 			"minItems": 0
+		},
+		"duration": {
+			"type": "object",
+			"properties": {
+				"unit": {
+					"type": "string",
+					"enum": ["DAY", "HOUR", "INSTANTANEOUS", "MINUTE", "ROUND","SUSTAINED", "SUSTAINED_UP_TO_MINUTE", "SUSTAINED_UP_TO_HOUR", "UNLIMITED", "UNTIL_DELIVERED", "UNTIL_TARGETS_NEXT_TURN", "UNTIL_YOUR_DAILY_PREPARATIONS", "UNTIL_YOUR_NEXT_TURN", "VARIES"],
+					"minLength": 1,
+					"default": "INSTANTANEOUS"
+				},
+				"time": {
+					"type": "integer",
+					"minimum": 1
+				}
+			},
+			"required": ["unit"]
 		},
 		"description": {
 			"description": "Description of the spell",
