@@ -1,5 +1,7 @@
 COPYRIGHT ACKNOWLEDGEMENT
-DnData uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. DnData is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
+DnData uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Community Use Policy (paizo.com/communityuse). We are expressly prohibited from charging you to use or access this content. DnData is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit paizo.com.
+
+Pathfinder is a registered trademark of Paizo Inc. Pathfinder Second Edition and the Pathfinder Second Edition Compatibility Logo are trademarks of Paizo Inc. The Pathfinder-Icons font is © 2019 Paizo Inc. These trademarks and copyrighted works are used under the Pathfinder Second Edition Compatibility License. See paizo.com/pathfinder/compatibility for more information on this license.
 
 
 OPEN GAME LICENSE Version 1.0a
@@ -34,4 +36,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 14. Reformation: If any provision of this License is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it enforceable.
 
 15. COPYRIGHT NOTICE
-Open Game License v 1.0 Copyright 2000, Wizards of the Coast, Inc.
+Open Game License v 1.0a © 2000, Wizards of the Coast, Inc.
+
+System Reference Document © 2000, Wizards of the Coast, Inc.; Authors: Jonathan Tweet, Monte Cook, and Skip Williams, based on material by E. Gary Gygax and Dave Arneson.
+
+Pathfinder Core Rulebook (Second Edition) © 2019, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter.

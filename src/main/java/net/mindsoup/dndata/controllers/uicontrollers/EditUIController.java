@@ -107,6 +107,7 @@ public class EditUIController extends BaseUIController {
 		model.addAttribute("mostRecentdataObject", mostRecentDataObject);
 		model.addAttribute("overwriteValuesObject", new Gson().toJson(getOverwriteValueObject(mostRecentDataObject)));
 		model.addAttribute("presetValuesObject", new Gson().toJson(getPresetValueObject(dataObject)));
+		model.addAttribute("hideChangelogButtons", false);
 
 		String formSchemaLocation = PathHelper.getFormSchema(Game.PF2, dataObject.getType(), dataObject.getSchemaVersion());
 		String formSchemaContents = IOUtils.toString(getClass().getResourceAsStream(formSchemaLocation), Charset.defaultCharset());

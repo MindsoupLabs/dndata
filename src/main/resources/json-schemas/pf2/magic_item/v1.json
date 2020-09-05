@@ -49,6 +49,12 @@
 								"RESTRICTED"
 							],
 							"default": "OGL"
+						},
+						"containsIntellectualProperty": {
+							"title": "contains intellectual property",
+							"description": "check this if the this item mentions any setting specific proper names",
+							"type": "boolean",
+							"default": false
 						}
 					},
 					"required": [
