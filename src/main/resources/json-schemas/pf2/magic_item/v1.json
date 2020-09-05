@@ -64,7 +64,7 @@
 					"properties": {
 						"availability": {
 							"type": "string",
-							"enum": ["STANDARD", "LIMITED", "RESTRICTED"],
+							"enum": ["STANDARD", "LIMITED", "RESTRICTED", "UNAVAILABLE"],
 							"default": "STANDARD",
 							"minLength": 1
 						}
