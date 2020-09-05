@@ -1,3 +1,11 @@
+USAGE OF STRUCTURED DATA
+If you use these structured data files for your project, you must credit DnData as follows "Structured data provided by DnData", with a link to https://github.com/MindsoupLabs/dndata. The creative content enclosed in these structured data files belongs to Paizo Inc. or other publishers.
+
+
+LIABILITY
+This data is provided as-is, with no guarantees made regarding its correctness or completeness. DnData accepts no responsibility for how this data may be used. Users are responsible for meeting any legal obligations stemming from the use of this data.
+
+
 COPYRIGHT ACKNOWLEDGEMENT
 DnData uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Community Use Policy (paizo.com/communityuse). We are expressly prohibited from charging you to use or access this content. DnData is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit paizo.com.
 
