@@ -2,12 +2,15 @@ package net.mindsoup.dndata.controllers.uicontrollers;
 
 import net.mindsoup.dndata.Constants;
 import net.mindsoup.dndata.enums.PageType;
+import net.mindsoup.dndata.helpers.SecurityHelper;
 import net.mindsoup.dndata.models.BookWithObjects;
 import net.mindsoup.dndata.models.dao.Book;
 import net.mindsoup.dndata.models.dao.DataObject;
 import net.mindsoup.dndata.models.pagemodel.PageModel;
 import net.mindsoup.dndata.services.BookService;
 import net.mindsoup.dndata.services.PublishingService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ import java.util.List;
 @RequestMapping("/ui/publish")
 @ApiIgnore
 public class PublishUIController extends BaseUIController{
+
+	private static Log logger = LogFactory.getLog(PublishUIController.class);
 
 	private BookService bookService;
 	private PublishingService publishingService;
@@ -79,9 +82,20 @@ public class PublishUIController extends BaseUIController{
 
 	@Secured({Constants.Rights.PF2.PUBLISH})
 	@RequestMapping(value = {"/publish"}, method = RequestMethod.POST)
-	public String publish(Model model, @RequestParam(value = "id") Long id, @RequestParam(value = "comment") String comment) throws IOException, URISyntaxException {
+	public String publish(Model model, @RequestParam(value = "id") Long id, @RequestParam(value = "comment") String comment) {
 		Book book = bookService.getBookById(id);
-		publishingService.publish(book, comment);
+		// this task can take a long time so run it in a separate thread
+		Runnable backgroundTask = () -> {
+			try {
+				publishingService.publish(book, comment);
+			} catch (Exception e) {
+				logger.error("Exception occurred: " + e.getMessage());
+				e.printStackTrace();
+			}
+		};
+
+		new Thread(SecurityHelper.wrapSecurityAwareRunnable(backgroundTask)).start();
+
 		return "redirect:/ui/publish/";
 	}
 
