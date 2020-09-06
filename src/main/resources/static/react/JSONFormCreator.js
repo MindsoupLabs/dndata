@@ -63,7 +63,7 @@ function init() {
 
 function sanitizeJson(json) {
 	// sanitise json that might be copy pasted from source books and contains unusual characters
-	return json.replace(/’/g, "'").replace(/×/g, "x").replace(/–/g, "-").replace(/“/g, "\\\"").replace(/”/g, "\\\"");
+	return json.replace(/’/g, "'").replace(/×/g, "x").replace(/–/g, "-").replace(/—/g, "-").replace(/“/g, "\\\"").replace(/”/g, "\\\"");
 }
 
 // script entry
