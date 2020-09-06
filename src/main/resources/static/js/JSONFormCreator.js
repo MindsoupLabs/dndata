@@ -1,3 +1,5 @@
+// For any changes, ensure you make the changes in react/JSONFormCreator.js, not in js/JSONFormCreator.js
+// After making changes, compile the react script as follows
 // compile JSX:
 // https://reactjs.org/docs/add-react-to-a-website.html#optional-try-react-with-jsx
 // ...\static> npx babel --watch react --out-dir js --presets react-app/prod
@@ -65,7 +67,7 @@ function init() {
 
 function sanitizeJson(json) {
 	// sanitise json that might be copy pasted from source books and contains unusual characters
-	return json.replace(/’/g, "'").replace(/×/g, "x").replace(/–/, "-");
+	return json.replace(/’/g, "'").replace(/×/g, "x").replace(/–/g, "-").replace(/“/g, "\\\"").replace(/”/g, "\\\"");
 }
 
 // script entry
