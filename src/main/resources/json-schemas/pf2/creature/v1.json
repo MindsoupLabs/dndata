@@ -196,7 +196,7 @@
 		"alignment": {
 			"description": "Alignment of the monster.",
 			"type": "string",
-			"enum": ["LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE"],
+			"enum": ["LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE", "NO_ALIGNMENT"],
 			"default": "N"
 		},
 		"size": {
