@@ -194,7 +194,7 @@
 			"properties": {
 				"area": {
 					"type": "string",
-					"enum": ["BURST", "CONE", "CYlINDER", "CONTIGUOUS_AREA", "EMANATION", "LINE"],
+					"enum": ["BURST", "CONE", "CYLINDER", "CONTIGUOUS_AREA", "EMANATION", "LINE"],
 					"minLength": 1
 				},
 				"unit": {
@@ -225,6 +225,7 @@
 					"minLength": 1
 				},
 				"canTargetMultiple": {
+					"description": "Check this if this spell can target more than 1 creature or object",
 					"type": "boolean",
 					"default": false
 				}
