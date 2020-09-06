@@ -194,7 +194,7 @@
 			"properties": {
 				"area": {
 					"type": "string",
-					"enum": ["BURST", "CONE", "CONTIGUOUS_AREA", "EMANATION", "LINE"],
+					"enum": ["BURST", "CONE", "CYlINDER", "CONTIGUOUS_AREA", "EMANATION", "LINE"],
 					"minLength": 1
 				},
 				"unit": {
