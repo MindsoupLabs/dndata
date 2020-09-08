@@ -190,7 +190,7 @@
 			"minLength": 1
 		},
 		"traits": {
-			"description": "List of traits of this feat",
+			"description": "List of traits of this feat, add each trait separately",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -229,6 +229,7 @@
 			"type": "string"
 		},
 		"requirements": {
+			"description": "Add each requirement separately",
 			"type": "array",
 			"items": {
 				"type": "string",
