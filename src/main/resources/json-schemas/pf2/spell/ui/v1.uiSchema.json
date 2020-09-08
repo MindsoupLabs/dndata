@@ -16,6 +16,12 @@
 	"components": {
 		"ui:widget": "checkboxes"
 	},
+	"bloodlines": {
+		"ui:widget": "checkboxes",
+		"ui:options": {
+			"inline": true
+		}
+	},
 	"area": {
 		"ui:emptyValue": null,
 		"note": {

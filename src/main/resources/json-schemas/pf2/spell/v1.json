@@ -126,6 +126,17 @@
 			"enum": ["Air", "Ambition", "Change", "Cities", "Cold", "Confidence", "Creation", "Darkness", "Death", "Decay", "Delirium", "Destruction", "Dreams", "Dust", "Duty", "Earth", "Family", "Fate", "Fire", "Freedom", "Glyph", "Healing", "Indulgence", "Knowledge", "Lightning", "Luck", "Magic", "Might", "Moon", "Nature", "Nightmares", "Pain", "Passion", "Perfection", "Plague", "Protection", "Repose", "Secrecy", "Sorrow", "Soul", "Star", "Sun", "Swarm", "Time", "Toil", "Travel", "Trickery", "Truth", "Tyranny", "Undeath", "Vigil", "Void", "Water", "Wealth", "Wyrmkin", "Zeal"],
 			"minLength": 0
 		},
+		"bloodlines": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": ["Aberrant", "Angelic", "Demonic", "Diabolic", "Draconic", "Elemental", "Fey", "Genie", "Hag", "Imperial", "Nymph", "Psychopomp", "Shadow", "Undead"],
+				"minLength": 1
+			},
+			"minItems": 0,
+			"uniqueItems": true,
+			"default": []
+		},
 		"casting": {
 			"type": "object",
 			"properties": {
