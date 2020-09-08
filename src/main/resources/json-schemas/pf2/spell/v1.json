@@ -98,7 +98,7 @@
 			"minLength": 1
 		},
 		"traits": {
-			"description": "List of traits of this spell",
+			"description": "List of traits of this spell, add each trait separately",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -169,6 +169,7 @@
 			"uniqueItems": true
 		},
 		"requirements": {
+			"description": "Add each requirement separately",
 			"type": "array",
 			"items": {
 				"type": "string",
@@ -178,6 +179,7 @@
 			"default": []
 		},
 		"cost": {
+			"description": "Add each cost separately",
 			"type": "array",
 			"items": {
 				"type": "string",
